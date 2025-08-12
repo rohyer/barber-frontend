@@ -2,6 +2,7 @@ import { Button, Col, Form, Input, message, Row } from 'antd';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../auth.service';
+import { useAuth } from '../hooks/useAuth';
 
 const { Title, Paragraph } = Typography;
 
@@ -13,8 +14,10 @@ type Values = {
 export function Login () {
     const [form] = Form.useForm();
 
-    const onFinish = (values: Values) => {
-        const response = loginUser(values);
+    const { login } = useAuth();
+
+    const onFinish = async (values: Values) => {
+        const response = await login(values);
 
         message.success('Login realizado com sucesso!');
 
