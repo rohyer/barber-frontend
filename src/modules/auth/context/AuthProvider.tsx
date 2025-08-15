@@ -88,6 +88,8 @@ export function AuthProvider({ children }: Props) {
             message.error('Falha ao realizar login, por favor verifique sua conexão ou tente mais tarde.', 5);
             
             logout();
+
+            return false;
         } finally {
             setIsLoading(false);
         }
