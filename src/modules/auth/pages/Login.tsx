@@ -1,8 +1,9 @@
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Card, Flex, Form, Input, } from 'antd';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import style from './Login.module.css';
 
 const { Title, Paragraph } = Typography;
 
@@ -30,28 +31,16 @@ export function Login () {
     };
 
     return (
-        <Row align='middle' justify='center'>
-            <Col xs={0} sm={0} md={12} lg={12} xl={12}></Col>
-
-            <Col
-                xs={24} sm={24} md={12} lg={12} xl={12}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
+        <Flex justify='center' align='center' className={style.page}>
+            <Card title="Acesse sua conta" className={style.card}>
                 <Form
                     form={form}
                     size='large'
                     onFinish={onFinish}
-                    style={{
-                        maxWidth: '400px',
-                        width: '100%',
-                    }}
                 >
-                    <Title level={1}>Acesse sua conta</Title>
+                    <Title level={2}>Bem-vindo a Barber Prime</Title>
 
-                    <Paragraph>Ainda não possui uma conta? <Link to='/register'>Crie aqui</Link></Paragraph>
+                    <Paragraph>Ainda não possui uma conta? <Link to='/cadastro'>Crie aqui</Link></Paragraph>
 
                     <Form.Item
                         name='email'
@@ -73,7 +62,7 @@ export function Login () {
                         </Button>
                     </Form.Item>
                 </Form>
-            </Col>
-        </Row>
+            </Card>
+        </Flex>
     );
 }
