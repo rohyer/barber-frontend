@@ -9,10 +9,10 @@ export function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                {/* <Route element={<PublicRoutes />}> */}
-                <Route path='/register' element={<Register />} />
-                <Route path='/login' element={<Login />}  />
-                {/* </Route> */}
+                <Route element={<PublicRoutes />}>
+                    <Route path='/cadastro' element={<Register />} />
+                    <Route path='/login' element={<Login />}  />
+                </Route>
 
                 <Route element={<PrivateRoutes />}>
                     <Route path='/' element={<MainLayout />} />
