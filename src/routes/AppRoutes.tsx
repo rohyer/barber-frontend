@@ -15,7 +15,12 @@ export function AppRoutes() {
                 </Route>
 
                 <Route element={<PrivateRoutes />}>
-                    <Route path='/' element={<MainLayout />} />
+                    <Route path='/' element={<MainLayout />}>
+                        <Route path='/atendimentos' />
+                        <Route path='/clientes' />
+                        <Route path='/colaboradores' />
+                        <Route path='/servicos' />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>  
