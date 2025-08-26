@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { AuthContext } from './AuthContext';
 import type { Credentials, User } from '../auth.type';
 import { loginUser } from '../auth.service';
-import { message } from 'antd';
 
 type Props = {
     children: ReactNode
