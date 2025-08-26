@@ -1,9 +1,10 @@
-import { Button, Col, Form, Input, Row, Select, Space, message } from 'antd';
+import { Button, Card, Col, Flex, Form, Input, Row, Select, Space, message } from 'antd';
 import { Typography } from 'antd';
 // import type { FormProps } from 'antd';
 import { registerUser } from '../auth.service';
 import { STATES } from '../auth.constant';
 import { Link, useNavigate } from 'react-router-dom';
+import style from './Register.module.css';
 
 type Values = {
     name: string,
@@ -37,17 +38,8 @@ export function Register () {
     };
 
     return (
-        <Row align='middle' justify='center'>
-            <Col xs={0} sm={0} md={12} lg={12} xl={12}>
-            </Col>
-
-            <Col
-                xs={24} sm={24} md={12} lg={12} xl={12}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}
-            >
+        <Flex justify='center' align='center' className={style.page}>
+            <Card title="Cadastre-se" className={style.card}>
                 <Form
                     form={form}
                     onFinish={onFinish}
@@ -57,7 +49,7 @@ export function Register () {
                         width: '100%',
                     }}
                 >
-                    <Title level={1}>Cadastre-se</Title>
+                    <Title level={2}>Crie sua conta conosco</Title>
 
                     <Paragraph>Já possui uma conta? <Link to='/login'>Entre aqui</Link></Paragraph>
 
@@ -67,7 +59,7 @@ export function Register () {
                     >
                         <Input placeholder='Nome' />
                     </Form.Item>
-            
+                    
                     <Form.Item
                         name="email"
                         rules={[{ type: 'email', required: true, message: 'Por favor, insira um e-mail' }]}
@@ -118,11 +110,11 @@ export function Register () {
 
                     <Form.Item label={null}>
                         <Button type='primary' htmlType='submit' size='large' block>
-                            Cadastrar
+                                    Cadastrar
                         </Button>
                     </Form.Item>
                 </Form>
-            </Col>
-        </Row>
+            </Card>
+        </Flex>
     );
 }

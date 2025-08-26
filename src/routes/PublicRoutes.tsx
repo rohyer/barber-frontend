@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../modules/auth/hooks/useAuth';
 
 export function PublicRoutes() {
@@ -6,4 +6,6 @@ export function PublicRoutes() {
 
     if (isLoggedIn)
         return <Navigate to="/" />;
+
+    return <Outlet />;
 }

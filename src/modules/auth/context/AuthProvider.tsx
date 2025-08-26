@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { AuthContext } from './AuthContext';
 import type { Credentials, User } from '../auth.type';
 import { loginUser } from '../auth.service';
-import { message } from 'antd';
 
 type Props = {
     children: ReactNode
@@ -61,38 +60,25 @@ export function AuthProvider({ children }: Props) {
     const login = useCallback(async (credentials: Credentials) => {
         setIsLoading(true);
 
-        try {
-            const response = await loginUser(credentials);
+        const response = await loginUser(credentials);
 
-            if (!response)  {
-                logout();
-                
-                return false;
-            }
+        setIsLoading(false);
 
-            const { token, user } = response.data;
-
-            setUser(user);
-            setToken(token);
-
-            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-            localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
-
-            return true;
-        } catch(error) {
-            if (error instanceof Error)
-                console.error('Login Failed: ', error);
-            else
-                console.error('Login Failed: An unexpected error occurred.', error);
-
-            message.error('Falha ao realizar login, por favor verifique sua conexão ou tente mais tarde.', 5);
-            
+        if (!response)  {
             logout();
-
+                
             return false;
-        } finally {
-            setIsLoading(false);
         }
+
+        const { token, user } = response.data;
+
+        setUser(user);
+        setToken(token);
+
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+        localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
+
+        return true;
     }, [logout]);
 
     const contextValue = {

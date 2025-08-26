@@ -13,12 +13,15 @@ export const registerUser = async(body: RegisterUser['body']) => {
         });
     
         if (!response.ok) {
-            const error = await response.text();
-            throw new Error(`HTTP error! Status: ${response.status}, message: ${error}`);
+            if (response.status >= 500) 
+                throw new Error(`Erro do servidor: ${response.status}`);
+
+            if (response.status >= 400)
+                throw new Error(`Erro do cliente: ${response.status}`);
         }
     
         const data = await response.json();
-        console.log('Usuário criado com sucesso: ', data);
+
         return data;
     } catch(error) {
         console.error('error: ', error);
@@ -40,13 +43,14 @@ export const loginUser = async(body: LoginUser['body']) => {
         });
 
         if (!response.ok) {
-            const error = await response.text();
-            throw new Error(`HTTP error! Status: ${response.status}, message: ${error}`);
+            if (response.status >= 500) 
+                throw new Error(`Erro do servidor: ${response.status}`);
+
+            if (response.status >= 400)
+                throw new Error(`Erro do cliente: ${response.status}`);
         }
 
         const data = await response.json();
-
-        console.log('Login feito com sucess: ', data);
 
         return data;
     } catch(error) {
