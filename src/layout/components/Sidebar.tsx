@@ -1,16 +1,16 @@
 import { Layout, Menu } from 'antd';
 import {
-    UploadOutlined,
     UserOutlined,
-    VideoCameraOutlined,
+    ToolOutlined,
+    ScheduleOutlined
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
 export function Sidebar({ collapsed }: { collapsed: boolean}) {
     return (
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-            <div className="demo-logo-vertical" />
+        <Sider trigger={null} collapsible collapsed={collapsed} width={250}>
             <Menu
                 theme="dark"
                 mode="inline"
@@ -18,18 +18,23 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
                 items={[
                     {
                         key: '1',
-                        icon: <UserOutlined />,
-                        label: 'nav 1',
+                        icon: <ScheduleOutlined style={{ fontSize: '20px' }} />,
+                        label: <Link to="/atendimentos">Atendimentos</Link>,
                     },
                     {
                         key: '2',
-                        icon: <VideoCameraOutlined />,
-                        label: 'nav 2',
+                        icon: <UserOutlined style={{ fontSize: '20px' }} />,
+                        label: <Link to="/clientes">Clientes</Link>,
                     },
                     {
                         key: '3',
-                        icon: <UploadOutlined />,
-                        label: 'nav 3',
+                        icon: <UserOutlined style={{ fontSize: '20px' }} />,
+                        label: <Link to="/colaboradores">Colaboradores</Link>,
+                    },
+                    {
+                        key: '4',
+                        icon: <ToolOutlined style={{ fontSize: '20px' }} />,
+                        label: <Link to="/servicos">Serviços</Link>,
                     },
                 ]}
             />
