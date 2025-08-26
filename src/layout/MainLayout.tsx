@@ -14,7 +14,7 @@ const MainLayout = () => {
     } = theme.useToken();
 
     return (
-        <Layout>
+        <Layout style={{ minHeight: '100vh'}}>
             <Sidebar collapsed={collapsed} />
 
             <Layout>
