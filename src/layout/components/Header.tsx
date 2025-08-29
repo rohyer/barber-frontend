@@ -15,7 +15,7 @@ export function Header({
     } = theme.useToken();
 
     return (
-        <HeaderAntD style={{ padding: 0, background: colorBgContainer }}>
+        <HeaderAntD style={{ padding: 0, background: colorBgContainer, height: '75px' }}>
             <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -23,7 +23,7 @@ export function Header({
                 style={{
                     fontSize: '16px',
                     width: 64,
-                    height: 64,
+                    height: 75,
                 }}
             />
         </HeaderAntD>
