@@ -1,6 +1,5 @@
 import { Layout, Menu, theme, Typography } from 'antd';
 import {
-    UserOutlined,
     ScissorOutlined,
     ScheduleOutlined,
     LineChartOutlined,
