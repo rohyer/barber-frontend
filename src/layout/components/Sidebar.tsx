@@ -26,7 +26,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
             width={250}
             style={{ backgroundColor: colorBgContainer }}
         >
-            <div className={style.logo}>
+            <Link to='/' className={style.logo}>
                 <img src={BarberPrimeLogo} alt="" className={style.iconLogo} />
                 
                 <Typography.Text
@@ -35,7 +35,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
                 >
                     Barber Prime
                 </Typography.Text>
-            </div>
+            </Link>
 
             <Menu
                 theme="light"
@@ -46,7 +46,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
                     {
                         key: '1',
                         icon: <HomeOutlined style={{ fontSize: '20px' }} />,
-                        label: <Link to="/atendimentos">Dashboard</Link>,
+                        label: <Link to="/">Dashboard</Link>,
                     },
                     {
                         key: '2',
@@ -71,7 +71,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
                     {
                         key: '6',
                         icon: <LineChartOutlined style={{ fontSize: '20px' }} />,
-                        label: <Link to="/servicos">Estatísticas</Link>,
+                        label: <Link to="/estatisticas">Estatísticas</Link>,
                     },
                 ]}
             />
