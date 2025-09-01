@@ -59,10 +59,10 @@ export function Header({
                         <StarOutlined style={{ fontSize: token.fontSizeXL, color: token.colorIcon }} />
                     </Tooltip>
 
-                    <Popover placement='bottomRight' content={content}>
+                    <Popover placement='bottomRight' content={content} trigger='click'>
                         <Avatar
                             icon={<UserOutlined style={{ color: token.colorPrimary }} />}
-                            style={{ backgroundColor: token.colorInfoBg }}
+                            style={{ backgroundColor: token.colorInfoBg, cursor: 'pointer' }}
                         />
                     </Popover>
                 </Flex>
