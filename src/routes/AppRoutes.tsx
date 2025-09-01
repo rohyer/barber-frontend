@@ -20,6 +20,7 @@ export function AppRoutes() {
                         <Route path='/clientes' />
                         <Route path='/colaboradores' />
                         <Route path='/servicos' />
+                        <Route path='/estatisticas' />
                     </Route>
                 </Route>
             </Routes>
