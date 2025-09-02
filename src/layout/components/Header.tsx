@@ -1,5 +1,6 @@
 import { Avatar, Button, Divider, Flex, Layout, Menu, Popover, theme, Tooltip } from 'antd';
 import {
+    BellOutlined,
     CreditCardOutlined,
     LogoutOutlined,
     MenuFoldOutlined,
@@ -54,9 +55,23 @@ export function Header({
                     }}
                 />
 
-                <Flex gap={token.margin}>
+                <Flex align='center' gap={token.margin}>
                     <Tooltip placement='bottom' title="Adquirir acesso premium">
-                        <StarOutlined style={{ fontSize: token.fontSizeXL, color: token.colorIcon }} />
+                        <Avatar
+                            icon={<StarOutlined
+                                style={{ color: token.colorIcon }}
+                            />}
+                            style={{ backgroundColor: 'rgba(0,0,0,0.06)' , cursor: 'pointer' }}
+                        />
+                    </Tooltip>
+
+                    <Tooltip placement='bottom' title="Notificações">
+                        <Avatar
+                            icon={<BellOutlined
+                                style={{ color: token.colorIcon }}
+                            />}
+                            style={{ backgroundColor: 'rgba(0,0,0,0.06)', cursor: 'pointer' }}
+                        />
                     </Tooltip>
 
                     <Popover placement='bottomRight' content={content} trigger='click'>
