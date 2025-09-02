@@ -4,6 +4,7 @@ import { Login } from '../modules/auth/pages/Login';
 import { PrivateRoutes } from './PrivateRoutes';
 import { PublicRoutes } from './PublicRoutes';
 import MainLayout from '../layout/MainLayout';
+import { Clients } from '../modules/clients/pages/Clients';
 
 export function AppRoutes() {
     return (
@@ -17,7 +18,7 @@ export function AppRoutes() {
                 <Route element={<PrivateRoutes />}>
                     <Route path='/' element={<MainLayout />}>
                         <Route path='/atendimentos' />
-                        <Route path='/clientes' />
+                        <Route path='/clientes' element={<Clients />} />
                         <Route path='/colaboradores' />
                         <Route path='/servicos' />
                         <Route path='/estatisticas' />
