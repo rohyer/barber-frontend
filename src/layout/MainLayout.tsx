@@ -3,6 +3,7 @@ import { Layout, Menu, theme } from 'antd';
 import { Header } from './components/Header';
 import { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
+import { Outlet } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
 
@@ -31,7 +32,7 @@ const MainLayout = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    Content
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>
