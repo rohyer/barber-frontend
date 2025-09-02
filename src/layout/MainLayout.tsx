@@ -14,11 +14,14 @@ const MainLayout = () => {
     } = theme.useToken();
 
     return (
-        <Layout>
+        <Layout style={{ minHeight: '100vh' }}>
             <Sidebar collapsed={collapsed} />
 
             <Layout>
-                <Header collapsed={collapsed} setCollapsed={setCollapsed} />
+                <Header
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                />
                 <Content
                     style={{
                         margin: '24px 16px',
