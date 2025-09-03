@@ -1,5 +1,9 @@
 import { Space, Table } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import type { TableProps } from 'antd';
+import { useEffect } from 'react';
+import { getClients } from '../clients.service';
+import { useAuth } from '../../auth/hooks/useAuth';
 
 const columns: TableProps['columns'] = [
     {
@@ -15,6 +19,10 @@ const columns: TableProps['columns'] = [
         dataIndex: 'age',
     },
     {
+        title: 'Telefone',
+        dataIndex: 'phone',
+    },
+    {
         title: 'Último atendimento',
         dataIndex: 'lastCustomerService',
     },
@@ -23,14 +31,28 @@ const columns: TableProps['columns'] = [
         dataIndex: 'actions',
         render: () => (
             <Space>
-                <a href="">Editar</a>
-                <a href="">Excluir</a>
+                <a href=""><EditOutlined /></a>
+                <a href=""><DeleteOutlined /></a>
             </Space>
         )
     },
 ];
 
 export function Clients() {
+    const { token } = useAuth();
+
+    console.log(token);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const response = await getClients(token);
+
+            console.log(response);
+        };
+
+        fetch();
+    }, [token]);
+
     const data = [
         {
             key: '1',
@@ -52,6 +74,6 @@ export function Clients() {
         },
     ];
 
-    return <Table columns={columns} dataSource={data} /> 
+    return <Table columns={columns} dataSource={data} />;
 }
 
