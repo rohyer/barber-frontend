@@ -11,7 +11,7 @@ type ApiErrorResponse = {
 
 export const apiClient = async<TResponse, TBody = unknown>(
     option: ApiClientOptions<TBody>
-): Promise<TResponse | null> => {
+): Promise<TResponse> => {
     try {
         const token = localStorage.getItem('authToken');
 
@@ -24,7 +24,7 @@ export const apiClient = async<TResponse, TBody = unknown>(
             body: option.body ? JSON.stringify(option.body) : undefined,
         });
 
-        const data: TResponse | ApiErrorResponse | null = await response.json().catch(() => null);
+        const data: TResponse | ApiErrorResponse = await response.json();
 
         if (!response.ok) {
             const message = (data as ApiErrorResponse).message || `Erro na requisição ${response.status}`;
