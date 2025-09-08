@@ -1,79 +1,126 @@
-import { Space, Table } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
+import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TableProps } from 'antd';
-import { useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { getClients } from '../clients.service';
-import { useAuth } from '../../auth/hooks/useAuth';
-
-const columns: TableProps['columns'] = [
-    {
-        title: 'Nome',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Sexo',
-        dataIndex: 'sex',
-    },
-    {
-        title: 'Idade',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Telefone',
-        dataIndex: 'phone',
-    },
-    {
-        title: 'Último atendimento',
-        dataIndex: 'lastCustomerService',
-    },
-    {
-        title: 'Ações',
-        dataIndex: 'actions',
-        render: () => (
-            <Space>
-                <a href=""><EditOutlined /></a>
-                <a href=""><DeleteOutlined /></a>
-            </Space>
-        )
-    },
-];
+import type { Clients } from '../clients.type';
+import { calculateAge } from '../clients.helper';
+import { CreateModal } from '../components/CreateModal/CreateModal';
 
 export function Clients() {
-    const { token } = useAuth();
+    const { token } = theme.useToken();
 
-    console.log(token);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [error, setError] = useState<string | null>(null);
+
+    const [clients, setClients] = useState<Clients[]>([]);
+
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     useEffect(() => {
         const fetch = async () => {
-            const response = await getClients(token);
+            try {
+                setIsLoading(true);
+                setError(null);
 
-            console.log(response);
+                const response = await getClients();
+
+                setClients(response.data);
+            } catch(error) {
+                setError(error instanceof Error ? error.message : 'Erro desconhecido');
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetch();
-    }, [token]);
+    }, []);
 
-    const data = [
+    const dataSource = clients && clients.map(client => ({
+        key: client.id,
+        name: client.name,
+        sex: client.sex,
+        age: calculateAge(client.birth),
+        phone: client.phone
+    }));
+
+    const columns: TableProps['columns'] = [
         {
-            key: '1',
-            name: 'Guilherme R.',
-            age: 29,
-            customerService: '02/02/2025',
+            title: 'Nome',
+            dataIndex: 'name',
         },
         {
-            key: '2',
-            name: 'Lucas',
-            age: 28,
-            customerService: '04/02/2025',
+            title: 'Sexo',
+            dataIndex: 'sex',
         },
         {
-            key: '3',
-            name: 'André',
-            age: 32,
-            customerService: '08/02/2025',
+            title: 'Idade',
+            dataIndex: 'age',
+        },
+        {
+            title: 'Telefone',
+            dataIndex: 'phone',
+        },
+        {
+            title: 'Último atendimento',
+            dataIndex: 'lastCustomerService',
+        },
+        {
+            title: 'Ações',
+            dataIndex: 'actions',
+            render: () => (
+                <Space size='middle'>
+                    <Tooltip title="Editar">
+                        <Button
+                            shape='circle'
+                            type='text'
+                        >
+                            <EditFilled style={{ color: token.colorPrimary }} />
+                        </Button>
+                    </Tooltip>
+
+                    <Tooltip title="Deletar">
+                        <Button 
+                            shape='circle'
+                            type='text'
+                        >
+                            <DeleteFilled style={{ color: token.colorError }} />
+                        </Button>
+                    </Tooltip>
+                </Space>
+            )
         },
     ];
 
-    return <Table columns={columns} dataSource={data} />;
+    return (
+        <Fragment>
+            <Flex justify='space-between' gap={token.margin}>
+                <Typography.Title level={2}>Clientes</Typography.Title>
+
+                <Button
+                    type='primary'
+                    size='large'
+                    onClick={() => setIsCreateModalOpen(true)}
+                >
+                    Cadastrar
+                </Button>
+            </Flex>
+
+            <Table
+                size='middle'
+                columns={columns}
+                dataSource={dataSource}
+                loading={isLoading}
+            />
+
+            <CreateModal
+                isOpen={isCreateModalOpen}
+                onCancel={() => setIsCreateModalOpen(false)}
+            />
+        </Fragment>
+    );
 }
 
