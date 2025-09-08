@@ -5,7 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Clients } from '../clients.type';
 import { calculateAge } from '../clients.helper';
-import { CreateModal } from '../components/CreateModal/CreateModal';
+import { CreateClientModal } from '../components/CreateModal/CreateClientModal';
 
 export function Clients() {
     const { token } = theme.useToken();
@@ -116,7 +116,7 @@ export function Clients() {
                 loading={isLoading}
             />
 
-            <CreateModal
+            <CreateClientModal
                 isOpen={isCreateModalOpen}
                 onCancel={() => setIsCreateModalOpen(false)}
             />
