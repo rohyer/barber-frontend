@@ -31,5 +31,12 @@ type Response = {
 export type CreateClient = {
     body: Body,
     response: Response,
+}
 
+export type DeleteClient = {
+    response: Response;
+    data: {
+        id: number,
+        affectedRows: number,
+    }
 }

@@ -16,3 +16,11 @@ export const createClient = async (body: CreateClient['body']): Promise<CreateCl
 
     return response;
 };
+
+export const deleteClient = async (clientId: number): Promise<DeleteClient['response']> => {
+    const url = `http://localhost:80/api/clients/${clientId}`;
+
+    const response = await apiClient<CreateClient['response'], CreateClient['body']>({ method: 'DELETE', url });
+
+    return response;
+};
