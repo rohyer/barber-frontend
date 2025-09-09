@@ -19,14 +19,13 @@ type Body = {
     phone: string,
     address?: string,
     birth?: string,
+    idAdmin: number,
 }
 
 type Response = {
     success: boolean,
     message: string,
-    data: {
-        userId: number,
-    }
+    data: Data,
 }
 
 export type CreateClient = {
