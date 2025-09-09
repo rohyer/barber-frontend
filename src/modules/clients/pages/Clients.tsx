@@ -1,11 +1,12 @@
-import { Button, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
+import { Button, Flex, Modal, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Clients } from '../clients.type';
 import { calculateAge } from '../clients.helper';
-import { CreateClientModal } from '../components/CreateModal/CreateClientModal';
+import { CreateClientModal } from '../components/Modals/CreateClientModal';
+import { DeleteClientModal } from '../components/Modals/DeleteClientModa';
 
 export function Clients() {
     const { token } = theme.useToken();
@@ -17,8 +18,11 @@ export function Clients() {
     const [clients, setClients] = useState<Clients[]>([]);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteClientId, setDeleteClientId] = useState<number | null>(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -44,7 +48,32 @@ export function Clients() {
         name: client.name,
         sex: client.sex,
         age: calculateAge(client.birth),
-        phone: client.phone
+        phone: client.phone,
+        action: (
+            <Space size='middle'>
+                <Tooltip title="Editar">
+                    <Button
+                        shape='circle'
+                        type='text'
+                    >
+                        <EditFilled style={{ color: token.colorPrimary }} />
+                    </Button>
+                </Tooltip>
+
+                <Tooltip title="Deletar">
+                    <Button 
+                        shape='circle'
+                        type='text'
+                        onClick={() => {
+                            setIsDeleteModalOpen(true);
+                            setDeleteClientId(client.id);
+                        }}
+                    >
+                        <DeleteFilled style={{ color: token.colorError }} />
+                    </Button>
+                </Tooltip>
+            </Space>
+        ),
     }));
 
     const columns: TableProps['columns'] = [
@@ -67,27 +96,6 @@ export function Clients() {
         {
             title: 'Ações',
             dataIndex: 'actions',
-            render: () => (
-                <Space size='middle'>
-                    <Tooltip title="Editar">
-                        <Button
-                            shape='circle'
-                            type='text'
-                        >
-                            <EditFilled style={{ color: token.colorPrimary }} />
-                        </Button>
-                    </Tooltip>
-
-                    <Tooltip title="Deletar">
-                        <Button 
-                            shape='circle'
-                            type='text'
-                        >
-                            <DeleteFilled style={{ color: token.colorError }} />
-                        </Button>
-                    </Tooltip>
-                </Space>
-            )
         },
     ];
 
@@ -116,6 +124,12 @@ export function Clients() {
                 setClients={setClients}
                 isOpen={isCreateModalOpen}
                 onCancel={() => setIsCreateModalOpen(false)}
+            />
+
+            <DeleteClientModal
+                clientId={deleteClientId}
+                isOpen={isDeleteModalOpen}
+                onCancel={() => setIsDeleteModalOpen(false)}
             />
         </Fragment>
     );
