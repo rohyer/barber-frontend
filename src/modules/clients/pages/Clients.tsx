@@ -65,10 +65,6 @@ export function Clients() {
             dataIndex: 'phone',
         },
         {
-            title: 'Último atendimento',
-            dataIndex: 'lastCustomerService',
-        },
-        {
             title: 'Ações',
             dataIndex: 'actions',
             render: () => (
@@ -117,6 +113,7 @@ export function Clients() {
             />
 
             <CreateClientModal
+                setClients={setClients}
                 isOpen={isCreateModalOpen}
                 onCancel={() => setIsCreateModalOpen(false)}
             />
