@@ -1,12 +1,12 @@
-import { Button, Flex, Modal, Space, Table, theme, Tooltip, Typography } from 'antd';
+import { Button, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import { getClients } from '../clients.service';
-import type { Clients } from '../clients.type';
+import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
-import { DeleteClientModal } from '../components/Modals/DeleteClientModa';
+import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 
 export function Clients() {
     const { token } = theme.useToken();
@@ -15,14 +15,15 @@ export function Clients() {
 
     const [error, setError] = useState<string | null>(null);
 
-    const [clients, setClients] = useState<Clients[]>([]);
+    const [clients, setClients] = useState<Client[]>([]);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [deleteClientId, setDeleteClientId] = useState<number | null>(null);
+
+    const [selectClient, setSelectClient] = useState<Client | null>(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -49,7 +50,7 @@ export function Clients() {
         sex: client.sex,
         age: calculateAge(client.birth),
         phone: client.phone,
-        action: (
+        actions: (
             <Space size='middle'>
                 <Tooltip title="Editar">
                     <Button
@@ -66,7 +67,7 @@ export function Clients() {
                         type='text'
                         onClick={() => {
                             setIsDeleteModalOpen(true);
-                            setDeleteClientId(client.id);
+                            setSelectClient(client);
                         }}
                     >
                         <DeleteFilled style={{ color: token.colorError }} />
@@ -126,11 +127,15 @@ export function Clients() {
                 onCancel={() => setIsCreateModalOpen(false)}
             />
 
-            <DeleteClientModal
-                clientId={deleteClientId}
-                isOpen={isDeleteModalOpen}
-                onCancel={() => setIsDeleteModalOpen(false)}
-            />
+            { selectClient ?
+                <DeleteClientModal
+                    client={selectClient}
+                    setClient={setSelectClient}
+                    isOpen={isDeleteModalOpen}
+                    setClients={setClients}
+                    setIsDeleteModalOpen={setIsDeleteModalOpen}
+                /> : null
+            }
         </Fragment>
     );
 }
