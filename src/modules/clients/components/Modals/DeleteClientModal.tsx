@@ -25,7 +25,7 @@ export function DeleteClientModal({
         setIsDeleteModalOpen(false);
 
         setClient(null);
-    }
+    };
 
     const handleOk = async () => {
         try {
