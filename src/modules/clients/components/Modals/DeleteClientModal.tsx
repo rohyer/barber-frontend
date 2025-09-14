@@ -2,6 +2,7 @@ import { Modal, Typography } from 'antd';
 import React, { useState } from 'react';
 import { deleteClient } from '../../clients.service';
 import type { Client } from '../../clients.type';
+import { notify } from '../../../../shared/utils/notify';
 
 type Props = {
     isOpen: boolean,
@@ -19,7 +20,6 @@ export function DeleteClientModal({
     setIsDeleteModalOpen,
 }: Props) {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const handleCancel = () => {
         setIsDeleteModalOpen(false);
@@ -36,9 +36,15 @@ export function DeleteClientModal({
             setClients(prevClients => prevClients
                 .filter(prevClient => prevClient.id !== deleteClientModal.id));
 
+            notify({ message: response.message });
+
             handleCancel();
         } catch(error) {
-            setError(error instanceof Error ? error.message : 'Erro desconhecido');
+            notify({
+                message: 'Erro ao deletar cliente',
+                description: error instanceof Error ? error.message : 'Erro desconhecido.',
+                type: 'error',
+            });
         } finally {
             setIsLoading(false);
         }

@@ -3,6 +3,7 @@ import type { Client, ClientFormValues } from '../../clients.type';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateClient } from '../../clients.service';
 import dayjs from 'dayjs';
+import { notify } from '../../../../shared/utils/notify';
 
 type Props = {
     updateClientModal: Client,
@@ -20,7 +21,6 @@ export function UpdateClientModal({
     setIsUpdateModalOpen,
 }: Props) {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const [form] = Form.useForm();
 
@@ -47,7 +47,6 @@ export function UpdateClientModal({
 
     const handleFinish = async (values: ClientFormValues) => {
         try {            
-            setError(null);
             setIsLoading(true);
 
             const payload = {
@@ -64,9 +63,15 @@ export function UpdateClientModal({
                 ))
             );
 
+            notify({ message: response.message });
+
             handleCancel();
         } catch(error) {
-            setError(error instanceof Error ? error.message : 'Erro desconhecido');
+            notify({
+                message: 'Erro ao atualizar cliente',
+                description: error instanceof Error ? error.message : 'Erro desconhecido.',
+                type: 'error'
+            });
         } finally {
             setIsLoading(false);
         }
