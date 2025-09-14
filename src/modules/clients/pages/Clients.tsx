@@ -1,4 +1,4 @@
-import { Button, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
+import { Button, Empty, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
@@ -8,13 +8,12 @@ import { calculateAge } from '../clients.helper';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
+import { notify } from '../../../shared/utils/notify';
 
 export function Clients() {
     const { token } = theme.useToken();
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [error, setError] = useState<string | null>(null);
 
     const [clients, setClients] = useState<Client[]>([]);
 
@@ -30,13 +29,15 @@ export function Clients() {
         const fetch = async () => {
             try {
                 setIsLoading(true);
-                setError(null);
 
                 const response = await getClients();
 
                 setClients(response.data);
             } catch(error) {
-                setError(error instanceof Error ? error.message : 'Erro desconhecido');
+                notify({
+                    message: 'Erro ao listar clientes',
+                    description: error instanceof Error ? error.message : 'Erro desconhecido.'
+                });
             } finally {
                 setIsLoading(false);
             }
@@ -126,6 +127,10 @@ export function Clients() {
                 columns={columns}
                 dataSource={dataSource}
                 loading={isLoading}
+                locale={{ emptyText: <Empty description="Nenhum cliente encontrado" /> }}
+                pagination={{
+                    pageSize: 5,
+                }}
             />
 
             <CreateClientModal
@@ -142,7 +147,7 @@ export function Clients() {
                     setClients={setClients}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 /> : null
-            };
+            }
 
             { deleteClientModal ?
                 <DeleteClientModal
