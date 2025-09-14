@@ -20,7 +20,7 @@ export function Clients() {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
-    const [updateClientModal, setDeleteClientModal] = useState<Client | null>(null);
+    const [updateClientModal, setUpdateClientModal] = useState<Client | null>(null);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     
     const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
@@ -59,7 +59,7 @@ export function Clients() {
                         type='text'
                         onClick={() => {
                             setIsUpdateModalOpen(true);
-                            setDeleteClientModal(client);
+                            setUpdateClientModal(client);
                         }}
                     >
                         <EditFilled
@@ -137,14 +137,14 @@ export function Clients() {
             { updateClientModal ?
                 <UpdateClientModal
                     updateClientModal={updateClientModal}
-                    setUpdateClientModal={setDeleteClientModal}
+                    setUpdateClientModal={setUpdateClientModal}
                     isOpen={isUpdateModalOpen}
                     setClients={setClients}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 /> : null
             };
 
-            { isDeleteModalOpen ?
+            { deleteClientModal ?
                 <DeleteClientModal
                     deleteClientModal={deleteClientModal}
                     setDeleteClientModal={setDeleteClientModal}
