@@ -1,3 +1,5 @@
+import type { Dayjs } from "dayjs"
+
 export type Client = {
     id: number,
     name: string,
@@ -5,4 +7,8 @@ export type Client = {
     phone: string,
     address: string,
     birth: string,
+}
+
+export type ClientFormValues = Omit<Client, 'id' | 'birth'> & {
+    birth: Dayjs,
 }

@@ -19,7 +19,6 @@ type Body = {
     phone: string,
     address?: string,
     birth?: string,
-    idAdmin: number,
 }
 
 type Response = {
@@ -31,6 +30,12 @@ type Response = {
 export type CreateClient = {
     body: Body,
     response: Response,
+}
+
+export type UpdateClient = {
+    body: Body
+    response: Response,
+    dataData: Data,
 }
 
 export type DeleteClient = {
