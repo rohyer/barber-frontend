@@ -1,7 +1,7 @@
 type ApiClientOptions<T> = {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     url: string,
-    body?: T,
+    payload?: T,
 }
 
 type ApiErrorResponse = {
@@ -9,8 +9,8 @@ type ApiErrorResponse = {
     message?: string,
 }
 
-export const apiClient = async<TResponse, TBody = unknown>(
-    option: ApiClientOptions<TBody>
+export const apiClient = async<TResponse, TPayload = void>(
+    option: ApiClientOptions<TPayload>
 ): Promise<TResponse> => {
     try {
         const token = localStorage.getItem('authToken');
@@ -21,7 +21,7 @@ export const apiClient = async<TResponse, TBody = unknown>(
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
-            body: option.body ? JSON.stringify(option.body) : undefined,
+            body: option.payload ? JSON.stringify(option.payload) : undefined,
         });
 
         const data: TResponse | ApiErrorResponse = await response.json();

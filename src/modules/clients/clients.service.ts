@@ -1,38 +1,42 @@
 import { apiClient } from '../../shared/services/api.service';
 import type { CreateClient, DeleteClient, GetClients, UpdateClient } from './clients.contract';
 
-export const getClients = async (): Promise<GetClients> => {
+export const getClients = async (): Promise<GetClients['response']> => {
     const url = 'http://localhost:80/api/clients';
 
-    const response = await apiClient<GetClients>({ method: 'GET', url });
+    const response = await apiClient<GetClients['response'], null>({ method: 'GET', url });
 
     return response;
 };
 
 export const createClient = async (
-    body: CreateClient['body']
+    payload: CreateClient['payload']
 ): Promise<CreateClient['response']> => {
     const url = 'http://localhost:80/api/clients';
 
-    const response = await apiClient<CreateClient['response'], CreateClient['body']>(
-        { method: 'POST', url, body }
+    const response = await apiClient<CreateClient['response'], CreateClient['payload']>(
+        { method: 'POST', url, payload }
     );
 
     return response;
 };
 
 export const updateClient = async (
-    clientId: number | null | undefined,
-    body: UpdateClient['body'],
+    clientId: UpdateClient['clientId'],
+    payload: UpdateClient['payload'],
 ): Promise<UpdateClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
-    const response = await apiClient<UpdateClient['response']>({ method: 'PUT', url, body });
+    const response = await apiClient<UpdateClient['response'], UpdateClient['payload']>(
+        { method: 'PUT', url, payload }
+    );
 
     return response;
 };
 
-export const deleteClient = async (clientId: number): Promise<DeleteClient['response']> => {
+export const deleteClient = async (
+    clientId: DeleteClient['clientId']
+): Promise<DeleteClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
     const response = await apiClient<DeleteClient['response']>({ method: 'DELETE', url });

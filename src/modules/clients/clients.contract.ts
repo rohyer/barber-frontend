@@ -1,4 +1,4 @@
-type Data = {
+type Client = {
     id: number,
     name: string,
     sex: 'M' | 'F' | 'Outro',
@@ -7,41 +7,30 @@ type Data = {
     birth: string,
 }
 
+type ClientPayload = Omit<Client, 'id'>
+
+type Response<T> = {
+    success: boolean,
+    message: string,
+    data?: T,
+}
+
 export type GetClients = {
-    success: boolean,
-    message: string,
-    data: Data[],
-}
-
-type Body = {
-    name: string,
-    sex: 'M' | 'F' | 'Outro',
-    phone: string,
-    address?: string,
-    birth?: string,
-}
-
-type Response = {
-    success: boolean,
-    message: string,
-    data: Data,
+    response: Response<Client[]>
 }
 
 export type CreateClient = {
-    body: Body,
-    response: Response,
+    payload: ClientPayload,
+    response: Response<Client>,
 }
 
 export type UpdateClient = {
-    body: Body
-    response: Response,
-    dataData: Data,
+    clientId: Client['id'],
+    payload: ClientPayload,
+    response: Response<Client>,
 }
 
 export type DeleteClient = {
-    response: Response;
-    data: {
-        id: number,
-        affectedRows: number,
-    }
+    clientId: Client['id'],
+    response: Response<Client['id']>,
 }
