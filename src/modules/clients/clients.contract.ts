@@ -12,7 +12,7 @@ type ClientPayload = Omit<Client, 'id'>
 type Response<T> = {
     success: boolean,
     message: string,
-    data?: T,
+    data: T,
 }
 
 export type GetClients = {
