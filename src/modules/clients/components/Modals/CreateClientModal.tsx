@@ -1,20 +1,19 @@
-import { DatePicker, Form, Input, message, Modal, Select } from 'antd';
+import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { useState } from 'react';
 import { createClient } from '../../clients.service';
-import type { Clients } from '../../clients.type';
+import type { ClientFormValues, Client } from '../../clients.type';
+import { notify } from '../../../../shared/utils/notify';
 
 type Props = {
     isOpen: boolean,
     onCancel: () => void,
-    setClients: React.Dispatch<React.SetStateAction<Clients[]>>
+    setClients: React.Dispatch<React.SetStateAction<Client[]>>
 };
 
 export function CreateClientModal({ isOpen, onCancel, setClients }: Props) {
     const [form] = Form.useForm();
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [error, setError] = useState<string | null>(null);
 
     const options = [
         {
@@ -31,31 +30,28 @@ export function CreateClientModal({ isOpen, onCancel, setClients }: Props) {
         },
     ];
 
-    const handleFinish = async (values: any) => {
+    const handleFinish = async (values: ClientFormValues) => {
         try {
             setIsLoading(true);
 
-            setError(null);
-
             const payload = {
                 ...values,
-                birth: values.birth ? values.birth.toDate().toISOString().split('T')[0] : null,
+                birth: values.birth.format('YYYY-MM-DD'),
             };
 
             const response = await createClient(payload);
-
-            onCancel();
             
-            setIsLoading(false);
-
-            message.open({
-                type: 'success',
-                content: response.message,
-            });
-
             setClients(prevClients => ([ ...prevClients, response.data]));            
+            
+            notify({ message: response.message });
+            
+            onCancel();
         } catch(error) {
-            setError(error instanceof Error ? error.message : 'Erro desconhecido');
+            notify({
+                message: 'Erro ao cadastrar cliente',
+                description: error instanceof Error ? error.message : 'Erro desconhecido.',
+                type: 'error',
+            });
         } finally {
             setIsLoading(false);
         }
