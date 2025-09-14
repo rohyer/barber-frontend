@@ -5,16 +5,16 @@ import type { Client } from '../../clients.type';
 
 type Props = {
     isOpen: boolean,
-    client: Client,
-    setClient: React.Dispatch<React.SetStateAction<Client | null>>,
+    deleteClientModal: Client,
+    setDeleteClientModal: React.Dispatch<React.SetStateAction<Client | null>>,
     setClients: React.Dispatch<React.SetStateAction<Client[]>>,
     setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
 export function DeleteClientModal({
     isOpen,
-    client,
-    setClient,
+    deleteClientModal,
+    setDeleteClientModal,
     setClients,
     setIsDeleteModalOpen,
 }: Props) {
@@ -24,21 +24,21 @@ export function DeleteClientModal({
     const handleCancel = () => {
         setIsDeleteModalOpen(false);
 
-        setClient(null);
+        setDeleteClientModal(null);
     };
 
     const handleOk = async () => {
         try {
             setIsLoading(true);
 
-            const response = await deleteClient(client.id);
+            const response = await deleteClient(deleteClientModal.id);
 
             setClients(prevClients => prevClients
-                .filter(prevClient => prevClient.id !== client.id));
+                .filter(prevClient => prevClient.id !== deleteClientModal.id));
 
             handleCancel();
         } catch(error) {
-            setError(error);
+            setError(error instanceof Error ? error.message : 'Erro desconhecido');
         } finally {
             setIsLoading(false);
         }
@@ -59,7 +59,7 @@ export function DeleteClientModal({
             cancelButtonProps={{ disabled: isLoading }}
             destroyOnHidden
         >
-            <Typography.Paragraph>Deseja mesmo deletar o cliente {client?.name}?</Typography.Paragraph>
+            <Typography.Paragraph>Deseja mesmo deletar o cliente {deleteClientModal?.name}?</Typography.Paragraph>
         </Modal>
     );
 }
