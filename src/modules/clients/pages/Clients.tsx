@@ -7,6 +7,7 @@ import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
+import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
 
 export function Clients() {
     const { token } = theme.useToken();
@@ -19,11 +20,11 @@ export function Clients() {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [updateClientModal, setDeleteClientModal] = useState<Client | null>(null);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     
+    const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-    const [selectClient, setSelectClient] = useState<Client | null>(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -56,8 +57,14 @@ export function Clients() {
                     <Button
                         shape='circle'
                         type='text'
+                        onClick={() => {
+                            setIsUpdateModalOpen(true);
+                            setDeleteClientModal(client);
+                        }}
                     >
-                        <EditFilled style={{ color: token.colorPrimary }} />
+                        <EditFilled
+                            style={{ color: token.colorPrimary }}
+                        />
                     </Button>
                 </Tooltip>
 
@@ -67,7 +74,7 @@ export function Clients() {
                         type='text'
                         onClick={() => {
                             setIsDeleteModalOpen(true);
-                            setSelectClient(client);
+                            setDeleteClientModal(client);
                         }}
                     >
                         <DeleteFilled style={{ color: token.colorError }} />
@@ -127,10 +134,20 @@ export function Clients() {
                 onCancel={() => setIsCreateModalOpen(false)}
             />
 
-            { selectClient ?
+            { updateClientModal ?
+                <UpdateClientModal
+                    updateClientModal={updateClientModal}
+                    setUpdateClientModal={setDeleteClientModal}
+                    isOpen={isUpdateModalOpen}
+                    setClients={setClients}
+                    setIsUpdateModalOpen={setIsUpdateModalOpen}
+                /> : null
+            };
+
+            { isDeleteModalOpen ?
                 <DeleteClientModal
-                    client={selectClient}
-                    setClient={setSelectClient}
+                    deleteClientModal={deleteClientModal}
+                    setDeleteClientModal={setDeleteClientModal}
                     isOpen={isDeleteModalOpen}
                     setClients={setClients}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
