@@ -4,7 +4,7 @@ import type { CreateClient, DeleteClient, GetClients, UpdateClient } from './cli
 export const getClients = async (): Promise<GetClients['response']> => {
     const url = 'http://localhost:80/api/clients';
 
-    const response = await apiClient<GetClients['response'], null>({ method: 'GET', url });
+    const response = await apiClient<GetClients['response']>({ method: 'GET', url });
 
     return response;
 };
