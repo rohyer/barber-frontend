@@ -22,6 +22,12 @@ export type GetClients = {
     }>
 }
 
+export type GetClientsByName = {
+    response: Response<{
+        clients: Client['name'][],
+    }>
+}
+
 export type CreateClient = {
     payload: ClientPayload,
     response: Response<Client>,
