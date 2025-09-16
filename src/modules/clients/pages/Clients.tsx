@@ -1,6 +1,6 @@
-import { Button, Empty, Flex, Space, Table, theme, Tooltip, Typography } from 'antd';
+import { Button, Empty, Flex, Select, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
-import type { TableProps } from 'antd';
+import type { TablePaginationConfig, TableProps } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Client } from '../clients.type';
@@ -16,6 +16,7 @@ export function Clients() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [clients, setClients] = useState<Client[]>([]);
+    const [totalClients, setTotalClients] = useState(0);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -30,13 +31,14 @@ export function Clients() {
             try {
                 setIsLoading(true);
 
-                const response = await getClients();
+                const response = await getClients(0);
 
-                setClients(response.data);
+                setClients(response.data.clients);
+                setTotalClients(response.data.total);
             } catch(error) {
                 notify({
                     message: 'Erro ao listar clientes',
-                    description: error instanceof Error ? error.message : 'Erro desconhecido.'
+                    type: 'error'
                 });
             } finally {
                 setIsLoading(false);
@@ -45,6 +47,30 @@ export function Clients() {
 
         fetch();
     }, []);
+
+    const handleChange = async (pagination: TablePaginationConfig) => {        
+        try {
+            setIsLoading(true);
+
+            if (pagination.current === undefined)
+                throw new Error('Erro ao atualizar lista de cliente');
+
+            const calculateOffset = (pagination.current - 1) * 10;
+
+            const response = await getClients(calculateOffset);
+
+            setClients(response.data.clients);
+            setTotalClients(response.data.total);
+        } catch(error) {
+            notify({
+                message: 'Erro ao listar clientes',
+                description: error instanceof Error ? error.message : 'Erros desconhecido',
+                type: 'error'
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const dataSource = clients && clients.map(client => ({
         key: client.id,
@@ -110,28 +136,43 @@ export function Clients() {
 
     return (
         <Fragment>
-            <Flex justify='space-between' gap={token.margin}>
+            <Space direction='vertical' style={{ width: '100%' }}>
                 <Typography.Title level={2}>Clientes</Typography.Title>
 
-                <Button
-                    type='primary'
-                    size='large'
-                    onClick={() => setIsCreateModalOpen(true)}
-                >
-                    Cadastrar
-                </Button>
-            </Flex>
+                <Flex justify='space-between' gap={token.margin}>
+                    <Select
+                        showSearch
+                        size='large'
+                        placeholder='Digite o nome do cliente'
+                        style={{ width: '300px' }}
+                    />
 
-            <Table
-                size='middle'
-                columns={columns}
-                dataSource={dataSource}
-                loading={isLoading}
-                locale={{ emptyText: <Empty description="Nenhum cliente encontrado" /> }}
-                pagination={{
-                    pageSize: 5,
-                }}
-            />
+                    <Button
+                        type='primary'
+                        size='large'
+                        onClick={() => setIsCreateModalOpen(true)}
+                    >
+                        Cadastrar
+                    </Button>
+                </Flex>
+
+                <Table
+                    size='middle'
+                    columns={columns}
+                    dataSource={dataSource}
+                    loading={isLoading}
+                    locale={{ emptyText: <Empty description="Nenhum cliente encontrado" /> }}
+                    sortDirections={['ascend']}
+                    onChange={handleChange}
+                    scroll={{ x: '500' }}
+                    pagination={{
+                        total: totalClients,
+                        showTotal(total, range) {
+                            return `Total de clientes: ${total}`;
+                        },
+                    }}
+                />
+            </Space>
 
             <CreateClientModal
                 setClients={setClients}

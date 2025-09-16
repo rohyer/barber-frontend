@@ -16,7 +16,10 @@ type Response<T> = {
 }
 
 export type GetClients = {
-    response: Response<Client[]>
+    response: Response<{
+        clients: Client[],
+        total: number,
+    }>
 }
 
 export type CreateClient = {

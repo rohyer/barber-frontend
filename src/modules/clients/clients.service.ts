@@ -1,8 +1,8 @@
 import { apiClient } from '../../shared/services/api.service';
 import type { CreateClient, DeleteClient, GetClients, UpdateClient } from './clients.contract';
 
-export const getClients = async (): Promise<GetClients['response']> => {
-    const url = 'http://localhost:80/api/clients';
+export const getClients = async (offset: number | undefined): Promise<GetClients['response']> => {
+    const url = `http://localhost:80/api/clients?offset=${offset}`;
 
     const response = await apiClient<GetClients['response']>({ method: 'GET', url });
 

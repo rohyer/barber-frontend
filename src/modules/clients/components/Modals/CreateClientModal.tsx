@@ -41,7 +41,7 @@ export function CreateClientModal({ isOpen, onCancel, setClients }: Props) {
 
             const response = await createClient(payload);
             
-            setClients(prevClients => ([ ...prevClients, response.data]));            
+            setClients(prevClients => ([ response.data, ...prevClients]));
             
             notify({ message: response.message });
             
