@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Select, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TablePaginationConfig, TableProps } from 'antd';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
@@ -9,6 +9,7 @@ import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
 import { notify } from '../../../shared/utils/notify';
+import { debounce } from 'lodash';
 
 export function Clients() {
     const { token } = theme.useToken();
@@ -17,6 +18,8 @@ export function Clients() {
 
     const [clients, setClients] = useState<Client[]>([]);
     const [totalClients, setTotalClients] = useState(0);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [options, setOptions] = useState<{label: string, value: string}[]>([]);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -31,7 +34,7 @@ export function Clients() {
             try {
                 setIsLoading(true);
 
-                const response = await getClients(0);
+                const response = await getClients(0, '');
 
                 setClients(response.data.clients);
                 setTotalClients(response.data.total);
@@ -57,8 +60,56 @@ export function Clients() {
 
             const calculateOffset = (pagination.current - 1) * 10;
 
-            const response = await getClients(calculateOffset);
+            const response = await getClients(calculateOffset, searchQuery);
 
+            setClients(response.data.clients);
+            setTotalClients(response.data.total);
+        } catch(error) {
+            notify({
+                message: 'Erro ao listar clientes',
+                description: error instanceof Error ? error.message : 'Erros desconhecido',
+                type: 'error'
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const onSearch = async (value: string) => {
+        try {
+            setOptions([]);
+
+            if (value === '') 
+                return;
+
+            setIsLoading(true);
+
+            setSearchQuery(value);
+
+            const response = await getClients(0, value);            
+
+            setOptions(response.data.clients.map(client => ({ label: client.name, value: client.name })));
+            setTotalClients(response.data.total);
+        } catch(error) {
+            notify({
+                message: 'Erro ao listar clientes',
+                description: error instanceof Error ? error.message : 'Erros desconhecido',
+                type: 'error'
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), []);
+
+    const onSelectChange = async (value: string) => {
+        try {            
+            setIsLoading(true);
+            
+            const response = await getClients(0, value ?? '');
+
+            setOptions(response.data.clients.map(client => ({ label: client.name, value: client.name })));
             setClients(response.data.clients);
             setTotalClients(response.data.total);
         } catch(error) {
@@ -142,9 +193,15 @@ export function Clients() {
                 <Flex justify='space-between' gap={token.margin}>
                     <Select
                         showSearch
+                        allowClear
                         size='large'
                         placeholder='Digite o nome do cliente'
                         style={{ width: '300px' }}
+                        notFoundContent="Nenhum cliente encontrado"
+                        loading={isLoading}
+                        onSearch={debouncedOnSearch}
+                        onChange={onSelectChange}
+                        options={options}
                     />
 
                     <Button
@@ -167,7 +224,7 @@ export function Clients() {
                     scroll={{ x: '500' }}
                     pagination={{
                         total: totalClients,
-                        showTotal(total, range) {
+                        showTotal(total) {
                             return `Total de clientes: ${total}`;
                         },
                     }}
