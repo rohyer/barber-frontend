@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Select, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TablePaginationConfig, TableProps } from 'antd';
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
@@ -20,6 +20,7 @@ export function Clients() {
     const [totalClients, setTotalClients] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [options, setOptions] = useState<{label: string, value: string}[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -29,27 +30,28 @@ export function Clients() {
     const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                setIsLoading(true);
+    const fetchClients = useCallback(async () => {
+        try {            
+            setIsLoading(true);
 
-                const response = await getClients(0, '');
+            const response = await getClients(0, '');
 
-                setClients(response.data.clients);
-                setTotalClients(response.data.total);
-            } catch(error) {
-                notify({
-                    message: 'Erro ao listar clientes',
-                    type: 'error'
-                });
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetch();
+            setClients(response.data.clients);
+            setTotalClients(response.data.total);
+            setCurrentPage(1);
+        } catch(error) {
+            notify({
+                message: 'Erro ao listar clientes',
+                type: 'error'
+            });
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchClients();
+    }, [fetchClients]);
 
     const handleChange = async (pagination: TablePaginationConfig) => {        
         try {
@@ -220,10 +222,14 @@ export function Clients() {
                     loading={isLoading}
                     locale={{ emptyText: <Empty description="Nenhum cliente encontrado" /> }}
                     sortDirections={['ascend']}
-                    onChange={handleChange}
+                    onChange={(pagination) => {
+                        handleChange(pagination);
+                        setCurrentPage(pagination.current ?? 1);
+                    }}
                     scroll={{ x: '500' }}
                     pagination={{
                         total: totalClients,
+                        current: currentPage,
                         showTotal(total) {
                             return `Total de clientes: ${total}`;
                         },
@@ -232,9 +238,9 @@ export function Clients() {
             </Space>
 
             <CreateClientModal
-                setClients={setClients}
                 isOpen={isCreateModalOpen}
                 onCancel={() => setIsCreateModalOpen(false)}
+                fetchClients={fetchClients}
             />
 
             { updateClientModal ?
