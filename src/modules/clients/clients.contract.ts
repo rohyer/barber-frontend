@@ -12,6 +12,7 @@ type ClientPayload = Omit<Client, 'id'>
 type Response<T> = {
     success: boolean,
     message: string,
+    fromCache: boolean,
     data: T,
 }
 
