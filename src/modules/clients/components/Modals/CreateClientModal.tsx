@@ -1,16 +1,16 @@
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { useState } from 'react';
 import { createClient } from '../../clients.service';
-import type { ClientFormValues, Client } from '../../clients.type';
+import type { ClientFormValues } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
 
 type Props = {
     isOpen: boolean,
     onCancel: () => void,
-    setClients: React.Dispatch<React.SetStateAction<Client[]>>
+    fetchClients: () => Promise<void>,
 };
 
-export function CreateClientModal({ isOpen, onCancel, setClients }: Props) {
+export function CreateClientModal({ isOpen, onCancel, fetchClients }: Props) {
     const [form] = Form.useForm();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,7 @@ export function CreateClientModal({ isOpen, onCancel, setClients }: Props) {
 
             const response = await createClient(payload);
             
-            setClients(prevClients => ([ response.data, ...prevClients]));
+            await fetchClients();
             
             notify({ message: response.message });
             
