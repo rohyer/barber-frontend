@@ -237,30 +237,32 @@ export function Clients() {
                 />
             </Space>
 
-            <CreateClientModal
-                isOpen={isCreateModalOpen}
-                onCancel={() => setIsCreateModalOpen(false)}
-                fetchClients={fetchClients}
-            />
+            { isCreateModalOpen &&
+                <CreateClientModal
+                    isOpen={isCreateModalOpen}
+                    onCancel={() => setIsCreateModalOpen(false)}
+                    fetchClients={fetchClients}
+                />
+            }
 
-            { updateClientModal ?
+            { isUpdateModalOpen && updateClientModal &&
                 <UpdateClientModal
                     updateClientModal={updateClientModal}
                     setUpdateClientModal={setUpdateClientModal}
                     isOpen={isUpdateModalOpen}
                     setClients={setClients}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
-                /> : null
+                />
             }
 
-            { deleteClientModal ?
+            { isDeleteModalOpen && deleteClientModal &&
                 <DeleteClientModal
                     deleteClientModal={deleteClientModal}
                     setDeleteClientModal={setDeleteClientModal}
                     isOpen={isDeleteModalOpen}
                     setClients={setClients}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
-                /> : null
+                />
             }
         </Fragment>
     );
