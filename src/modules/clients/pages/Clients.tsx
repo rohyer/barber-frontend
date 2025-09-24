@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Select, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TablePaginationConfig, TableProps } from 'antd';
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { getClients } from '../clients.service';
 import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
@@ -10,17 +10,25 @@ import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
 import { notify } from '../../../shared/utils/notify';
 import { debounce } from 'lodash';
+import { useQuery } from '@tanstack/react-query';
+import { clientsQueryOptions, searchClientsQueryOptions } from '../clients.queries';
 
 export function Clients() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchingQuery, setSearchingQuery] = useState('');
+
     const { token } = theme.useToken();
 
-    const [isLoading, setIsLoading] = useState(false);
+    const { data, error, isPending } = useQuery(clientsQueryOptions(
+        { page: (currentPage - 1) * 10, search: searchQuery }
+    ));
 
-    const [clients, setClients] = useState<Client[]>([]);
-    const [totalClients, setTotalClients] = useState(0);
-    const [searchQuery, setSearchQuery] = useState('');
+    const { data: searchData, refetch } = useQuery(searchClientsQueryOptions(
+        { search: searchingQuery }
+    ));
+
     const [options, setOptions] = useState<{label: string, value: string}[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -30,102 +38,36 @@ export function Clients() {
     const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const fetchClients = useCallback(async () => {
-        try {            
-            setIsLoading(true);
+    const handleChange = (pagination: TablePaginationConfig) => {        
+        if (pagination.current === undefined)
+            return;
 
-            const response = await getClients(0, '');
-
-            setClients(response.data.clients);
-            setTotalClients(response.data.total);
-            setCurrentPage(1);
-        } catch(error) {
-            notify({
-                message: 'Erro ao listar clientes',
-                type: 'error'
-            });
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchClients();
-    }, [fetchClients]);
-
-    const handleChange = async (pagination: TablePaginationConfig) => {        
-        try {
-            setIsLoading(true);
-
-            if (pagination.current === undefined)
-                throw new Error('Erro ao atualizar lista de cliente');
-
-            const calculateOffset = (pagination.current - 1) * 10;
-
-            const response = await getClients(calculateOffset, searchQuery);
-
-            setClients(response.data.clients);
-            setTotalClients(response.data.total);
-        } catch(error) {
-            notify({
-                message: 'Erro ao listar clientes',
-                description: error instanceof Error ? error.message : 'Erros desconhecido',
-                type: 'error'
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        setCurrentPage(pagination.current);
     };
 
     const onSearch = async (value: string) => {
-        try {
-            setOptions([]);
+        setOptions([]);
 
-            if (value === '') 
-                return;
+        if (value === '')
+            return;
 
-            setIsLoading(true);
+        setSearchingQuery(value);
 
-            setSearchQuery(value);
+        const result = await refetch();        
 
-            const response = await getClients(0, value);            
-
-            setOptions(response.data.clients.map(client => ({ label: client.name, value: client.name })));
-            setTotalClients(response.data.total);
-        } catch(error) {
-            notify({
-                message: 'Erro ao listar clientes',
-                description: error instanceof Error ? error.message : 'Erros desconhecido',
-                type: 'error'
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        setOptions(result?.data?.data.clients.map(client => ({ label: client.name, value: client.name })) ?? []);
     };
 
     const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), []);
 
-    const onSelectChange = async (value: string) => {
-        try {            
-            setIsLoading(true);
-            
-            const response = await getClients(0, value ?? '');
+    const onSelectChange = (value: string) => {
+        setCurrentPage(1);
+        setSearchQuery(value ?? '');
 
-            setOptions(response.data.clients.map(client => ({ label: client.name, value: client.name })));
-            setClients(response.data.clients);
-            setTotalClients(response.data.total);
-        } catch(error) {
-            notify({
-                message: 'Erro ao listar clientes',
-                description: error instanceof Error ? error.message : 'Erros desconhecido',
-                type: 'error'
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        setOptions(data?.data.clients.map(client => ({ label: client.name, value: client.name })) ?? []);
     };
 
-    const dataSource = clients && clients.map(client => ({
+    const dataSource = data?.data.clients && data?.data.clients.map(client => ({
         key: client.id,
         name: client.name,
         sex: client.sex,
@@ -200,7 +142,7 @@ export function Clients() {
                         placeholder='Digite o nome do cliente'
                         style={{ width: '300px' }}
                         notFoundContent="Nenhum cliente encontrado"
-                        loading={isLoading}
+                        // loading={isLoading}
                         onSearch={debouncedOnSearch}
                         onChange={onSelectChange}
                         options={options}
@@ -219,7 +161,7 @@ export function Clients() {
                     size='middle'
                     columns={columns}
                     dataSource={dataSource}
-                    loading={isLoading}
+                    loading={isPending}
                     locale={{ emptyText: <Empty description="Nenhum cliente encontrado" /> }}
                     sortDirections={['ascend']}
                     onChange={(pagination) => {
@@ -228,7 +170,7 @@ export function Clients() {
                     }}
                     scroll={{ x: '500' }}
                     pagination={{
-                        total: totalClients,
+                        total: data?.data.total,
                         current: currentPage,
                         showTotal(total) {
                             return `Total de clientes: ${total}`;
@@ -237,11 +179,11 @@ export function Clients() {
                 />
             </Space>
 
-            { isCreateModalOpen &&
+            {/* { isCreateModalOpen &&
                 <CreateClientModal
                     isOpen={isCreateModalOpen}
                     onCancel={() => setIsCreateModalOpen(false)}
-                    fetchClients={fetchClients}
+                    // fetchClients={fetchClients}
                 />
             }
 
@@ -250,7 +192,7 @@ export function Clients() {
                     updateClientModal={updateClientModal}
                     setUpdateClientModal={setUpdateClientModal}
                     isOpen={isUpdateModalOpen}
-                    setClients={setClients}
+                    // setClients={setClients}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
             }
@@ -260,10 +202,10 @@ export function Clients() {
                     deleteClientModal={deleteClientModal}
                     setDeleteClientModal={setDeleteClientModal}
                     isOpen={isDeleteModalOpen}
-                    setClients={setClients}
+                    // setClients={setClients}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            }
+            } */}
         </Fragment>
     );
 }
