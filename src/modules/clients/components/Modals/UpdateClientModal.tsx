@@ -4,12 +4,18 @@ import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateClient } from '../../clients.service';
 import dayjs from 'dayjs';
 import { notify } from '../../../../shared/utils/notify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { UpdateClient } from '../../clients.contract';
+
+type MutationFn = {
+    id: number,
+    payload: UpdateClient['payload']
+}
 
 type Props = {
     updateClientModal: Client,
     setUpdateClientModal: React.Dispatch<React.SetStateAction<Client | null>>,
     isOpen: boolean,
-    setClients: React.Dispatch<React.SetStateAction<Client[]>>,
     setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
@@ -17,12 +23,29 @@ export function UpdateClientModal({
     updateClientModal,
     setUpdateClientModal,
     isOpen,
-    setClients,
     setIsUpdateModalOpen,
 }: Props) {
-    const [isLoading, setIsLoading] = useState(false);
-
     const [form] = Form.useForm();
+
+    const queryClient = useQueryClient();
+
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: ({ id, payload }: MutationFn) => updateClient(id, payload),
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
+
+            notify({ message: response.message });
+
+            handleCancel();
+        },
+        onError: (error) => {
+            notify({
+                message: 'Erro ao atualizar cliente',
+                description: error instanceof Error ? error.message : 'Erro desconhecido.',
+                type: 'error'
+            });
+        } 
+    });
 
     const options = [
         {
@@ -41,40 +64,18 @@ export function UpdateClientModal({
 
     const handleCancel = () => {
         setIsUpdateModalOpen(false);
-
         setUpdateClientModal(null);
+
+        form.resetFields();
     };
 
     const handleFinish = async (values: ClientFormValues) => {
-        try {            
-            setIsLoading(true);
-
-            const payload = {
-                ...values,
-                birth: values.birth.format('YYYY-MM-DD'),
-            };
-
-            const response = await updateClient(updateClientModal.id, payload);
-
-            setClients(prevClients => prevClients
-                .map(prevClient => (prevClient.id === response.data.id
-                    ? response.data
-                    : prevClient
-                ))
-            );
-
-            notify({ message: response.message });
-
-            handleCancel();
-        } catch(error) {
-            notify({
-                message: 'Erro ao atualizar cliente',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error'
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        const payload = {
+            ...values,
+            birth: values.birth.format('YYYY-MM-DD'),
+        };
+        
+        await mutateAsync({ id: updateClientModal.id, payload });
     };
 
     return (
@@ -83,10 +84,10 @@ export function UpdateClientModal({
             open={isOpen}
             okText="Editar"
             onOk={() => form.submit()}
-            okButtonProps={{ loading: isLoading }}
+            okButtonProps={{ loading: isPending }}
             cancelText='Cancelar'
             onCancel={handleCancel}
-            cancelButtonProps={{ disabled: isLoading }}
+            cancelButtonProps={{ disabled: isPending }}
             destroyOnHidden
         >
             <Form

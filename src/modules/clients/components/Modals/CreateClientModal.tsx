@@ -1,19 +1,39 @@
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
-import { useState } from 'react';
 import { createClient } from '../../clients.service';
 import type { ClientFormValues } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { CreateClient } from '../../clients.contract';
 
 type Props = {
     isOpen: boolean,
     onCancel: () => void,
-    fetchClients: () => Promise<void>,
 };
 
-export function CreateClientModal({ isOpen, onCancel, fetchClients }: Props) {
+export function CreateClientModal({ isOpen, onCancel }: Props) {
     const [form] = Form.useForm();
 
-    const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
+
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: (payload: CreateClient['payload']) => createClient(payload),
+        onSuccess: (response) => {
+            notify({ message: response.message });
+            
+            queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
+
+            onCancel();
+
+            form.resetFields();
+        },
+        onError: (error) => {
+            notify({
+                message: 'Erro ao cadastrar cliente',
+                description: error instanceof Error ? error.message : 'Erro desconhecido.',
+                type: 'error',
+            });
+        }
+    });
 
     const options = [
         {
@@ -31,30 +51,12 @@ export function CreateClientModal({ isOpen, onCancel, fetchClients }: Props) {
     ];
 
     const handleFinish = async (values: ClientFormValues) => {
-        try {
-            setIsLoading(true);
+        const payload = {
+            ...values,
+            birth: values.birth.format('YYYY-MM-DD'),
+        };
 
-            const payload = {
-                ...values,
-                birth: values.birth.format('YYYY-MM-DD'),
-            };
-
-            const response = await createClient(payload);
-            
-            await fetchClients();
-            
-            notify({ message: response.message });
-            
-            onCancel();
-        } catch(error) {
-            notify({
-                message: 'Erro ao cadastrar cliente',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        await mutateAsync(payload);
     };
 
     return (
@@ -63,10 +65,10 @@ export function CreateClientModal({ isOpen, onCancel, fetchClients }: Props) {
             open={isOpen}
             okText="Cadastrar"
             onOk={() => form.submit()}
-            okButtonProps={{ loading: isLoading }}
+            okButtonProps={{ loading: isPending }}
             cancelText="Voltar"
             onCancel={onCancel}
-            cancelButtonProps={{ disabled: isLoading }}
+            cancelButtonProps={{ disabled: isPending }}
             destroyOnHidden
         >
             <Form
