@@ -179,11 +179,10 @@ export function Clients() {
                 />
             </Space>
 
-            {/* { isCreateModalOpen &&
+            { isCreateModalOpen &&
                 <CreateClientModal
                     isOpen={isCreateModalOpen}
                     onCancel={() => setIsCreateModalOpen(false)}
-                    // fetchClients={fetchClients}
                 />
             }
 
@@ -192,11 +191,11 @@ export function Clients() {
                     updateClientModal={updateClientModal}
                     setUpdateClientModal={setUpdateClientModal}
                     isOpen={isUpdateModalOpen}
-                    // setClients={setClients}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
             }
 
+            {/*
             { isDeleteModalOpen && deleteClientModal &&
                 <DeleteClientModal
                     deleteClientModal={deleteClientModal}
