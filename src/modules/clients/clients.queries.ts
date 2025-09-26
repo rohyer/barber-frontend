@@ -19,6 +19,6 @@ export const searchClientsQueryOptions = ({ search }: Omit<Props, 'page'>) => {
         queryKey: ['search-clients', { search }],
         queryFn: () => getClients(0, search),
         staleTime: 1000 * 60,
-        enabled: false,
+        enabled: !!search,
     });
 };
