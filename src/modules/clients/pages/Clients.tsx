@@ -35,7 +35,7 @@ export function Clients() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const options = searchData?.data.clients
-        .map(client => ({ label: client.name, value: client.name })) ?? [];
+        .map(client => ({ label: client.name, value: client.id })) ?? [];    
 
     const handleChange = (pagination: TablePaginationConfig) => {        
         if (pagination.current === undefined)
@@ -56,8 +56,11 @@ export function Clients() {
     const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), [onSearch]);
 
     const onSelectChange = (value: string) => {
+        const selectedClient = searchData?.data.clients
+            .find(client => client.id === parseInt(value, 10));
+
         setCurrentPage(1);
-        setSearchQuery(value ?? '');
+        setSearchQuery(selectedClient?.name ?? '');
     };
 
     const dataSource = data?.data.clients && data?.data.clients.map(client => ({
@@ -135,10 +138,10 @@ export function Clients() {
                         placeholder='Digite o nome do cliente'
                         style={{ width: '300px' }}
                         notFoundContent="Nenhum cliente encontrado"
-                        // loading={isLoading}
                         onSearch={debouncedOnSearch}
                         onChange={onSelectChange}
                         options={options}
+                        filterOption={false}
                     />
 
                     <Button
