@@ -1,14 +1,12 @@
 import { Button, Empty, Flex, Select, Space, Table, theme, Tooltip, Typography } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { TablePaginationConfig, TableProps } from 'antd';
-import { Fragment, useMemo, useState } from 'react';
-import { getClients } from '../clients.service';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import type { Client } from '../clients.type';
 import { calculateAge } from '../clients.helper';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
-import { notify } from '../../../shared/utils/notify';
 import { debounce } from 'lodash';
 import { useQuery } from '@tanstack/react-query';
 import { clientsQueryOptions, searchClientsQueryOptions } from '../clients.queries';
@@ -20,15 +18,13 @@ export function Clients() {
 
     const { token } = theme.useToken();
 
-    const { data, error, isPending } = useQuery(clientsQueryOptions(
+    const { data, isPending } = useQuery(clientsQueryOptions(
         { page: (currentPage - 1) * 10, search: searchQuery }
     ));
 
-    const { data: searchData, refetch } = useQuery(searchClientsQueryOptions(
+    const { data: searchData } = useQuery(searchClientsQueryOptions(
         { search: searchingQuery }
     ));
-
-    const [options, setOptions] = useState<{label: string, value: string}[]>([]);
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -38,6 +34,9 @@ export function Clients() {
     const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+    const options = searchData?.data.clients
+        .map(client => ({ label: client.name, value: client.name })) ?? [];
+
     const handleChange = (pagination: TablePaginationConfig) => {        
         if (pagination.current === undefined)
             return;
@@ -45,26 +44,20 @@ export function Clients() {
         setCurrentPage(pagination.current);
     };
 
-    const onSearch = async (value: string) => {
-        setOptions([]);
-
-        if (value === '')
+    const onSearch = useCallback(async (value: string) => {
+        if (value === '') {
+            setSearchingQuery('');
             return;
+        }
 
         setSearchingQuery(value);
+    }, []);
 
-        const result = await refetch();        
-
-        setOptions(result?.data?.data.clients.map(client => ({ label: client.name, value: client.name })) ?? []);
-    };
-
-    const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), []);
+    const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), [onSearch]);
 
     const onSelectChange = (value: string) => {
         setCurrentPage(1);
         setSearchQuery(value ?? '');
-
-        setOptions(data?.data.clients.map(client => ({ label: client.name, value: client.name })) ?? []);
     };
 
     const dataSource = data?.data.clients && data?.data.clients.map(client => ({
@@ -188,23 +181,21 @@ export function Clients() {
 
             { isUpdateModalOpen && updateClientModal &&
                 <UpdateClientModal
+                    isOpen={isUpdateModalOpen}
                     updateClientModal={updateClientModal}
                     setUpdateClientModal={setUpdateClientModal}
-                    isOpen={isUpdateModalOpen}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
             }
 
-            {/*
             { isDeleteModalOpen && deleteClientModal &&
                 <DeleteClientModal
+                    isOpen={isDeleteModalOpen}
                     deleteClientModal={deleteClientModal}
                     setDeleteClientModal={setDeleteClientModal}
-                    isOpen={isDeleteModalOpen}
-                    // setClients={setClients}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            } */}
+            }
         </Fragment>
     );
 }
