@@ -10,6 +10,7 @@ import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
 import { debounce } from 'lodash';
 import { useQuery } from '@tanstack/react-query';
 import { clientsQueryOptions, searchClientsQueryOptions } from '../clients.queries';
+import { Show } from '../../../shared/components/Show';
 
 export function Clients() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -175,30 +176,30 @@ export function Clients() {
                 />
             </Space>
 
-            { isCreateModalOpen &&
+            <Show when={isCreateModalOpen}>
                 <CreateClientModal
                     isOpen={isCreateModalOpen}
                     onCancel={() => setIsCreateModalOpen(false)}
                 />
-            }
+            </Show>
 
-            { isUpdateModalOpen && updateClientModal &&
+            <Show when={isUpdateModalOpen && updateClientModal !== null}>
                 <UpdateClientModal
                     isOpen={isUpdateModalOpen}
-                    updateClientModal={updateClientModal}
+                    updateClientModal={updateClientModal!}
                     setUpdateClientModal={setUpdateClientModal}
                     setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
-            }
+            </Show>
 
-            { isDeleteModalOpen && deleteClientModal &&
+            <Show when={isDeleteModalOpen && deleteClientModal !== null}>
                 <DeleteClientModal
                     isOpen={isDeleteModalOpen}
-                    deleteClientModal={deleteClientModal}
+                    deleteClientModal={deleteClientModal!}
                     setDeleteClientModal={setDeleteClientModal}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            }
+            </Show>
         </Fragment>
     );
 }
