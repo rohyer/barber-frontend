@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Client, ClientFormValues } from '../../clients.type';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateClient } from '../../clients.service';
@@ -13,16 +12,16 @@ type MutationFn = {
 }
 
 type Props = {
+    isOpen: boolean,
     updateClientModal: Client,
     setUpdateClientModal: React.Dispatch<React.SetStateAction<Client | null>>,
-    isOpen: boolean,
     setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export function UpdateClientModal({
+    isOpen,
     updateClientModal,
     setUpdateClientModal,
-    isOpen,
     setIsUpdateModalOpen,
 }: Props) {
     const [form] = Form.useForm();
