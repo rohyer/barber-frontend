@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { clientsQueryOptions, searchClientsQueryOptions } from '../clients.queries';
 import { Show } from '../../../shared/components/Show';
 
-export function Clients() {
+export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchingQuery, setSearchingQuery] = useState('');
