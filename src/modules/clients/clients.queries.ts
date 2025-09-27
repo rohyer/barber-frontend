@@ -1,4 +1,4 @@
-import { queryOptions } from '@tanstack/react-query';
+import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 import { getClients } from './clients.service';
 
 type Props = {
@@ -11,6 +11,7 @@ export const clientsQueryOptions = ({ page, search }: Props) => {
         queryKey: ['clients', { page, search }],
         queryFn: () => getClients(page, search),
         staleTime: 1000 * 60,
+        placeholderData: keepPreviousData,
     });
 };
 
