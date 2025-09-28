@@ -3,7 +3,7 @@ import React from 'react';
 import { deleteClient } from '../../clients.service';
 import type { Client } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type Props = {
     isOpen: boolean,
@@ -18,9 +18,13 @@ export function DeleteClientModal({
     setDeleteClientModal,
     setIsDeleteModalOpen,
 }: Props) {
+    const queryClient = useQueryClient();
+
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (clientId: Client['id']) => deleteClient(clientId),
         onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
+
             notify({ message: response.message });
 
             handleCancel();
