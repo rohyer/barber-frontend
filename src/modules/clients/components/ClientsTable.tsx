@@ -26,7 +26,7 @@ export function ClientsTable({
     setDeleteClientModal,
 }: Props) {
     const { data, isPending } = useQuery(clientsQueryOptions(
-        { page: (currentPage - 1) * 10, search: searchQuery }
+        { page: currentPage, search: searchQuery }
     ));
 
     const handleChange = (pagination: TablePaginationConfig) => {        
@@ -58,27 +58,33 @@ export function ClientsTable({
         {
             title: 'Nome',
             dataIndex: 'name',
+            minWidth: 300,
         },
         {
             title: 'Sexo',
             dataIndex: 'sex',
+            width: 125,
         },
         {
             title: 'Idade',
             dataIndex: 'age',
+            width: 125,
         },
         {
             title: 'Telefone',
             dataIndex: 'phone',
+            width: 125
         },
         {
             title: 'Ações',
             dataIndex: 'actions',
+            width: 125
         },
     ];
 
     return (
         <Table
+            tableLayout='auto'
             size='middle'
             columns={columns}
             dataSource={dataSource}

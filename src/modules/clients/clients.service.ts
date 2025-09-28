@@ -2,10 +2,10 @@ import { apiClient } from '../../shared/services/api.service';
 import type { CreateClient, DeleteClient, GetClients, UpdateClient } from './clients.contract';
 
 export const getClients = async (
-    offset: number | undefined,
+    page: number | undefined,
     query: string,
 ): Promise<GetClients['response']> => {
-    const url = `http://localhost:80/api/clients?offset=${offset}&query=${query}`;
+    const url = `http://localhost:80/api/clients?page=${page}&query=${query}`;
 
     const response = await apiClient<GetClients['response']>({ method: 'GET', url });
 
@@ -13,10 +13,10 @@ export const getClients = async (
 };
 
 export const getClientsByName = async (
-    offset: number | undefined,
+    page: number | undefined,
     query: string,
 ): Promise<GetClients['response']> => {
-    const url = `http://localhost:80/api/clients/options?offset=${offset}&query=${query}`;
+    const url = `http://localhost:80/api/clients/options?page=${page}&query=${query}`;
 
     const response = await apiClient<GetClients['response']>({ method: 'GET', url });
 
