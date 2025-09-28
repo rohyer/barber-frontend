@@ -18,7 +18,7 @@ export const clientsQueryOptions = ({ page, search }: Props) => {
 export const searchClientsQueryOptions = ({ search }: Omit<Props, 'page'>) => {
     return queryOptions({
         queryKey: ['search-clients', { search }],
-        queryFn: () => getClients(0, search),
+        queryFn: () => getClients(1, search),
         staleTime: 1000 * 60,
         enabled: !!search,
     });
