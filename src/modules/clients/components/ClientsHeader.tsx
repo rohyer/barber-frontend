@@ -57,7 +57,7 @@ export function ClientsHeader({
                     allowClear
                     size='large'
                     placeholder='Digite o nome do cliente'
-                    style={{ width: '300px' }}
+                    style={{ width: '400px' }}
                     notFoundContent="Nenhum cliente encontrado"
                     onSearch={debouncedOnSearch}
                     onChange={onChange}
