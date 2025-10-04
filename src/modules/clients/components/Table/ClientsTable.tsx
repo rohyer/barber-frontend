@@ -1,11 +1,12 @@
 import { type Dispatch, type SetStateAction } from 'react';
-import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
+import { Empty, Space, Table, type TablePaginationConfig, type TableProps } from 'antd';
 import type { ClientModel } from '../../clients.type';
 import { clientsQueryOptions } from '../../clients.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../../clients.helper';
 import { ClientsActions } from './ClientsActions.';
 import { ClientsStatus } from './ClientsStatus';
+import { WhatsAppOutlined } from '@ant-design/icons';
 
 type Props = {
     searchQuery: string,
@@ -48,7 +49,12 @@ export function ClientsTable({
         name: client.name,
         sex: client.sex,
         age: calculateAge(client.birth),
-        phone: client.phone,
+        phone: (
+            <Space>
+                <WhatsAppOutlined />
+                {client.phone}
+            </Space>
+        ),
         actions: (
             <ClientsActions
                 client={client}
@@ -84,7 +90,7 @@ export function ClientsTable({
         {
             title: 'Telefone',
             dataIndex: 'phone',
-            width: 125
+            width: 150
         },
         {
             title: 'Ações',
