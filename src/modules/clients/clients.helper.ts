@@ -38,7 +38,7 @@ export const getClientStatusValues = (
     if (lastCustomerServiceDate === null) 
         return ({
             title: 'Último atendimento feito a mais de 30 dias',
-            color: 'red',
+            color: 'red-inverse',
             status: 'Ausente',
         });
     
@@ -49,7 +49,7 @@ export const getClientStatusValues = (
     if (differeceInDays > 30) 
         return ({
             title: 'Último atendimento feito a mais de 30 dias',
-            color: 'red',
+            color: 'red-inverse',
             status: 'Ausente'
         });
 
