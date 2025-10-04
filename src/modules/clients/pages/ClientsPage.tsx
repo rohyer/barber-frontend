@@ -1,6 +1,6 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
-import type { Client } from '../clients.type';
+import type { ClientModel } from '../clients.type';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
@@ -15,10 +15,10 @@ export function ClientsPage() {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
-    const [updateClientModal, setUpdateClientModal] = useState<Client | null>(null);
+    const [updateClientModal, setUpdateClientModal] = useState<ClientModel | null>(null);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     
-    const [deleteClientModal, setDeleteClientModal] = useState<Client | null>(null);
+    const [deleteClientModal, setDeleteClientModal] = useState<ClientModel | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     return (
