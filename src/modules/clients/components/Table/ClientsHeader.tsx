@@ -59,7 +59,11 @@ export function ClientsHeader({
                     size='large'
                     placeholder='Digite o nome do cliente'
                     style={{ width: '400px' }}
-                    notFoundContent={isPending ? <Spin indicator={<LoadingOutlined />} /> : null}
+                    notFoundContent={(
+                        isPending
+                            ? <Spin indicator={<LoadingOutlined />} />
+                            : 'Nenhum cliente encontrado'
+                    )}
                     onSearch={debouncedOnSearch}
                     onChange={onChange}
                     options={options}
