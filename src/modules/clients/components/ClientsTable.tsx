@@ -1,19 +1,60 @@
 import { type Dispatch, type SetStateAction } from 'react';
-import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
+import { Empty, Table, Tag, Tooltip, type TablePaginationConfig, type TableProps } from 'antd';
 import type { Client } from '../clients.type';
 import { clientsQueryOptions } from '../clients.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../clients.helper';
 import { ClientsActions } from './ClientsActions.';
+import dayjs from 'dayjs';
 
 type Props = {
     searchQuery: string,
     currentPage: number,
     setCurrentPage: Dispatch<SetStateAction<number>>,
-    setIsUpdateModalOpen: Dispatch<SetStateAction<boolean>>
-    setUpdateClientModal: Dispatch<SetStateAction<Client | null>>
-    setIsDeleteModalOpen: Dispatch<SetStateAction<boolean>>
-    setDeleteClientModal: Dispatch<SetStateAction<Client | null>>
+    setIsUpdateModalOpen: Dispatch<SetStateAction<boolean>>,
+    setUpdateClientModal: Dispatch<SetStateAction<Client | null>>,
+    setIsDeleteModalOpen: Dispatch<SetStateAction<boolean>>,
+    setDeleteClientModal: Dispatch<SetStateAction<Client | null>>,
+};
+
+const getClientStatus = (
+    lastCustomerServiceDate: string | null,
+    createdAt: string,
+)=> {
+    const today = dayjs();
+    const createdAtFormatted = dayjs(createdAt);
+    const createdAtDifferenceInDays = today.diff(createdAtFormatted, 'day');
+    
+    if (lastCustomerServiceDate === null && createdAtDifferenceInDays <= 30) 
+        return (
+            <Tooltip title="Cliente cadastrado ainda sem atendimento">
+                <Tag color='blue'>Novo</Tag>
+            </Tooltip>
+        );
+
+    if (lastCustomerServiceDate === null) 
+        return (
+            <Tooltip title="Último atendimento feito a mais de 30 dias">
+                <Tag color='red'>Ausente</Tag>
+            </Tooltip>
+        );
+
+    const lastCustomerServiceDateFormatted = dayjs(lastCustomerServiceDate);
+
+    const differeceInDays = today.diff(lastCustomerServiceDateFormatted, 'day');
+
+    if (differeceInDays > 30) 
+        return (
+            <Tooltip title="Último atendimento feito a mais de 30 dias">
+                <Tag color='red'>Ausente</Tag>
+            </Tooltip>
+        );
+
+    return (
+        <Tooltip title="Último atendimento feito em menos de 30 dias">
+            <Tag color='blue-inverse'>Ativo</Tag>
+        </Tooltip>
+    );
 };
 
 export function ClientsTable({
@@ -38,6 +79,7 @@ export function ClientsTable({
 
     const dataSource = data?.data.clients && data?.data.clients.map(client => ({
         key: client.id,
+        status: getClientStatus(client.lastCustomerServiceDate, client.createdAt),
         name: client.name,
         sex: client.sex,
         age: calculateAge(client.birth),
@@ -59,6 +101,11 @@ export function ClientsTable({
             title: 'Nome',
             dataIndex: 'name',
             minWidth: 300,
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            minWidth: 150,
         },
         {
             title: 'Sexo',

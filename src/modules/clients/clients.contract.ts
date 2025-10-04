@@ -1,3 +1,8 @@
+type ClientCustomerService = {
+    lastCustomerServiceDate: string | null,
+    createdAt: string,
+}
+
 type Client = {
     id: number,
     name: string,
@@ -18,7 +23,7 @@ type Response<T> = {
 
 export type GetClients = {
     response: Response<{
-        clients: Client[],
+        clients: (Client & ClientCustomerService)[],
         total: number,
     }>
 }
