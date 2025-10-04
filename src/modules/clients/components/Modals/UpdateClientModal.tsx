@@ -1,4 +1,4 @@
-import type { Client, ClientFormValues } from '../../clients.type';
+import type { ClientModel, ClientFormValues } from '../../clients.type';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateClient } from '../../clients.service';
 import dayjs from 'dayjs';
@@ -13,8 +13,8 @@ type MutationFn = {
 
 type Props = {
     isOpen: boolean,
-    updateClientModal: Client,
-    setUpdateClientModal: React.Dispatch<React.SetStateAction<Client | null>>,
+    updateClientModal: ClientModel,
+    setUpdateClientModal: React.Dispatch<React.SetStateAction<ClientModel | null>>,
     setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 

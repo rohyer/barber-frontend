@@ -1,14 +1,14 @@
 import { Button, Space, theme, Tooltip } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { Dispatch, SetStateAction } from 'react';
-import type { Client } from '../clients.type';
+import type { ClientModel } from '../../clients.type';
 
 type Props = {
-    client: Client,
+    client: ClientModel,
     setIsUpdateModalOpen: Dispatch<SetStateAction<boolean>>
-    setUpdateClientModal: Dispatch<SetStateAction<Client | null>>
+    setUpdateClientModal: Dispatch<SetStateAction<ClientModel | null>>
     setIsDeleteModalOpen: Dispatch<SetStateAction<boolean>>
-    setDeleteClientModal: Dispatch<SetStateAction<Client | null>>
+    setDeleteClientModal: Dispatch<SetStateAction<ClientModel | null>>
 }
 
 export function ClientsActions({

@@ -5,8 +5,8 @@ import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
 import { Show } from '../../../shared/components/Show';
-import { ClientsHeader } from '../components/ClientsHeader';
-import { ClientsTable } from '../components/ClientsTable';
+import { ClientsHeader } from '../components/Table/ClientsHeader';
+import { ClientsTable } from '../components/Table/ClientsTable';
 
 export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);

@@ -1,14 +1,14 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
 import { deleteClient } from '../../clients.service';
-import type { Client } from '../../clients.type';
+import type { ClientModel } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type Props = {
     isOpen: boolean,
-    deleteClientModal: Client,
-    setDeleteClientModal: React.Dispatch<React.SetStateAction<Client | null>>,
+    deleteClientModal: ClientModel,
+    setDeleteClientModal: React.Dispatch<React.SetStateAction<ClientModel | null>>,
     setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
@@ -21,7 +21,7 @@ export function DeleteClientModal({
     const queryClient = useQueryClient();
 
     const { mutateAsync, isPending } = useMutation({
-        mutationFn: (clientId: Client['id']) => deleteClient(clientId),
+        mutationFn: (clientId: ClientModel['id']) => deleteClient(clientId),
         onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
 
