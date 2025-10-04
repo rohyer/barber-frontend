@@ -1,18 +1,11 @@
-type ClientCustomerService = {
-    lastCustomerServiceDate: string | null,
-    createdAt: string,
-}
+import type { ClientModel } from './clients.type';
 
-type Client = {
-    id: number,
-    name: string,
-    sex: 'M' | 'F' | 'Outro',
-    phone: string,
-    address: string,
-    birth: string,
-}
-
-type ClientPayload = Omit<Client, 'id'>
+type ClientPayload = Pick<ClientModel,
+    | 'name'
+    | 'sex'
+    | 'phone'
+    | 'address'
+    | 'birth'>
 
 type Response<T> = {
     success: boolean,
@@ -23,29 +16,29 @@ type Response<T> = {
 
 export type GetClients = {
     response: Response<{
-        clients: (Client & ClientCustomerService)[],
+        clients: ClientModel[],
         total: number,
     }>
 }
 
 export type GetClientsByName = {
     response: Response<{
-        clients: Client['name'][],
+        clients: ClientModel['name'][],
     }>
 }
 
 export type CreateClient = {
     payload: ClientPayload,
-    response: Response<Client>,
+    response: Response<ClientModel>,
 }
 
 export type UpdateClient = {
-    clientId: Client['id'],
+    clientId: ClientModel['id'],
     payload: ClientPayload,
-    response: Response<Client>,
+    response: Response<ClientModel>,
 }
 
 export type DeleteClient = {
-    clientId: Client['id'],
-    response: Response<Client['id']>,
+    clientId: ClientModel['id'],
+    response: Response<ClientModel['id']>,
 }
