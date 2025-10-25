@@ -7,7 +7,7 @@ import {
     IdcardOutlined,
     TeamOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import style from './Sidebar.module.css';
 import BarberPrimeLogo from '../../../src/assets/BarberPrimeLogo.png';
 
@@ -17,6 +17,10 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    const location = useLocation();
+
+    const selectedKey = location.pathname;
     
     return (
         <Sider
@@ -40,36 +44,36 @@ export function Sidebar({ collapsed }: { collapsed: boolean}) {
             <Menu
                 theme="light"
                 mode="inline"
-                defaultSelectedKeys={['1']}
+                selectedKeys={[selectedKey]}
                 style={{ backgroundColor: colorBgContainer }}
                 items={[
                     {
-                        key: '1',
+                        key: '/',
                         icon: <HomeOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/">Dashboard</Link>,
                     },
                     {
-                        key: '2',
+                        key: '/atendimentos',
                         icon: <ScheduleOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/atendimentos">Atendimentos</Link>,
                     },
                     {
-                        key: '3',
+                        key: '/clientes',
                         icon: <TeamOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/clientes">Clientes</Link>,
                     },
                     {
-                        key: '4',
+                        key: '/colaboradores',
                         icon: <IdcardOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/colaboradores">Colaboradores</Link>,
                     },
                     {
-                        key: '5',
+                        key: '/servicos',
                         icon: <ScissorOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/servicos">Serviços</Link>,
                     },
                     {
-                        key: '6',
+                        key: '/estatisticas',
                         icon: <LineChartOutlined style={{ fontSize: '20px' }} />,
                         label: <Link to="/estatisticas">Estatísticas</Link>,
                     },
