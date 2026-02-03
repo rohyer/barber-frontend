@@ -7,6 +7,7 @@ import { calculateAge } from '../../clients.helper';
 import { ClientsActions } from './ClientsActions.';
 import { ClientsStatus } from './ClientsStatus';
 import { WhatsAppOutlined } from '@ant-design/icons';
+import { applyMask, getRightMask } from '../../../../shared/utils/mask';
 
 type Props = {
     searchQuery: string,
@@ -49,12 +50,7 @@ export function ClientsTable({
         name: client.name,
         sex: client.sex,
         age: calculateAge(client.birth),
-        phone: (
-            <Space>
-                <WhatsAppOutlined />
-                {client.phone}
-            </Space>
-        ),
+        phone: applyMask(client.phone, getRightMask(client.phone)),
         actions: (
             <ClientsActions
                 client={client}
