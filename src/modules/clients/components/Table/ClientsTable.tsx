@@ -1,12 +1,11 @@
 import { type Dispatch, type SetStateAction } from 'react';
-import { Empty, Space, Table, type TablePaginationConfig, type TableProps } from 'antd';
+import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
 import type { ClientModel } from '../../clients.type';
 import { clientsQueryOptions } from '../../clients.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../../clients.helper';
 import { ClientsActions } from './ClientsActions.';
 import { ClientsStatus } from './ClientsStatus';
-import { WhatsAppOutlined } from '@ant-design/icons';
 import { applyMask, getRightMask } from '../../../../shared/utils/mask';
 
 type Props = {
