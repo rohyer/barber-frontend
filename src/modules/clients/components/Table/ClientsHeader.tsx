@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Button, Flex, Select, Spin, Typography } from 'antd';
+import { Button, Flex, Select, Typography } from 'antd';
 import { debounce } from 'lodash';
 import { useCallback, useMemo, type Dispatch, type SetStateAction } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 import { searchClientsQueryOptions } from '../../clients.queries';
-import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {
     searchingQuery: string,
@@ -59,15 +58,12 @@ export function ClientsHeader({
                     size='large'
                     placeholder='Digite o nome do cliente'
                     style={{ width: '400px' }}
-                    notFoundContent={(
-                        isPending
-                            ? <Spin indicator={<LoadingOutlined />} />
-                            : 'Nenhum cliente encontrado'
-                    )}
+                    notFoundContent='Nenhum cliente encontrado'
                     onSearch={debouncedOnSearch}
                     onChange={onChange}
                     options={options}
                     filterOption={false}
+                    loading={isPending}
                 />
 
                 <Button
