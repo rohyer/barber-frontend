@@ -4,6 +4,7 @@ import type { ClientFormValues } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CreateClient } from '../../clients.contract';
+import { MaskedInput } from '../../../../design-system';
 
 type Props = {
     isOpen: boolean,
@@ -99,7 +100,7 @@ export function CreateClientModal({ isOpen, onCancel }: Props) {
                     label='Telefone'
                     rules={[{ required: true, message: 'Preencha o campo telefone.' }]}
                 >
-                    <Input />
+                    <MaskedInput name='phone' />
                 </Form.Item>
 
                 <Form.Item

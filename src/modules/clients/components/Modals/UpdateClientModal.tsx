@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import { notify } from '../../../../shared/utils/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { UpdateClient } from '../../clients.contract';
+import { MaskedInput } from '../../../../design-system';
+import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../../shared/utils/mask';
 
 type MutationFn = {
     id: number,
@@ -77,6 +79,10 @@ export function UpdateClientModal({
         await mutateAsync({ id: updateClientModal.id, payload });
     };
 
+    const maskPattern = updateClientModal.phone.length > 10
+        ? MASK_PHONE_11
+        : MASK_PHONE_10;
+
     return (
         <Modal
             title="Editar cliente"
@@ -93,7 +99,8 @@ export function UpdateClientModal({
                 form={form}
                 initialValues={{
                     ...updateClientModal,
-                    birth: dayjs(updateClientModal.birth)
+                    birth: dayjs(updateClientModal.birth),
+                    phone: applyMask(updateClientModal.phone, maskPattern),
                 }}
                 layout='vertical'
                 onFinish={handleFinish}
@@ -118,8 +125,9 @@ export function UpdateClientModal({
                     name='phone'
                     label='Telefone'
                     rules={[{ required: true, message: 'Preencha o campo telefone.' }]}
+                    getValueFromEvent={(event) => getUnmaskedValue(event.target.value || event)}
                 >
-                    <Input />
+                    <MaskedInput name='phone' />
                 </Form.Item>
 
                 <Form.Item
