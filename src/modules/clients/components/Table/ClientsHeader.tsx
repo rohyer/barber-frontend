@@ -20,7 +20,7 @@ export function ClientsHeader({
     setCurrentPage,
     setIsCreateModalOpen,
 }: Props ) {
-    const { data: searchData, isPending } = useQuery(searchClientsQueryOptions(
+    const { data: searchData, isFetching } = useQuery(searchClientsQueryOptions(
         { search: searchingQuery }
     ));
     
@@ -63,7 +63,7 @@ export function ClientsHeader({
                     onChange={onChange}
                     options={options}
                     filterOption={false}
-                    loading={isPending}
+                    loading={isFetching}
                 />
 
                 <Button
