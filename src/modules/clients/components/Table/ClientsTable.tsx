@@ -65,7 +65,7 @@ export function ClientsTable({
         {
             title: 'Nome',
             dataIndex: 'name',
-            minWidth: 300,
+            minWidth: 250,
         },
         {
             title: 'Status',
@@ -85,7 +85,8 @@ export function ClientsTable({
         {
             title: 'Telefone',
             dataIndex: 'phone',
-            width: 150
+            width: 150,
+            minWidth: 150,
         },
         {
             title: 'Ações',
