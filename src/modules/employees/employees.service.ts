@@ -5,7 +5,7 @@ export const getEmployees = async (
     page: number | undefined,
     query: string,
 ): Promise<GetEmployees['response']> => {
-    const url = `http://localhost:80/api/employees?page=${page}query=${query}`;
+    const url = `http://localhost:80/api/employees?page=${page}&query=${query}`;
 
     const response = await apiClient<GetEmployees['response']>({ method: 'GET', url });
 
