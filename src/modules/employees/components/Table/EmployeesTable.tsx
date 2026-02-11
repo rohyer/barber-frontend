@@ -5,7 +5,6 @@ import { employeesQueryOptions } from '../../employees.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../../../clients/clients.helper';
 import { EmployeesActions } from './EmployeesActions.';
-import { EmployeesAppointments } from './EmployeesAppointments';
 import { applyMask, getRightMask } from '../../../../shared/utils/mask';
 
 type Props = {
@@ -40,9 +39,7 @@ export function EmployeesTable({
 
     const dataSource = data?.data.employees && data?.data.employees.map(employee => ({
         key: employee.id,
-        status: (
-            <EmployeesAppointments />
-        ),
+        appointments: employee.totalAppointments,
         name: employee.name,
         sex: employee.sex,
         age: calculateAge(employee.birth),
@@ -65,9 +62,9 @@ export function EmployeesTable({
             minWidth: 250,
         },
         {
-            title: 'Status',
-            dataIndex: 'status',
-            minWidth: 150,
+            title: 'Atendimentos',
+            dataIndex: 'appointments',
+            minWidth: 125,
         },
         {
             title: 'Sexo',
