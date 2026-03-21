@@ -6,6 +6,7 @@ import { PublicRoutes } from './PublicRoutes';
 import MainLayout from '../layout/MainLayout';
 import { ClientsPage } from '../modules/clients/pages/ClientsPage';
 import { EmployeesPage } from '../modules/employees/pages/Employees.page';
+import { OfferingsPage } from '../modules/offerings/pages/Offerings.page';
 
 export function AppRoutes() {
     return (
@@ -21,7 +22,7 @@ export function AppRoutes() {
                         <Route path='/atendimentos' />
                         <Route path='/clientes' element={<ClientsPage />} />
                         <Route path='/colaboradores' element={<EmployeesPage />} />
-                        <Route path='/servicos' />
+                        <Route path='/servicos' element={<OfferingsPage />} />
                         <Route path='/estatisticas' />
                     </Route>
                 </Route>
