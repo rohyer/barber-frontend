@@ -12,6 +12,5 @@ type Response<T> = {
 export type GetOfferings = {
     response: Response<{
         offerings: OfferingModel[],
-        total: number
     }>
 }
