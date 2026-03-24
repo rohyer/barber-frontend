@@ -14,3 +14,8 @@ export type GetOfferings = {
         offerings: OfferingModel[],
     }>
 }
+
+export type CreateOffering = {
+    payload: OfferingPayload,
+    response: Response<OfferingModel>,
+}
