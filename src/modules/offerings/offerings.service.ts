@@ -1,10 +1,18 @@
 import { apiClient } from '../../shared/services/api.service';
-import type { CreateOffering, GetOfferings } from './offerings.contract';
+import type { CreateOffering, GetEmployeeOptions, GetOfferings } from './offerings.contract';
 
 export const getOfferings = async (): Promise<GetOfferings['response']> => {
     const url = 'http://localhost:80/api/offerings';
 
     const response = await apiClient<GetOfferings['response']>({ method: 'GET', url });
+
+    return response;
+};
+
+export const getEmployeeOptions = async (): Promise<GetEmployeeOptions['response']> => {
+    const url = 'http://localhost:80/api/employees/options';
+
+    const response = await apiClient<GetEmployeeOptions['response']>({ method: 'GET', url });
 
     return response;
 };
