@@ -31,5 +31,4 @@ export const useCreateOffering = ({ form, onCancel }: UseCreateOffering) => {
             });
         }
     });
-    
 };
