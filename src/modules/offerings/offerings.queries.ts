@@ -1,5 +1,5 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
-import { getOfferings } from './offerings.service';
+import { getEmployeeOptions, getOfferings } from './offerings.service';
 
 export const offeringQueryOptions = () => {
     return queryOptions({
@@ -7,5 +7,14 @@ export const offeringQueryOptions = () => {
         queryFn: () => getOfferings(),
         staleTime: 1000 * 60,
         placeholderData: keepPreviousData
+    });
+};
+
+export const employeeQueryOptions = () => {
+    return queryOptions({
+        queryKey: ['employeesOptions'],
+        queryFn: () => getEmployeeOptions(),
+        staleTime: 1000 * 60,
+        placeholderData: keepPreviousData,
     });
 };
