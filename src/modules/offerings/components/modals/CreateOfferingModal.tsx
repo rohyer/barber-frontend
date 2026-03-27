@@ -9,6 +9,8 @@ type Props = {
     onCancel: () => void,
 }
 
+const RULES = [{ required: true, message: 'Campo de preenchimento obrigatório' }];
+
 export function CreateOfferingModal({ isOpen, onCancel }: Props) {
     const [form] = Form.useForm();
 
@@ -46,7 +48,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                 <Form.Item
                     name='name'
                     label='Nome'
-                    rules={[{ required: true, message: 'Preencha o campo nome' }]}
+                    rules={RULES}
                 >
                     <Input />
                 </Form.Item>
@@ -55,7 +57,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                     <Form.Item
                         name='value'
                         label='Valor'
-                        rules={[{ required: true, message: 'Preencha o campo valor' }]}
+                        rules={RULES}
                         style={{ width: '50%' }}
                     >
                         <InputNumber controls={false} style={{ width: '100%' }} />
@@ -64,7 +66,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                     <Form.Item
                         name='duration'
                         label='Duração'
-                        rules={[{ required: true, message: 'Preencha o campo duração' }]}
+                        rules={RULES}
                         style={{ width: '50%' }}
                     >
                         <InputNumber controls={false} style={{ width: '100%' }} />
@@ -74,6 +76,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                 <Form.Item
                     name='employees'
                     label='Colaboradores'
+                    rules={RULES}
                     style={{ width: '100%' }}
                 >
                     <Select
@@ -83,7 +86,6 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                         allowClear
                     />
                 </Form.Item>
-                
             </Form>
         </Modal>
     );
