@@ -74,7 +74,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                 </Flex>
 
                 <Form.Item
-                    name='employees'
+                    name='idEmployees'
                     label='Colaboradores'
                     rules={RULES}
                     style={{ width: '100%' }}
