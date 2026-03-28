@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { offeringQueryOptions } from '../offerings.queries';
-import { Col, Flex, Row, Space } from 'antd';
+import { Col, Row } from 'antd';
 import { Fragment, useState } from 'react';
 import { OfferingCard } from '../components/OfferingCard';
 import { OfferingHeader } from '../components/OfferingHeader';
