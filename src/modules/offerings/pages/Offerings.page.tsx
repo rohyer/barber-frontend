@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { offeringQueryOptions } from '../offerings.queries';
-import { Flex, Space } from 'antd';
+import { Col, Flex, Row, Space } from 'antd';
 import { Fragment, useState } from 'react';
 import { OfferingCard } from '../components/OfferingCard';
 import { OfferingHeader } from '../components/OfferingHeader';
@@ -13,21 +13,21 @@ export function OfferingsPage() {
     const [isCreteModalOpen, setIsCreateModalOpen] = useState(false);
 
     const cards = data?.data.offerings.map(offering => (
-        <OfferingCard
-            offering={offering}
-            isPending={isPending}
-        />
+        <Col xs={24} md={12} lg={8} xl={6} xxl={4}>
+            <OfferingCard
+                offering={offering}
+                isPending={isPending}
+            />
+        </Col>
     ));
 
     return (
         <Fragment>
             <OfferingHeader setIsCreateModalOpen={setIsCreateModalOpen} />
             
-            <Flex>
-                <Space>
-                    {cards}
-                </Space>
-            </Flex>
+            <Row gutter={[16, 16]}>
+                {cards}
+            </Row>
 
             <Show when={isCreteModalOpen}>
                 <CreateOfferingModal
