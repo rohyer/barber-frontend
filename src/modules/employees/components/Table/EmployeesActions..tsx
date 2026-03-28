@@ -41,12 +41,13 @@ export function EmployeesActions({
                 <Button 
                     shape='circle'
                     type='text'
+                    danger
                     onClick={() => {
                         setIsDeleteModalOpen(true);
                         setDeleteEmployeeModal(employee);
                     }}
                 >
-                    <DeleteFilled style={{ color: token.colorError }} />
+                    <DeleteFilled />
                 </Button>
             </Tooltip>
         </Space>
