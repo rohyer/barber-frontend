@@ -1,4 +1,4 @@
-import { Flex, Form, Input, InputNumber, Modal, Select, type SelectProps } from 'antd';
+import { Flex, Form, Input, InputNumber, Modal, Select, Spin, type SelectProps } from 'antd';
 import { useCreateOffering } from '../../useOfferings';
 import type { OfferingPayload } from '../../offerings.contract';
 import { useQuery } from '@tanstack/react-query';
@@ -83,6 +83,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                         mode='multiple'
                         options={options}
                         loading={isSelectPending}
+                        notFoundContent={isSelectPending ? <Spin /> : null}
                         allowClear
                     />
                 </Form.Item>
