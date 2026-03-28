@@ -1,5 +1,5 @@
-import { ClockCircleOutlined, DollarOutlined } from '@ant-design/icons';
-import { Avatar, Card, Flex, Space, Tooltip, Typography } from 'antd';
+import { ClockCircleOutlined, DeleteFilled, DollarOutlined, EditFilled } from '@ant-design/icons';
+import { Avatar, Button, Card, Flex, Space, theme, Tooltip, Typography } from 'antd';
 import type { OfferingModel } from '../offerings.type';
 
 type Props = {
@@ -8,13 +8,19 @@ type Props = {
 }
 
 export function OfferingCard({ offering, isPending }: Props) {
+    const { token } = theme.useToken();
+
     return (
         <Card
             loading={isPending}
-            title={offering.name}
-            hoverable
+            actions={[
+                <Button type='text' shape='circle'><EditFilled style={{ color: token.colorPrimary }} /></Button>,
+                <Button type='text' shape='circle' danger><DeleteFilled /></Button>
+            ]}
         >
-            <Flex gap={16} vertical>
+            <Flex gap={8} vertical>
+                <Typography.Title level={5}>{offering.name}</Typography.Title>
+
                 <Space direction='vertical'>
                     <Space>
                         <DollarOutlined />
@@ -28,7 +34,7 @@ export function OfferingCard({ offering, isPending }: Props) {
                 </Space>
 
                 <Space direction='vertical'>
-                    <Typography.Text type='secondary'>Colaboradores disponíveis</Typography.Text>
+                    <Typography.Text type='secondary'>Profissionais disponíveis</Typography.Text>
 
                     <Avatar.Group max={{ count: 3 }}>
                         {offering.employees.map(employee => (
