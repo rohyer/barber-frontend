@@ -30,3 +30,8 @@ export type CreateOffering = {
     payload: OfferingPayload,
     response: Response<OfferingModel>,
 }
+
+export type DeleteOffering = {
+    offeringId: OfferingModel['id'],
+    response: Response<OfferingModel['id']>
+}
