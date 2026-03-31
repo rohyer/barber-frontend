@@ -5,19 +5,52 @@ import type { OfferingModel } from '../offerings.type';
 type Props = {
     offering: OfferingModel,
     isPending: boolean,
+    setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setDeleteOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
+    setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setEditOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
 }
 
-export function OfferingCard({ offering, isPending }: Props) {
+export function OfferingCard({
+    offering,
+    isPending,
+    setIsDeleteModalOpen,
+    setDeleteOfferingSelected: setDeleteOffering,
+    setIsEditModalOpen,
+    setEditOfferingSelected: setEditOffering,
+}: Props) {
     const { token } = theme.useToken();
 
-    return (
-        <Card
-            loading={isPending}
-            actions={[
-                <Button type='text' shape='circle'><EditFilled style={{ color: token.colorPrimary }} /></Button>,
-                <Button type='text' shape='circle' danger><DeleteFilled /></Button>
-            ]}
+    const handleDeleteClick = () => {
+        setDeleteOffering(offering);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleEditClick = () => {
+        setEditOffering(offering);
+        setIsEditModalOpen(true);
+    };
+
+    const actions = [
+        <Button
+            type='text'
+            shape='circle'
+            onClick={handleEditClick}
         >
+            <EditFilled style={{ color: token.colorPrimary }} />
+        </Button>,
+        <Button
+            type='text'
+            shape='circle'
+            onClick={handleDeleteClick}
+            danger
+        >
+            <DeleteFilled />
+        </Button>
+    ];
+
+    return (
+        <Card loading={isPending} actions={actions}>
             <Flex gap={8} vertical>
                 <Typography.Title level={5}>{offering.name}</Typography.Title>
 
