@@ -63,7 +63,9 @@ export function DeleteClientModal({
             cancelButtonProps={{ disabled: isPending }}
             destroyOnHidden
         >
-            <Typography.Paragraph>Deseja mesmo deletar o cliente {deleteClientModal?.name}?</Typography.Paragraph>
+            <Typography.Paragraph>
+                Deseja mesmo deletar o cliente {deleteClientModal?.name}?
+            </Typography.Paragraph>
         </Modal>
     );
 }
