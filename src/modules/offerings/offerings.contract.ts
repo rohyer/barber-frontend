@@ -35,3 +35,9 @@ export type DeleteOffering = {
     offeringId: OfferingModel['id'],
     response: Response<OfferingModel['id']>
 }
+
+export type UpdateOffering = {
+    offeringId: OfferingModel['id'],
+    payload: OfferingPayload,
+    response: Response<OfferingModel>,
+}
