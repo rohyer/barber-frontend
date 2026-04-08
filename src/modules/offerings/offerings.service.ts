@@ -1,5 +1,5 @@
 import { apiClient } from '../../shared/services/api.service';
-import type { CreateOffering, DeleteOffering, GetEmployeeOptions, GetOfferings } from './offerings.contract';
+import type { CreateOffering, DeleteOffering, GetEmployeeOptions, GetOfferings, UpdateOffering } from './offerings.contract';
 
 export const getOfferings = async (): Promise<GetOfferings['response']> => {
     const url = 'http://localhost:80/api/offerings';
@@ -33,6 +33,16 @@ export const deleteOffering = async (
     const url = `http://localhost:80/api/offerings/${offeringId}`;
 
     const response = await apiClient<DeleteOffering['response']>({ method: 'DELETE', url });
+
+    return response;
+};
+
+export const updateOffering = async (
+    payload: UpdateOffering['payload']
+): Promise<UpdateOffering['response']> => {
+    const url = 'http://localhost:80/api/offerings';
+
+    const response = await apiClient<UpdateOffering['response'], UpdateOffering['payload']>({ method: 'PUT', url, payload });
 
     return response;
 };
