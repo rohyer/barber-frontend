@@ -1,5 +1,5 @@
 import { Flex, Form, Input, InputNumber, Modal, Select, Spin, type SelectProps } from 'antd';
-import { useCreateOffering } from '../../useOfferings';
+import { useOfferingMutations } from '../../useOfferings';
 import type { OfferingPayload } from '../../offerings.contract';
 import { useQuery } from '@tanstack/react-query';
 import { employeeQueryOptions } from '../../offerings.queries';
@@ -16,15 +16,20 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
 
     const { data, isPending: isSelectPending } = useQuery(employeeQueryOptions());
 
-    const { mutateAsync, isPending } = useCreateOffering({ form, onCancel });
+    const { mutateCreate, isCreatePending } = useOfferingMutations();
 
     const options: SelectProps['options'] = data?.data.employees.map(employee => ({
         value: employee.id,
-        label: employee.name
+        label: employee.name,
     }));
 
     const handleFinish = async (values: OfferingPayload) => {
-        await mutateAsync(values);
+        mutateCreate(values, {
+            onSuccess: () => {
+                form.resetFields();
+                onCancel();
+            }
+        });
     };
 
     return (
@@ -33,10 +38,10 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
             open={isOpen}
             okText="Cadastrar"
             onOk={() => form.submit()}
-            okButtonProps={{ loading: isPending }}
+            okButtonProps={{ loading: isCreatePending }}
             cancelText="Voltar"
             onCancel={onCancel}
-            cancelButtonProps={{ disabled: isPending }}
+            cancelButtonProps={{ disabled: isCreatePending }}
             destroyOnHidden
         >
             <Form

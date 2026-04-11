@@ -1,8 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Modal, Typography } from 'antd';
 import type { OfferingModel } from '../../offerings.type';
-import { deleteOffering } from '../../offerings.service';
-import { notify } from '../../../../shared/utils/notify';
+import { useOfferingMutations } from '../../useOfferings';
 
 type Props = {
     isOpen: boolean,
@@ -17,48 +15,26 @@ export function DeleteOfferingModal({
     setDeleteOfferingSelected,
     setIsDeleteModalOpen,
 }: Props) {
-    const queryClient = useQueryClient();
-
-    const { mutateAsync, isPending } = useMutation({
-        mutationFn: (offeringId: OfferingModel['id']) => deleteOffering(offeringId),
-        onSuccess: (response) => {
-            queryClient.invalidateQueries({ queryKey: ['offerings'], exact: false });
-
-            notify({ message: response.message });
-
-            handleCancel();
-        },
-        onError: (error) => {
-            notify({
-                message: 'Erro ao deletar serviço',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        }
-    });
-
     const handleCancel = () => {
         setIsDeleteModalOpen(false);
         setDeleteOfferingSelected(null);
     };
 
-    const handleOk = async () => {
-        await mutateAsync(deleteOfferingSelected.id);
-    };
+    const { mutateDelete, isDeletePending } = useOfferingMutations();
 
     return (
         <Modal
             title="Deletar serviço"
             open={isOpen}
             okText="Sim"
-            onOk={handleOk}
+            onOk={() => mutateDelete(deleteOfferingSelected.id)}
             okButtonProps={{
                 danger: true,
-                loading: isPending,
+                loading: isDeletePending,
             }}
             cancelText="Não"
             onCancel={handleCancel}
-            cancelButtonProps={{ disabled: isPending }}
+            cancelButtonProps={{ disabled: isDeletePending }}
             destroyOnHidden
         >
             <Typography.Paragraph>

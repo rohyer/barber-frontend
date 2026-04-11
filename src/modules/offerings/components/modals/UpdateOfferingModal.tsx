@@ -1,9 +1,8 @@
 import { Flex, Form, Input, InputNumber, Modal, Select, Spin, type SelectProps } from 'antd';
-import { useUpdateOffering } from '../../useOfferings';
-import type { OfferingPayload } from '../../offerings.contract';
 import { useQuery } from '@tanstack/react-query';
 import { employeeQueryOptions } from '../../offerings.queries';
 import type { OfferingModel } from '../../offerings.type';
+import { useOfferingMutations } from '../../useOfferings';
 
 type Props = {
     isOpen: boolean,
@@ -29,16 +28,12 @@ export function UpdateOfferingModal({
 
     const { data, isPending: isSelectPending } = useQuery(employeeQueryOptions());
 
-    const { mutateAsync, isPending } = useUpdateOffering({ form, onCancel: handleCancel });
+    const { mutateUpdate, isUpdatePending } = useOfferingMutations();
 
     const options: SelectProps['options'] = data?.data.employees.map(employee => ({
         value: employee.id,
         label: employee.name
     }));
-
-    const handleFinish = async (values: OfferingPayload) => {
-        await mutateAsync(values);
-    };
 
     return (
         <Modal
@@ -46,10 +41,10 @@ export function UpdateOfferingModal({
             open={isOpen}
             okText="Editar"
             onOk={() => form.submit()}
-            okButtonProps={{ loading: isPending }}
+            okButtonProps={{ loading: isUpdatePending }}
             cancelText="Voltar"
             onCancel={handleCancel}
-            cancelButtonProps={{ disabled: isPending }}
+            cancelButtonProps={{ disabled: isUpdatePending }}
             destroyOnHidden
         >
             <Form
@@ -57,7 +52,7 @@ export function UpdateOfferingModal({
                 id="updateOfferingForm"
                 layout='vertical'
                 initialValues={{ ...updateOfferingSelected }}
-                onFinish={handleFinish}
+                onFinish={(values) => mutateUpdate(values)}
             >
                 <Form.Item
                     name='name'
