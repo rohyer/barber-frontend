@@ -7,8 +7,8 @@ type Props = {
     isPending: boolean,
     setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
     setDeleteOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
-    setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setEditOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
+    setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setUpdateOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
 }
 
 export function OfferingCard({
@@ -16,8 +16,8 @@ export function OfferingCard({
     isPending,
     setIsDeleteModalOpen,
     setDeleteOfferingSelected: setDeleteOffering,
-    setIsEditModalOpen,
-    setEditOfferingSelected: setEditOffering,
+    setIsUpdateModalOpen: setIsEditModalOpen,
+    setUpdateOfferingSelected: setEditOffering,
 }: Props) {
     const { token } = theme.useToken();
 
