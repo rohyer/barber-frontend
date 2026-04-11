@@ -8,6 +8,7 @@ import { Show } from '../../../shared/components/Show';
 import { CreateOfferingModal } from '../components/modals/CreateOfferingModal';
 import type { OfferingModel } from '../offerings.type';
 import { DeleteOfferingModal } from '../components/modals/DeleteOfferingModal';
+import { UpdateOfferingModal } from '../components/modals/UpdateOfferingModal';
 
 export function OfferingsPage() {
     const { data, isPending } = useQuery(offeringQueryOptions());
@@ -17,8 +18,8 @@ export function OfferingsPage() {
     const [deleteOfferingSelected, setDeleteOfferingSelected] = useState<OfferingModel | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const [editOfferingSelected, setEditOfferingSelected] = useState<OfferingModel | null>(null);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [updateOfferingSelected, setUpdateOfferingSelected] = useState<OfferingModel | null>(null);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
     const cards = data?.data.offerings.map(offering => (
         <Col xs={24} md={12} lg={8} xl={6} xxl={4}>
@@ -27,8 +28,8 @@ export function OfferingsPage() {
                 isPending={isPending}
                 setIsDeleteModalOpen={setIsDeleteModalOpen}
                 setDeleteOfferingSelected={setDeleteOfferingSelected}
-                setIsEditModalOpen={setIsEditModalOpen}
-                setEditOfferingSelected={setEditOfferingSelected}
+                setIsUpdateModalOpen={setIsUpdateModalOpen}
+                setUpdateOfferingSelected={setUpdateOfferingSelected}
             />
         </Col>
     ));
@@ -54,6 +55,15 @@ export function OfferingsPage() {
                     deleteOfferingSelected={deleteOfferingSelected!}
                     setDeleteOfferingSelected={setDeleteOfferingSelected}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
+                />
+            </Show>
+
+            <Show when={isUpdateModalOpen && updateOfferingSelected !== null}>
+                <UpdateOfferingModal
+                    isOpen={isUpdateModalOpen}
+                    updateOfferingSelected={updateOfferingSelected!}
+                    setUpdateOfferingSelected={setUpdateOfferingSelected}
+                    setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
             </Show>
         </Fragment>
