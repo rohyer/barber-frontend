@@ -1,58 +1,56 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { notify } from '../../shared/utils/notify';
-import type { FormInstance } from 'antd';
-import { createOffering, updateOffering } from './offerings.service';
+import { createOffering, deleteOffering, updateOffering } from './offerings.service';
 import type { CreateOffering } from './offerings.contract';
+import type { OfferingModel } from './offerings.type';
 
-type UseCreateOffering = {
-    form: FormInstance,
-    onCancel: () => void,
-}
-
-export const useCreateOffering = ({ form, onCancel }: UseCreateOffering) => {
+export const useOfferingMutations = () => {
     const queryClient = useQueryClient();
 
-    return useMutation({
+    const handleError = (message: string, error: unknown) => (
+        notify({
+            message,
+            description: error instanceof Error ? error.message : 'Erro desconhecido.',
+            type: 'error',
+        })
+    );
+
+    const { mutate: mutateCreate, isPending: isCreatePending } =  useMutation({
         mutationFn: (payload: CreateOffering['payload']) => createOffering(payload),
         onSuccess: (response) => {
             notify({ message: response.message });
 
             queryClient.invalidateQueries({ queryKey: ['offerings'], exact: false });
-
-            onCancel();
-
-            form.resetFields();
         },
-        onError: (error) => {
-            notify({
-                message: 'Erro ao cadastrar serviço',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        }
+        onError: (error) => handleError('Erro ao cadastrar serviço', error)
     });
-};
 
-export const useUpdateOffering = ({ form, onCancel }: UseCreateOffering) => {
-    const queryClient = useQueryClient();
-
-    return useMutation({
+    const { mutate: mutateUpdate, isPending: isUpdatePending } = useMutation({
         mutationFn: (payload: CreateOffering['payload']) => updateOffering(payload),
         onSuccess: (response) => {
             notify({ message: response.message });
 
             queryClient.invalidateQueries({ queryKey: ['offerings'], exact: false });
-
-            onCancel();
-
-            form.resetFields();
         },
-        onError: (error) => {
-            notify({
-                message: 'Erro ao atualizar serviço',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        }
+        onError: (error) => handleError('Erro ao atualizar serviço', error)
     });
+
+    const { mutate: mutateDelete, isPending: isDeletePending } = useMutation({
+        mutationFn: (offeringId: OfferingModel['id']) => deleteOffering(offeringId),
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['offerings'], exact: false });
+    
+            notify({ message: response.message });    
+        },
+        onError: (error) => handleError('Erro ao deletar serviço', error)
+    });
+
+    return {
+        mutateCreate,
+        isCreatePending,
+        mutateUpdate,
+        isUpdatePending,
+        mutateDelete,
+        isDeletePending
+    };
 };
