@@ -6,7 +6,7 @@ import { PublicRoutes } from './PublicRoutes';
 import MainLayout from '../layout/MainLayout';
 import { ClientsPage } from '../modules/clients/pages/ClientsPage';
 import { EmployeesPage } from '../modules/employees/pages/Employees.page';
-import { OfferingsPage } from '../modules/offerings/pages/Offerings.page';
+import { OfferingsPage } from '../modules/offerings';
 
 export function AppRoutes() {
     return (
