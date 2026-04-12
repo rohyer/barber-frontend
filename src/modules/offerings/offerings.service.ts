@@ -38,9 +38,10 @@ export const deleteOffering = async (
 };
 
 export const updateOffering = async (
+    offeringId: UpdateOffering['offeringId'],
     payload: UpdateOffering['payload']
 ): Promise<UpdateOffering['response']> => {
-    const url = 'http://localhost:80/api/offerings';
+    const url = `http://localhost:80/api/offerings/${offeringId}`;
 
     const response = await apiClient<UpdateOffering['response'], UpdateOffering['payload']>({ method: 'PUT', url, payload });
 
