@@ -1,6 +1,6 @@
 import type { OFFERING_FORM_NAMES } from './offerings.constant';
 
-type Employees = {
+export type Employee = {
     id: number;
     name: string;
 }
@@ -10,7 +10,7 @@ export type OfferingModel = {
     name: string,
     value: number,
     duration: number,
-    employees: Employees[],
+    employees: Employee[],
 }
 
 export type OfferingFormValues = {

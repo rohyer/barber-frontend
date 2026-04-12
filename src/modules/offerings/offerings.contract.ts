@@ -1,11 +1,4 @@
-import type { OfferingFormValues, OfferingModel } from './offerings.type';
-
-export type OfferingPayload = OfferingFormValues;
-
-type EmployeeOptions = {
-    id: number,
-    name: string,
-}
+import type { Employee, OfferingFormValues, OfferingModel } from './offerings.type';
 
 type Response<T> = {
     success: boolean,
@@ -22,12 +15,12 @@ export type GetOfferings = {
 
 export type GetEmployeeOptions = {
     response: Response<{
-        employees: EmployeeOptions[]
+        employees: Employee[]
     }>
 }
 
 export type CreateOffering = {
-    payload: OfferingPayload,
+    payload: OfferingFormValues,
     response: Response<OfferingModel>,
 }
 
@@ -38,6 +31,6 @@ export type DeleteOffering = {
 
 export type UpdateOffering = {
     offeringId: OfferingModel['id'],
-    payload: OfferingPayload,
+    payload: OfferingFormValues,
     response: Response<OfferingModel>,
 }
