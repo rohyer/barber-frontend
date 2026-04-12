@@ -1,6 +1,6 @@
-import type { OfferingModel } from './offerings.type';
+import type { OfferingFormValues, OfferingModel } from './offerings.type';
 
-export type OfferingPayload = Pick<OfferingModel, 'name' | 'value' | 'duration'>;
+export type OfferingPayload = OfferingFormValues;
 
 type EmployeeOptions = {
     id: number,
