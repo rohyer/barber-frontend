@@ -1,8 +1,9 @@
 import { Flex, Form, Input, InputNumber, Modal, Select, Spin, type SelectProps } from 'antd';
-import { useOfferingMutations } from '../../useOfferings';
-import type { OfferingPayload } from '../../offerings.contract';
+import { useOfferingMutations } from '../../hooks/useOfferings';
 import { useQuery } from '@tanstack/react-query';
 import { employeeQueryOptions } from '../../offerings.queries';
+import type { OfferingFormValues } from '../../offerings.type';
+import { OFFERING_FORM_NAMES } from '../../offerings.constant';
 
 type Props = {
     isOpen: boolean,
@@ -12,7 +13,7 @@ type Props = {
 const RULES = [{ required: true, message: 'Campo de preenchimento obrigatório' }];
 
 export function CreateOfferingModal({ isOpen, onCancel }: Props) {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm<OfferingFormValues>();    
 
     const { data, isPending: isSelectPending } = useQuery(employeeQueryOptions());
 
@@ -23,7 +24,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
         label: employee.name,
     }));
 
-    const handleFinish = async (values: OfferingPayload) => {
+    const handleFinish = async (values: OfferingFormValues) => {
         mutateCreate(values, {
             onSuccess: () => {
                 form.resetFields();
@@ -51,7 +52,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                 onFinish={handleFinish}
             >
                 <Form.Item
-                    name='name'
+                    name={OFFERING_FORM_NAMES.NAME}
                     label='Nome'
                     rules={RULES}
                 >
@@ -60,7 +61,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
 
                 <Flex justify='space-between' gap='small'>
                     <Form.Item
-                        name='value'
+                        name={OFFERING_FORM_NAMES.VALUE}
                         label='Valor'
                         rules={RULES}
                         style={{ width: '50%' }}
@@ -69,7 +70,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        name='duration'
+                        name={OFFERING_FORM_NAMES.DURATION}
                         label='Duração'
                         rules={RULES}
                         style={{ width: '50%' }}
@@ -79,7 +80,7 @@ export function CreateOfferingModal({ isOpen, onCancel }: Props) {
                 </Flex>
 
                 <Form.Item
-                    name='idEmployees'
+                    name={OFFERING_FORM_NAMES.EMPLOYEE_IDS}
                     label='Colaboradores'
                     rules={RULES}
                     style={{ width: '100%' }}
