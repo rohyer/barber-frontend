@@ -1,6 +1,6 @@
 import { Modal, Typography } from 'antd';
 import type { OfferingModel } from '../../offerings.type';
-import { useOfferingMutations } from '../../useOfferings';
+import { useOfferingMutations } from '../../hooks/useOfferings';
 
 type Props = {
     isOpen: boolean,
