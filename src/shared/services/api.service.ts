@@ -21,6 +21,7 @@ export const apiClient = async<TResponse, TPayload = void>(
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: option.payload ? JSON.stringify(option.payload) : undefined,
         });
 
