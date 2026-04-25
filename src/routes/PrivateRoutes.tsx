@@ -4,7 +4,7 @@ import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 export function PrivateRoutes() {
-    const { isLoggedIn, isLoading } = useAuth();
+    const { user, isLoading } = useAuth();
 
     if (isLoading) 
         return (
@@ -13,7 +13,7 @@ export function PrivateRoutes() {
             </Flex>
         );
 
-    if (!isLoggedIn)
+    if (!user)
         return <Navigate to='/login' />;
 
     return <Outlet />;
