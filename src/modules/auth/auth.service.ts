@@ -1,7 +1,7 @@
 import type { LoginUser, RegisterUser } from './auth.contract';
 
 export const registerUser = async(body: RegisterUser['body']) => {
-    const url = 'http://localhost:80/api/users/register';
+    const url = 'http://localhost:80/api/auth/register';
 
     try {
         const response = await fetch(url, {
@@ -31,7 +31,7 @@ export const registerUser = async(body: RegisterUser['body']) => {
 };
 
 export const loginUser = async(body: LoginUser['body']) => {
-    const url = 'http://localhost:80/api/users/login';
+    const url = 'http://localhost:80/api/auth/login';
 
     try {
         const response = await fetch(url, {
