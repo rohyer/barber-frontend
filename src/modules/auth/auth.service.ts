@@ -1,61 +1,31 @@
+import { apiClient } from '../../shared/services/api.service';
 import type { LoginUser, RegisterUser } from './auth.contract';
 
-export const registerUser = async(body: RegisterUser['body']) => {
+export const registerUser = (body: RegisterUser['body']) => {
     const url = 'http://localhost:80/api/auth/register';
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        });
-    
-        if (!response.ok) {
-            if (response.status >= 500) 
-                throw new Error(`Erro do servidor: ${response.status}`);
+    const response = apiClient<RegisterUser['response'], RegisterUser['body']>({
+        url, method: 'POST', payload: body
+    });
 
-            if (response.status >= 400)
-                throw new Error(`Erro do cliente: ${response.status}`);
-        }
-    
-        const data = await response.json();
-
-        return data;
-    } catch(error) {
-        console.error('error: ', error);
-
-        throw error;
-    }
+    return response;
 };
 
-export const loginUser = async(body: LoginUser['body']) => {
+export const loginUser = (body: LoginUser['body']) => {
     const url = 'http://localhost:80/api/auth/login';
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        });
+    const response = apiClient<LoginUser['response'], LoginUser['body']>(
+        { url, method: 'POST', payload: body }
+    );
 
-        if (!response.ok) {
-            if (response.status >= 500) 
-                throw new Error(`Erro do servidor: ${response.status}`);
+    return response;
+    
+};
 
-            if (response.status >= 400)
-                throw new Error(`Erro do cliente: ${response.status}`);
-        }
+export const getMe = () => {
+    const url = 'http://localhost:80/api/auth/me';
 
-        const data = await response.json();
+    const response = apiClient<LoginUser['response']>({ url, method: 'GET' });
 
-        return data;
-    } catch(error) {
-        console.error('error: ', error);
-
-        throw error;
-    }
+    return response;
 };
