@@ -2,9 +2,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../modules/auth/hooks/useAuth';
 
 export function PublicRoutes() {
-    const { isLoggedIn } = useAuth();
+    const { user } = useAuth();
 
-    if (isLoggedIn)
+    if (user !== null)
         return <Navigate to="/" />;
 
     return <Outlet />;
