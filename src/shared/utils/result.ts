@@ -4,7 +4,7 @@ type Ok<T> = {
     error: null,
 }
 
-type Error = {
+export type ApiError = {
     message: string,
     status?: number,
 }
@@ -12,7 +12,7 @@ type Error = {
 type Fail = {
     success: false,
     data: null,
-    error: Error,
+    error: ApiError,
 }
 
 export type Result<T> = Ok<T> | Fail
