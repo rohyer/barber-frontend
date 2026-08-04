@@ -1,60 +1,37 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { AuthContext } from './AuthContext';
 import type { Credentials, User } from '../auth.type';
-import { loginUser } from '../auth.service';
+import { getMe, loginUser } from '../auth.service';
 
 type Props = {
     children: ReactNode
 };
 
-const AUTH_TOKEN_STORAGE_KEY = 'authToken';
-
 const USER_STORAGE_KEY = 'user';
 
 export function AuthProvider({ children }: Props) {
-    const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
+    const [user, setUser] = useState<User | undefined>(undefined);
+
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(() => {
-        try {
-            const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-            const storedToken = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
+        const fetchMe = async() => {
+            setIsLoading(true);
 
-            if (!storedUser || !storedToken) {
-                setIsLoading(false);
-                return;
-            }
+            const response = await getMe();
 
-            const parsedUser = JSON.parse(storedUser);
+            const { data } = response;
 
-            if (typeof parsedUser !== 'object') {
-                setIsLoading(false);
-                return;
-            }
-            
-            // TODO: ainda preciso verificar se é do tipo User
-            setUser(parsedUser);
-            setToken(storedToken);
-        } catch(error) {
-            console.error('Failed to load or parse auth data from localStorage: ', error);
+            setUser(data?.data);
 
-            localStorage.removeItem(USER_STORAGE_KEY);
-            localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
-
-            setUser(null);
-            setToken(null);
-        } finally {
             setIsLoading(false);
-        }
+        };
+        
+        fetchMe();
     }, []);
 
     const logout = useCallback(() => {
-        setUser(null);
-        setToken(null);
-
-        localStorage.removeItem(USER_STORAGE_KEY);
-        localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
+        setUser(undefined);
     }, []);
 
     const login = useCallback(async (credentials: Credentials) => {
@@ -66,25 +43,19 @@ export function AuthProvider({ children }: Props) {
 
         if (!response)  {
             logout();
-                
+
             return false;
         }
 
-        const { token, user } = response.data;
+        const { data } = response;
 
-        setUser(user);
-        setToken(token);
-
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-        localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
-
+        setUser(data?.data);
+        
         return true;
     }, [logout]);
 
     const contextValue = {
         user,
-        token,
-        isLoggedIn: !!token,
         isLoading,
         login,
         logout,

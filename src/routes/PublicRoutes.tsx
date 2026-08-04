@@ -4,7 +4,7 @@ import { useAuth } from '../modules/auth/hooks/useAuth';
 export function PublicRoutes() {
     const { user } = useAuth();
 
-    if (user !== null)
+    if (user !== undefined)
         return <Navigate to="/" />;
 
     return <Outlet />;
