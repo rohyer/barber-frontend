@@ -29,3 +29,11 @@ export const getMe = () => {
 
     return response;
 };
+
+export const logoutUser = () => {
+    const url = 'http://localhost:80/api/auth/logout';
+
+    const response = apiClient({ url, method: 'POST' });
+
+    return response;
+};
