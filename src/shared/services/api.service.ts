@@ -17,10 +17,8 @@ export const apiClient = async<TResponse, TPayload = void>(
             body: option.payload ? JSON.stringify(option.payload) : undefined,
         });
 
-        if (response.status === 401) {
-            window.location.href = '/login';
+        if (response.status === 401) 
             return fail({ message: 'Usuário não autorizado', status: response.status });
-        }
 
         if (response.status >= 500) 
             return fail({ message: 'Ocorreu um erro no servidor', status: response.status });
