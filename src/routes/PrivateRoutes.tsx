@@ -13,7 +13,7 @@ export function PrivateRoutes() {
             </Flex>
         );
 
-    if (!user)
+    if (user === undefined)
         return <Navigate to='/login' />;
 
     return <Outlet />;

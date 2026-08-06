@@ -1,41 +1,39 @@
+import { fail, ok, type ApiError, type Result } from '../utils/result';
+
 type ApiClientOptions<T> = {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     url: string,
     payload?: T,
 }
 
-type ApiErrorResponse = {
-    error?: string,
-    message?: string,
-}
-
 export const apiClient = async<TResponse, TPayload = void>(
     option: ApiClientOptions<TPayload>
-): Promise<TResponse> => {
+): Promise<Result<TResponse>> => {
     try {
-        const token = localStorage.getItem('authToken');
-
         const response = await fetch(option.url, {
             method: option.method,
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: option.payload ? JSON.stringify(option.payload) : undefined,
         });
 
-        const data: TResponse | ApiErrorResponse = await response.json();
+        if (response.status === 401) 
+            return fail({ message: 'Usuário não autorizado', status: response.status });
 
+        if (response.status >= 500) 
+            return fail({ message: 'Ocorreu um erro no servidor', status: response.status });
+        
         if (!response.ok) {
-            const message = (data as ApiErrorResponse).message || `Erro na requisição ${response.status}`;
+            const errorData: ApiError | null = await response.json().catch(() => null);
+            const message = errorData?.message || `Erro na requisição ${response.status}`;
 
-            throw new Error(message);
+            return fail({ message: message, status: response.status });
         }
-
-        return data as TResponse;
+        
+        const data: TResponse = await response.json();
+        
+        return ok(data);
     } catch(error) {
-        console.error('Erro na API', error);
-        throw error;
+        return fail({ message: 'Erro de rede' });
     }
 };

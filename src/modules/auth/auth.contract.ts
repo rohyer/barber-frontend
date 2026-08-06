@@ -1,3 +1,12 @@
+import type { User } from './auth.type';
+
+type Response<T> = {
+    success: boolean,
+    message: string,
+    fromCache: boolean,
+    data: T,
+}
+
 type Body = {
     name: string,
     email: string,
@@ -8,18 +17,18 @@ type Body = {
     phone: string,
 }
 
-// type Data = {};
-
 export type RegisterUser = {
     body: Body,
-    // response: Response,
-}
-
-type Body2 = {
-    email: string,
-    password: string,
+    response: Response<Pick<Body,
+        | 'name'
+        | 'email'
+        | 'state'
+        | 'city'
+        | 'phone'
+    >>,
 }
 
 export type LoginUser = {
-    body: Body2
+    body: Pick<Body, 'email' | 'password'>
+    response: Response<User>
 }

@@ -10,6 +10,7 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../modules/auth/hooks/useAuth';
 
 const { Header: HeaderAntD } = Layout;
 
@@ -18,6 +19,8 @@ export function Header({
     setCollapsed,
 }: { collapsed: boolean, setCollapsed: React.Dispatch<React.SetStateAction<boolean>>}) {
     const { token } = theme.useToken();
+
+    const { logout } = useAuth();
 
     const content = (
         <Menu style={{ borderInlineEnd: 'none' }}>
@@ -35,8 +38,8 @@ export function Header({
 
             <Divider style={{ margin: '0' }} />
 
-            <Menu.Item key={4} icon={<LogoutOutlined />}>
-                <Link to="/meu-perfil">Sair</Link>
+            <Menu.Item key={4} icon={<LogoutOutlined />} onClick={logout}>
+                Sair
             </Menu.Item>
         </Menu>
     );
