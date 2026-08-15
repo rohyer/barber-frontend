@@ -9,8 +9,8 @@ export function AuthRegisterForm() {
 
     const navigate = useNavigate();
 
-    const onFinish = (values: FormValues) => {
-        const response = authRegisterUser(values);
+    const onFinish = async (values: FormValues) => {
+        await authRegisterUser(values);
 
         message.success({
             content: 'Cadastro realizado. Login será feito em instantes!',
