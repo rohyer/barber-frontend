@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { notify } from '../../../../shared/utils/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { UpdateEmployee } from '../../employees.contract';
-import { MaskedInput } from '../../../../design-system';
+import { MaskedInput } from '../../../../shared/ui/MaskedInput';
 import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../../shared/utils/mask';
 
 type MutationFn = {

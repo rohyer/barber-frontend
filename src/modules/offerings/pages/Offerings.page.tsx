@@ -4,7 +4,7 @@ import { Col, Row } from 'antd';
 import { Fragment, useState } from 'react';
 import { OfferingCard } from '../components/OfferingCard';
 import { OfferingHeader } from '../components/OfferingHeader';
-import { Show } from '../../../shared/components/Show';
+import { Show } from '../../../shared/ui/Show';
 import { CreateOfferingModal } from '../components/modals/CreateOfferingModal';
 import type { OfferingModel } from '../offerings.type';
 import { DeleteOfferingModal } from '../components/modals/DeleteOfferingModal';

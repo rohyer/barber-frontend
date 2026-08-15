@@ -4,7 +4,7 @@ import type { ClientModel } from '../clients.type';
 import { CreateClientModal } from '../components/Modals/CreateClientModal';
 import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
 import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
-import { Show } from '../../../shared/components/Show';
+import { Show } from '../../../shared/ui/Show';
 import { ClientsHeader } from '../components/Table/ClientsHeader';
 import { ClientsTable } from '../components/Table/ClientsTable';
 

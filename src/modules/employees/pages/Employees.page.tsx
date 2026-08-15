@@ -4,7 +4,7 @@ import type { EmployeeModel } from '../employees.type';
 import { CreateEmployeeModal } from '../components/Modals/CreateEmployeeModal';
 import { DeleteEmployeeModal } from '../components/Modals/DeleteEmployeeModal';
 import { UpdateEmployeeModal } from '../components/Modals/UpdateEmployeeModal';
-import { Show } from '../../../shared/components/Show';
+import { Show } from '../../../shared/ui/Show';
 import { EmployeesHeader } from '../components/Table/EmployeesHeader';
 import { EmployeesTable } from '../components/Table/EmployeesTable';
 

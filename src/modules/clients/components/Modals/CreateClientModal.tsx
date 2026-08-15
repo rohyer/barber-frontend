@@ -4,7 +4,7 @@ import type { ClientFormValues } from '../../clients.type';
 import { notify } from '../../../../shared/utils/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CreateClient } from '../../clients.contract';
-import { MaskedInput } from '../../../../design-system';
+import { MaskedInput } from '../../../../shared/ui/MaskedInput';
 
 type Props = {
     isOpen: boolean,
