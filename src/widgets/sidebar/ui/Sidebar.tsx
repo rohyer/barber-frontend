@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 import style from './Sidebar.module.css';
-import BarberPrimeLogo from '../../../src/assets/BarberPrimeLogo.png';
+import BarberPrimeLogo from '../../../shared/assets/BarberPrimeLogo.png';
 
 const { Sider } = Layout;
 
