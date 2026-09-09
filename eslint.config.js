@@ -35,7 +35,7 @@ export default tseslint.config([
         'prefer-const': 'warn',
         'curly': ['warn', 'multi'],
         'object-curly-spacing': ['warn', 'always'],
-        'no-unused-vars': 'warn',
+        'no-unused-vars': 'off',
         'no-console': 'warn',
         'eqeqeq': ['warn', 'always'],
         'react-hooks/rules-of-hooks': 'error',
