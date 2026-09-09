@@ -1,4 +1,3 @@
-import type { TagProps } from 'antd';
 import type { Dayjs } from 'dayjs';
 
 export type ClientModel = {
@@ -28,8 +27,4 @@ export type ClientFormValues = Pick<ClientModel,
     | 'address'
 > & { birth: Dayjs }
 
-export type GetClientStatusValues = {
-    title: string,
-    color: TagProps['color'],
-    status: 'Novo' | 'Ativo' | 'Ausente',
-}
+export type ClientStatus = 'new' | 'active' | 'ausent';

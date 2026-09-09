@@ -1,9 +1,7 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
-import { deleteClient } from '../../clients.service';
-import type { ClientModel } from '../../clients.type';
-import { notify } from '../../../../shared/utils/notify';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { ClientModel } from '../../../entities/client/model/client.type';
+import { useDeleteClient } from '../model/useDeleteClient';
 
 type Props = {
     isOpen: boolean,
@@ -18,31 +16,13 @@ export function DeleteClientModal({
     setDeleteClientModal,
     setIsDeleteModalOpen,
 }: Props) {
-    const queryClient = useQueryClient();
-
-    const { mutateAsync, isPending } = useMutation({
-        mutationFn: (clientId: ClientModel['id']) => deleteClient(clientId),
-        onSuccess: (response) => {
-            queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
-
-            notify({ message: response.message });
-
-            handleCancel();
-        },
-        onError: (error) => {
-            notify({
-                message: 'Erro ao deletar cliente',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        },
-    });
 
     const handleCancel = () => {
         setIsDeleteModalOpen(false);
-
         setDeleteClientModal(null);
     };
+
+    const { mutateAsync, isPending } = useDeleteClient({ onCancel: handleCancel });
 
     const handleOk = async () => {
         await mutateAsync(deleteClientModal.id);

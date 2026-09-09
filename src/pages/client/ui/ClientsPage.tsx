@@ -1,17 +1,15 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
-import type { ClientModel } from '../clients.type';
-import { CreateClientModal } from '../components/Modals/CreateClientModal';
-import { DeleteClientModal } from '../components/Modals/DeleteClientModal';
-import { UpdateClientModal } from '../components/Modals/UpdateClientModal';
+import type { ClientModel } from '../../../entities/client/model/client.type';
 import { Show } from '../../../shared/ui/Show';
-import { ClientsHeader } from '../components/Table/ClientsHeader';
-import { ClientsTable } from '../components/Table/ClientsTable';
+import { ClientsTable } from '../../../modules/clients/components/Table/ClientsTable';
+import { ClientFormModal } from '../../../widgets/client-form-modal/ui/ClientFormModal';
+import { ClientHeader } from '../../../widgets/client-header/ui/ClientHeader';
+import { DeleteClientModal } from '../../../features/client-delete/ui/DeleteClientModal';
 
 export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchingQuery, setSearchingQuery] = useState('');
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -24,12 +22,12 @@ export function ClientsPage() {
     return (
         <Fragment>
             <Space direction='vertical' style={{ width: '100%' }}>
-                <ClientsHeader
-                    searchingQuery={searchingQuery}
-                    setSearchingQuery={setSearchingQuery}
-                    setSearchQuery={setSearchQuery}
-                    setCurrentPage={setCurrentPage}
-                    setIsCreateModalOpen={setIsCreateModalOpen}
+                <ClientHeader
+                    onSelectClient={(client?: ClientModel) => {
+                        setCurrentPage(1);
+                        setSearchQuery(client?.name ?? '');
+                    }}
+                    onCreateModalOpen={() => setIsCreateModalOpen(true)}
                 />
 
                 <ClientsTable
@@ -44,18 +42,20 @@ export function ClientsPage() {
             </Space>
 
             <Show when={isCreateModalOpen}>
-                <CreateClientModal
+                <ClientFormModal
                     isOpen={isCreateModalOpen}
-                    onCancel={() => setIsCreateModalOpen(false)}
+                    onClose={() => setIsCreateModalOpen(false) }
                 />
             </Show>
 
             <Show when={isUpdateModalOpen && updateClientModal !== null}>
-                <UpdateClientModal
+                <ClientFormModal
                     isOpen={isUpdateModalOpen}
-                    updateClientModal={updateClientModal!}
-                    setUpdateClientModal={setUpdateClientModal}
-                    setIsUpdateModalOpen={setIsUpdateModalOpen}
+                    onClose={() => {
+                        setIsUpdateModalOpen(false);
+                        setUpdateClientModal?.(null);
+                    }}
+                    clientToEdit={updateClientModal!}
                 />
             </Show>
 

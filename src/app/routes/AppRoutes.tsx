@@ -4,7 +4,7 @@ import { Login } from '../../pages/auth/ui/Login';
 import { PrivateRoutes } from './PrivateRoutes';
 import { PublicRoutes } from './PublicRoutes';
 import MainLayout from '../../widgets/main-layout/ui/MainLayout';
-import { ClientsPage } from '../../modules/clients/pages/ClientsPage';
+import { ClientsPage } from '../../pages/client/ui/ClientsPage';
 import { EmployeesPage } from '../../modules/employees/pages/Employees.page';
 import { OfferingsPage } from '../../modules/offerings';
 

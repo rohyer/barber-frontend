@@ -1,5 +1,5 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
-import { getClients } from './clients.service';
+import { getClients } from '../../../entities/client/api/getClients';
 
 type Props = {
     page: number,
@@ -12,14 +12,5 @@ export const clientsQueryOptions = ({ page, search }: Props) => {
         queryFn: () => getClients(page, search),
         staleTime: 1000 * 60,
         placeholderData: keepPreviousData,
-    });
-};
-
-export const searchClientsQueryOptions = ({ search }: Omit<Props, 'page'>) => {
-    return queryOptions({
-        queryKey: ['search-clients', { search }],
-        queryFn: () => getClients(1, search),
-        staleTime: 1000 * 60,
-        enabled: !!search,
     });
 };

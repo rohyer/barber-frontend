@@ -1,4 +1,4 @@
-import type { ClientModel } from './clients.type';
+import type { ClientModel } from '../model/client.type';
 
 type ClientPayload = Pick<ClientModel,
     | 'name'
