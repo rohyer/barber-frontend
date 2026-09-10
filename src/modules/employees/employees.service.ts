@@ -1,4 +1,4 @@
-import { apiClient } from '../../shared/services/api.service';
+import { apiClient } from '../../shared/api/apiClient';
 import type { CreateEmployee, DeleteEmployee, GetEmployees, UpdateEmployee } from './employees.contract';
 
 export const getEmployees = async (

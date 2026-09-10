@@ -5,7 +5,7 @@ import {
     getRightMask,
     getUnmaskedValue,
     MASK_PHONE_11
-} from '../utils/mask';
+} from '../lib/mask';
 
 type Props = {
     name: string

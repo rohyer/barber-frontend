@@ -2,11 +2,11 @@ import type { EmployeeModel, EmployeeFormValues } from '../../employees.type';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateEmployee } from '../../employees.service';
 import dayjs from 'dayjs';
-import { notify } from '../../../../shared/utils/notify';
+import { notify } from '../../../../shared/lib/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { UpdateEmployee } from '../../employees.contract';
 import { MaskedInput } from '../../../../shared/ui/MaskedInput';
-import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../../shared/utils/mask';
+import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../../shared/lib/mask';
 
 type MutationFn = {
     id: number,

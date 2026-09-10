@@ -1,5 +1,5 @@
 import type { LoginUser } from '../../../modules/auth/auth.contract';
-import { apiClient } from '../../../shared/services/api.service';
+import { apiClient } from '../../../shared/api/apiClient';
 
 export const getMe = () => {
     const url = 'http://localhost:80/api/auth/me';

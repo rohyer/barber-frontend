@@ -1,10 +1,10 @@
 import { DatePicker, Form, Input, Modal, Select, type FormProps } from 'antd';
 import { MaskedInput } from '../../../shared/ui/MaskedInput';
-import type { ClientFormValues, ClientModel } from '../../../entities/client/model/client.type';
+import type { ClientModel } from '../../../entities/client/model/client.type';
 import { useCreateClient } from '../../../features/client-create/model/useCreateClient';
 import { useEditClient } from '../../../features/client-edit/model/useEditClient';
-import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../shared/utils/mask';
-import dayjs from 'dayjs';
+import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '../../../shared/lib/mask';
+import dayjs, { Dayjs } from 'dayjs';
 
 const GENDER_OPTIONS = [
     {
@@ -20,6 +20,13 @@ const GENDER_OPTIONS = [
         value: 'Outro'
     },
 ];
+
+type ClientFormValues = Pick<ClientModel,
+    | 'name'
+    | 'sex'
+    | 'phone'
+    | 'address'
+> & { birth: Dayjs }
 
 type Props = {
     isOpen: boolean,

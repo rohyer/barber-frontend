@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CreateClient } from '../../../entities/client/api/client.contract';
-import { notify } from '../../../shared/utils/notify';
+import { notify } from '../../../shared/lib/notify';
 import { createClient } from '../../../entities/client/api/createClient';
 
 export const useCreateClient = ({ onSuccess }: { onSuccess: () => void }) => {

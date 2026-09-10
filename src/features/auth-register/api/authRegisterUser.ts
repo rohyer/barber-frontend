@@ -1,5 +1,5 @@
 import type { RegisterUser } from '../model/authRegisterUser.type';
-import { apiClient } from '../../../shared/services/api.service';
+import { apiClient } from '../../../shared/api/apiClient';
 
 export const authRegisterUser = (body: RegisterUser['body']) => {
     const url = 'http://localhost:80/api/auth/register';

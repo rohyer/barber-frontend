@@ -1,4 +1,4 @@
-import { apiClient } from '../../../shared/services/api.service';
+import { apiClient } from '../../../shared/api/apiClient';
 import type { LoginUser } from '../model/authLogin.type';
 
 export const authLoginUser = (body: LoginUser['body']) => {

@@ -1,4 +1,4 @@
-import { apiClient } from '../../shared/services/api.service';
+import { apiClient } from '../../shared/api/apiClient';
 import type { CreateOffering, DeleteOffering, GetEmployeeOptions, GetOfferings, UpdateOffering } from './offerings.contract';
 
 export const getOfferings = async (): Promise<GetOfferings['response']> => {

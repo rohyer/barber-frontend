@@ -1,4 +1,4 @@
-import { fail, ok, type ApiError, type Result } from '../utils/result';
+import { fail, ok, type ApiError, type Result } from '../lib/result';
 
 type ApiClientOptions<T> = {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';

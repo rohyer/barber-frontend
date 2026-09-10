@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { notify } from '../../../shared/utils/notify';
+import { notify } from '../../../shared/lib/notify';
 import { createOffering, deleteOffering, updateOffering } from '../offerings.service';
 import type { CreateOffering, UpdateOffering } from '../offerings.contract';
 import type { OfferingModel } from '../offerings.type';

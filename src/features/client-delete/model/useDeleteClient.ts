@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { notify } from '../../../shared/utils/notify';
+import { notify } from '../../../shared/lib/notify';
 import { deleteClient } from '../../../entities/client/api/deleteClient';
 import type { ClientModel } from '../../../entities/client/model/client.type';
 

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateClient } from '../../../modules/clients/clients.service';
-import { notify } from '../../../shared/utils/notify';
+import { notify } from '../../../shared/lib/notify';
 import type { UpdateClient } from '../../../entities/client/api/client.contract';
 
 type MutationFn = {

@@ -1,6 +1,6 @@
 import type { CreateClient } from './client.contract';
-import { apiClient } from '../../../shared/services/api.service';
-import type { Result } from '../../../shared/utils/result';
+import { apiClient } from '../../../shared/api/apiClient';
+import type { Result } from '../../../shared/lib/result';
 
 export const createClient = async (
     payload: CreateClient['payload']

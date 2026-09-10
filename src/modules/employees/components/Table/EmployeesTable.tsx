@@ -5,7 +5,7 @@ import { employeesQueryOptions } from '../../employees.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../../../clients/clients.helper';
 import { EmployeesActions } from './EmployeesActions.';
-import { applyMask, getRightMask } from '../../../../shared/utils/mask';
+import { applyMask, getRightMask } from '../../../../shared/lib/mask';
 
 type Props = {
     searchQuery: string,

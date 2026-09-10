@@ -2,7 +2,7 @@ import { Modal, Typography } from 'antd';
 import React from 'react';
 import { deleteEmployee } from '../../employees.service';
 import type { EmployeeModel } from '../../employees.type';
-import { notify } from '../../../../shared/utils/notify';
+import { notify } from '../../../../shared/lib/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type Props = {
