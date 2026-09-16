@@ -3,7 +3,7 @@ import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd'
 import type { EmployeeModel } from '../../employees.type';
 import { employeesQueryOptions } from '../../employees.queries';
 import { useQuery } from '@tanstack/react-query';
-import { calculateAge } from '../../../clients/clients.helper';
+import { calculateAge } from '../../../../entities/client/lib/calculateAge';
 import { EmployeesActions } from './EmployeesActions.';
 import { applyMask, getRightMask } from '../../../../shared/lib/mask';
 

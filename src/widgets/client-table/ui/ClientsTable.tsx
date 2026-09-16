@@ -1,12 +1,12 @@
 import { type Dispatch, type SetStateAction } from 'react';
 import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
-import type { ClientModel } from '../../clients.type';
-import { clientsQueryOptions } from '../../clients.queries';
+import { type ClientModel } from '../../../entities/client/model/client.type';
+import { clientsQueryOptions } from '../model/clients.queries';
 import { useQuery } from '@tanstack/react-query';
-import { calculateAge } from '../../clients.helper';
+import { calculateAge } from '../../../entities/client/lib/calculateAge';
 import { ClientsActions } from './ClientsActions.';
 import { ClientsStatus } from './ClientsStatus';
-import { applyMask, getRightMask } from '../../../../shared/utils/mask';
+import { applyMask, getRightMask } from '../../../shared/lib/mask';
 
 type Props = {
     searchQuery: string,
@@ -38,7 +38,7 @@ export function ClientsTable({
         setCurrentPage(pagination.current);
     };
 
-    const dataSource = data?.data.clients && data?.data.clients.map(client => ({
+    const dataSource = data?.data?.clients && data?.data.clients.map(client => ({
         key: client.id,
         status: (
             <ClientsStatus
@@ -110,7 +110,7 @@ export function ClientsTable({
             }}
             scroll={{ x: '500' }}
             pagination={{
-                total: data?.data.total,
+                total: data?.data?.total,
                 current: currentPage,
                 showTotal(total) {
                     return `Total de clientes: ${total}`;

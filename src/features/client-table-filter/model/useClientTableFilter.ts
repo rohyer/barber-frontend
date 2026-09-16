@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getClients } from '../../../modules/clients/clients.service';
+import { getClients } from '../../../entities/client/api/getClients';
 import { useCallback, useMemo, useState } from 'react';
 import { debounce } from 'lodash';
 import type { ClientModel } from '../../../entities/client/model/client.type';
@@ -18,7 +18,7 @@ export const useClientTableFilter = ({ onSelectClient }: Params) => {
         enabled: !!searchingQuery,
     });
 
-    const options = data?.data.clients
+    const options = data?.data?.clients
         .map(client => ({ label: client.name, value: client.id })) ?? [];
 
     const onSearch = useCallback(async (value: string) => {
@@ -33,7 +33,7 @@ export const useClientTableFilter = ({ onSelectClient }: Params) => {
     const debouncedOnSearch = useMemo(() => debounce(onSearch, 500), [onSearch]);
 
     const onChange = (value: string) => {
-        const selectedClient = data?.data.clients
+        const selectedClient = data?.data?.clients
             .find(client => client.id === parseInt(value, 10));
         
         onSelectClient(selectedClient);
