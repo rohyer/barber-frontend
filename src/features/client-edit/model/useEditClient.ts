@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateClient } from '../../../modules/clients/clients.service';
 import { notify } from '../../../shared/lib/notify';
 import type { UpdateClient } from '../../../entities/client/api/client.contract';
+import { editClient } from '../../../entities/client/api/editClient';
 
 type MutationFn = {
     id: number,
@@ -12,11 +12,11 @@ export const useEditClient = ({ onSuccess }: { onSuccess: () => void }) => {
     const queryClient = useQueryClient();
 
     const { mutateAsync, isPending } = useMutation({
-        mutationFn: ({ id, payload }: MutationFn) => updateClient(id, payload),
-        onSuccess: (response) => {
+        mutationFn: ({ id, payload }: MutationFn) => editClient(id, payload),
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
 
-            notify({ message: response.message });
+            notify({ message: 'Cliente atualizado com sucesso' });
 
             onSuccess();
         },

@@ -8,16 +8,16 @@ export const useDeleteClient = ({ onCancel }: { onCancel: () => void }) => {
     
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (clientId: ClientModel['id']) => deleteClient(clientId),
-        onSuccess: (response) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
     
-            notify({ message: response.data?.message ?? '' });
+            notify({ message: 'Cliente excluído com sucesso' });
     
             onCancel();
         },
         onError: (error) => {
             notify({
-                message: 'Erro ao deletar cliente',
+                message: 'Erro ao excluir cliente',
                 description: error instanceof Error ? error.message : 'Erro desconhecido.',
                 type: 'error',
             });
