@@ -2,7 +2,7 @@ import { Space } from 'antd';
 import { Fragment, useState } from 'react';
 import type { ClientModel } from '../../../entities/client/model/client.type';
 import { Show } from '../../../shared/ui/Show';
-import { ClientsTable } from '../../../modules/clients/components/Table/ClientsTable';
+import { ClientsTable } from '../../../widgets/client-table/ui/ClientsTable';
 import { ClientFormModal } from '../../../widgets/client-form-modal/ui/ClientFormModal';
 import { ClientHeader } from '../../../widgets/client-header/ui/ClientHeader';
 import { DeleteClientModal } from '../../../features/client-delete/ui/DeleteClientModal';
