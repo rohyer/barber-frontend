@@ -1,6 +1,18 @@
-import type { CreateClient } from './client.contract';
 import { apiClient } from '../../../shared/api/apiClient';
 import type { Result } from '../../../shared/lib/result';
+import type { ClientModel } from '../model/client.type';
+
+type Payload = Pick<ClientModel,
+    | 'name'
+    | 'sex'
+    | 'phone'
+    | 'address'
+    | 'birth'>
+
+export type CreateClient = {
+    payload: Payload,
+    response: ClientModel,
+}
 
 export const createClient = async (
     payload: CreateClient['payload']
