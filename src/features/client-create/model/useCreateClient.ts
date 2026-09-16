@@ -8,8 +8,8 @@ export const useCreateClient = ({ onSuccess }: { onSuccess: () => void }) => {
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: (payload: CreateClient['payload']) => createClient(payload),
-        onSuccess: (response) => {
-            notify({ message: response.data?.message ?? '' });
+        onSuccess: () => {
+            notify({ message: 'Cliente cadastrado com sucesso' });
                 
             queryClient.invalidateQueries({ queryKey: ['clients'], exact: false });
     
