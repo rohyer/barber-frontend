@@ -1,4 +1,4 @@
-import type { EmployeeModel, EmployeeFormValues } from '../../employees.type';
+import type { EmployeeModel, EmployeeFormValues } from '../../../../entities/employee/model/employee.type';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { updateEmployee } from '../../employees.service';
 import dayjs from 'dayjs';

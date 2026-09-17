@@ -1,6 +1,6 @@
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import { createEmployee } from '../../employees.service';
-import type { EmployeeFormValues } from '../../employees.type';
+import type { EmployeeFormValues } from '../../../../entities/employee/model/employee.type';
 import { notify } from '../../../../shared/lib/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CreateEmployee } from '../../employees.contract';

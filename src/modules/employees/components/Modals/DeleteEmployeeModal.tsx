@@ -1,7 +1,7 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
 import { deleteEmployee } from '../../employees.service';
-import type { EmployeeModel } from '../../employees.type';
+import type { EmployeeModel } from '../../../../entities/employee/model/employee.type';
 import { notify } from '../../../../shared/lib/notify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 

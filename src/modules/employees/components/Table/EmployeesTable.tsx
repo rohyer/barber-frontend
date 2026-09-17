@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction } from 'react';
 import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
-import type { EmployeeModel } from '../../employees.type';
+import type { EmployeeModel } from '../../../../entities/employee/model/employee.type';
 import { employeesQueryOptions } from '../../employees.queries';
 import { useQuery } from '@tanstack/react-query';
 import { calculateAge } from '../../../../entities/client/lib/calculateAge';

@@ -1,6 +1,6 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
-import type { EmployeeModel } from '../employees.type';
+import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
 import { CreateEmployeeModal } from '../components/Modals/CreateEmployeeModal';
 import { DeleteEmployeeModal } from '../components/Modals/DeleteEmployeeModal';
 import { UpdateEmployeeModal } from '../components/Modals/UpdateEmployeeModal';
