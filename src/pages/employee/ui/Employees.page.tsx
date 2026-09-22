@@ -1,17 +1,15 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
 import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
-import { CreateEmployeeModal } from '../components/Modals/CreateEmployeeModal';
-import { DeleteEmployeeModal } from '../components/Modals/DeleteEmployeeModal';
-import { UpdateEmployeeModal } from '../components/Modals/UpdateEmployeeModal';
+import { EmployeeFormModal } from '../../../widgets/employee-form-modal/ui/EmployeeFormModal';
+import { DeleteEmployeeModal } from '../../../features/employee-delete/ui/DeleteEmployeeModal';
 import { Show } from '../../../shared/ui/Show';
-import { EmployeesHeader } from '../components/Table/EmployeesHeader';
-import { EmployeesTable } from '../components/Table/EmployeesTable';
+import { EmployeesTable } from '../../../widgets/employee-table/ui/EmployeesTable';
+import { EmployeeHeader } from '../../../widgets/employee-header/ui/EmployeeHeader';
 
 export function EmployeesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchingQuery, setSearchingQuery] = useState('');
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     
@@ -24,12 +22,12 @@ export function EmployeesPage() {
     return (
         <Fragment>
             <Space direction='vertical' style={{ width: '100%' }}>
-                <EmployeesHeader
-                    searchingQuery={searchingQuery}
-                    setSearchingQuery={setSearchingQuery}
-                    setSearchQuery={setSearchQuery}
-                    setCurrentPage={setCurrentPage}
-                    setIsCreateModalOpen={setIsCreateModalOpen}
+                <EmployeeHeader
+                    onSelectEmployee={(employee?: EmployeeModel) => {
+                        setCurrentPage(1);
+                        setSearchQuery(employee?.name ?? '');
+                    }}
+                    onCreateModalOpen={() => setIsCreateModalOpen(true)}
                 />
 
                 <EmployeesTable
@@ -44,18 +42,20 @@ export function EmployeesPage() {
             </Space>
 
             <Show when={isCreateModalOpen}>
-                <CreateEmployeeModal
+                <EmployeeFormModal
                     isOpen={isCreateModalOpen}
-                    onCancel={() => setIsCreateModalOpen(false)}
+                    onClose={() => setIsCreateModalOpen(false) }
                 />
             </Show>
-
+            
             <Show when={isUpdateModalOpen && updateEmployeeModal !== null}>
-                <UpdateEmployeeModal
+                <EmployeeFormModal
                     isOpen={isUpdateModalOpen}
-                    updateEmployeeModal={updateEmployeeModal!}
-                    setUpdateEmployeeModal={setUpdateEmployeeModal}
-                    setIsUpdateModalOpen={setIsUpdateModalOpen}
+                    onClose={() => {
+                        setIsUpdateModalOpen(false);
+                        setUpdateEmployeeModal?.(null);
+                    }}
+                    employeeToEdit={updateEmployeeModal!}
                 />
             </Show>
 

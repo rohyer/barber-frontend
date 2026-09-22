@@ -1,9 +1,7 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
-import { deleteEmployee } from '../../employees.service';
-import type { EmployeeModel } from '../../../../entities/employee/model/employee.type';
-import { notify } from '../../../../shared/lib/notify';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import { useDeleteEmployee } from '../model/useDeleteEmployee';
 
 type Props = {
     isOpen: boolean,
@@ -18,34 +16,18 @@ export function DeleteEmployeeModal({
     setDeleteEmployeeModal,
     setIsDeleteModalOpen,
 }: Props) {
-    const queryClient = useQueryClient();
-
-    const { mutateAsync, isPending } = useMutation({
-        mutationFn: (employeeId: EmployeeModel['id']) => deleteEmployee(employeeId),
-        onSuccess: (response) => {
-            queryClient.invalidateQueries({ queryKey: ['employees'], exact: false });
-
-            notify({ message: response.message });
-
-            handleCancel();
-        },
-        onError: (error) => {
-            notify({
-                message: 'Erro ao deletar colaborador',
-                description: error instanceof Error ? error.message : 'Erro desconhecido.',
-                type: 'error',
-            });
-        },
-    });
-
     const handleCancel = () => {
         setIsDeleteModalOpen(false);
 
         setDeleteEmployeeModal(null);
     };
 
+    const { mutateAsync: deleteEmployee, isPending: isDeletePending } = useDeleteEmployee({
+        onSuccess: handleCancel
+    });
+
     const handleOk = async () => {
-        await mutateAsync(deleteEmployeeModal.id);
+        await deleteEmployee(deleteEmployeeModal.id);
     };
 
     return (
@@ -56,11 +38,11 @@ export function DeleteEmployeeModal({
             onOk={handleOk}
             okButtonProps={{
                 danger: true,
-                loading: isPending,
+                loading: isDeletePending,
             }}
             cancelText="Não"
             onCancel={handleCancel}
-            cancelButtonProps={{ disabled: isPending }}
+            cancelButtonProps={{ disabled: isDeletePending }}
             destroyOnHidden
         >
             <Typography.Paragraph>Deseja mesmo deletar o colaborador {deleteEmployeeModal?.name}?</Typography.Paragraph>

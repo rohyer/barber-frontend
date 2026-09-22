@@ -1,5 +1,5 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
-import { getEmployees } from './employees.service';
+import { getEmployees } from '../../../entities/employee/api/getEmployees';
 
 type Props = {
     page: number,
@@ -12,14 +12,5 @@ export const employeesQueryOptions = ({ page, search }: Props) => {
         queryFn: () => getEmployees(page, search),
         staleTime: 1000 * 60,
         placeholderData: keepPreviousData,
-    });
-};
-
-export const searchEmployeesQueryOptions = ({ search }: Omit<Props, 'page'>) => {
-    return queryOptions({
-        queryKey: ['search-clients', { search }],
-        queryFn: () => getEmployees(1, search),
-        staleTime: 1000 * 60,
-        enabled: !!search,
     });
 };

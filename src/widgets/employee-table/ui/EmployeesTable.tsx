@@ -1,11 +1,11 @@
 import { type Dispatch, type SetStateAction } from 'react';
 import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
-import type { EmployeeModel } from '../../../../entities/employee/model/employee.type';
-import { employeesQueryOptions } from '../../employees.queries';
+import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import { employeesQueryOptions } from '../model/employees.queries';
 import { useQuery } from '@tanstack/react-query';
-import { calculateAge } from '../../../../entities/client/lib/calculateAge';
+import { calculateAge } from '../../../shared/lib/calculateAge';
 import { EmployeesActions } from './EmployeesActions.';
-import { applyMask, getRightMask } from '../../../../shared/lib/mask';
+import { applyMask, getRightMask } from '../../../shared/lib/mask';
 
 type Props = {
     searchQuery: string,
@@ -37,7 +37,7 @@ export function EmployeesTable({
         setCurrentPage(pagination.current);
     };
 
-    const dataSource = data?.data.employees && data?.data.employees.map(employee => ({
+    const dataSource = data?.data?.employees && data?.data.employees.map(employee => ({
         key: employee.id,
         appointments: employee.totalAppointments,
         name: employee.name,
@@ -104,7 +104,7 @@ export function EmployeesTable({
             }}
             scroll={{ x: '500' }}
             pagination={{
-                total: data?.data.total,
+                total: data?.data?.total,
                 current: currentPage,
                 showTotal(total) {
                     return `Total de colaboradores: ${total}`;

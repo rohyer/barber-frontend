@@ -3,7 +3,7 @@ import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd'
 import { type ClientModel } from '../../../entities/client/model/client.type';
 import { clientsQueryOptions } from '../model/clients.queries';
 import { useQuery } from '@tanstack/react-query';
-import { calculateAge } from '../../../entities/client/lib/calculateAge';
+import { calculateAge } from '../../../shared/lib/calculateAge';
 import { ClientsActions } from './ClientsActions.';
 import { ClientsStatus } from './ClientsStatus';
 import { applyMask, getRightMask } from '../../../shared/lib/mask';

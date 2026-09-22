@@ -5,7 +5,7 @@ import { PrivateRoutes } from './PrivateRoutes';
 import { PublicRoutes } from './PublicRoutes';
 import MainLayout from '../../widgets/main-layout/ui/MainLayout';
 import { ClientsPage } from '../../pages/client/ui/ClientsPage';
-import { EmployeesPage } from '../../modules/employees/pages/Employees.page';
+import { EmployeesPage } from '../../pages/employee/ui/Employees.page';
 import { OfferingsPage } from '../../modules/offerings';
 
 export function AppRoutes() {

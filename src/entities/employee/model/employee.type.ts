@@ -1,5 +1,3 @@
-import type { Dayjs } from 'dayjs';
-
 export type EmployeeModel = {
     id: number,
     name: string,
@@ -10,10 +8,3 @@ export type EmployeeModel = {
     totalAppointments: number,
     createdAt: string,
 };
-
-export type EmployeeFormValues = Pick<EmployeeModel,
-    | 'name'
-    | 'sex'
-    | 'phone'
-    | 'address'
-> & { birth: Dayjs }
