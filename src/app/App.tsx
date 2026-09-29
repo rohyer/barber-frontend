@@ -3,7 +3,8 @@ import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { SessionProvider } from '../entities/session/model/SessionProvider';
+import { SessionProvider } from '@/entities/session';
+
 import { AppRoutes } from './routes/AppRoutes';
 
 const queryClient = new QueryClient();

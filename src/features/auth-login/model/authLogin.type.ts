@@ -1,4 +1,4 @@
-import type { User } from '../../../entities/session/model/session.type';
+import type { User } from '@/entities/session';
 
 export type FormValues = {
     email: string,

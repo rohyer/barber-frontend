@@ -1,4 +1,5 @@
-import { useSession } from '../../../entities/session/model/useSession';
+import { useSession } from '@/entities/session';
+
 import { authLogoutUser } from '../api/authLogoutUser';
 
 export function useAuthLogout() {

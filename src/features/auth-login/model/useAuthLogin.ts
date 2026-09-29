@@ -1,4 +1,5 @@
-import { useSession } from '../../../entities/session/model/useSession';
+import { useSession } from '@/entities/session';
+
 import { authLoginUser } from '../api/authLoginUser';
 import type { Credentials } from './authLogin.type';
 

@@ -2,7 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Spin } from 'antd';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useSession } from '../../entities/session/model/useSession';
+import { useSession } from '@/entities/session';
 
 export function PrivateRoutes() {
     const { user, isLoading } = useSession();
