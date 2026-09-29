@@ -1,6 +1,7 @@
 import { Select } from 'antd';
 
-import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import type { EmployeeModel } from '@/entities/employee';
+
 import { useEmployeeTableFilter } from '../model/useEmployeeTableFilter';
 
 type Props = {

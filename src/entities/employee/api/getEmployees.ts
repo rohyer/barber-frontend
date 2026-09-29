@@ -8,7 +8,7 @@ type Response = {
     total: number,
 }
 
-export type GetEmployees = {
+type GetEmployees = {
     response: Response,
 }
 

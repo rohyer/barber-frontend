@@ -1,6 +1,6 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 
-import { getEmployees } from '../../../entities/employee/api/getEmployees';
+import { getEmployees } from '@/entities/employee';
 
 type Props = {
     page: number,

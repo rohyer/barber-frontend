@@ -1,7 +1,8 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
 
-import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import type { EmployeeModel } from '@/entities/employee';
+
 import { DeleteEmployeeModal } from '../../../features/employee-delete/ui/DeleteEmployeeModal';
 import { Show } from '../../../shared/ui/Show';
 import { EmployeeFormModal } from '../../../widgets/employee-form-modal/ui/EmployeeFormModal';

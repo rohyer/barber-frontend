@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
-import { type Dispatch, type SetStateAction } from 'react';
+import type { TablePaginationConfig, TableProps } from 'antd';
+import { Empty, Table } from 'antd';
+import type { Dispatch, SetStateAction } from 'react';
 
+import type { EmployeeModel } from '@/entities/employee';
 import { calculateAge } from '@/shared/lib';
 import { applyMask, getRightMask } from '@/shared/lib';
 
-import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
 import { employeesQueryOptions } from '../model/employees.queries';
 import { EmployeesActions } from './EmployeesActions.';
 

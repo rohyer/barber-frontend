@@ -2,7 +2,7 @@ import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Button, Space, theme, Tooltip } from 'antd';
 import type { Dispatch, SetStateAction } from 'react';
 
-import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import type { EmployeeModel } from '@/entities/employee';
 
 type Props = {
     employee: EmployeeModel,

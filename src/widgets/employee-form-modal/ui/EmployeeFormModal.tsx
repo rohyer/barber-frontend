@@ -2,9 +2,9 @@ import { DatePicker, Form, type FormProps,Input, Modal, Select } from 'antd';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 
+import type { EmployeeModel } from '@/entities/employee';
 import { applyMask, MASK_PHONE_10, MASK_PHONE_11 } from '@/shared/lib';
 
-import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
 import { useCreateEmplyee } from '../../../features/employee-create/model/useCreateEmployee';
 import { useEditEmployee } from '../../../features/employee-edit/model/useEditEmployee';
 import { MaskedInput } from '../../../shared/ui/MaskedInput';
