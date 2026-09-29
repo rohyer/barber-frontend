@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { Col, Row } from 'antd';
 import { Fragment, useState } from 'react';
 
-import type { OfferingModel } from '../../../entities/offering/model/offering.type';
-import { OfferingCard } from '../../../entities/offering/ui/OfferingCard';
+import type { OfferingModel } from '@/entities/offering';
+import { OfferingCard } from '@/entities/offering';
+
 import { DeleteOfferingModal } from '../../../features/offering-delete/ui/DeleteOfferingModal';
 import { Show } from '../../../shared/ui/Show';
 import { offeringQueryOptions } from '../../../widgets/offering-cards/model/offeringCards.query';

@@ -3,7 +3,7 @@ import type { Result } from '@/shared/lib';
 
 import type { OfferingModel } from '../model/offering.type';
 
-export type Response = {
+type Response = {
     offerings: OfferingModel[],
 }
 

@@ -1,6 +1,6 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 
-import { getEmployeeOptions } from '../../../entities/offering/api/getEmployeeOptions';
+import { getEmployeeOptions } from '@/entities/offering';
 
 export const employeeQueryOptions = () => {
     return queryOptions({

@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import type { OfferingModel } from '@/entities/offering';
+import { deleteOffering } from '@/entities/offering';
 import { notify } from '@/shared/lib';
-
-import { deleteOffering } from '../../../entities/offering/api/deleteOffering';
-import type { OfferingModel } from '../../../entities/offering/model/offering.type';
 
 export const useDeleteOffering = () => {
     const queryClient = useQueryClient();

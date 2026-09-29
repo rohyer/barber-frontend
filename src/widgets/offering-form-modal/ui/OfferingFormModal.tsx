@@ -11,7 +11,8 @@ import {
     Spin,
 } from 'antd';
 
-import type { OfferingModel } from '../../../entities/offering/model/offering.type';
+import type { OfferingModel } from '@/entities/offering';
+
 import { useCreateOffering } from '../../../features/offering-create/model/useCreateOffering';
 import { useEditOffering } from '../../../features/offering-edit/model/useEditOffering';
 import { employeeQueryOptions } from '../model/offeringFormModal.query';

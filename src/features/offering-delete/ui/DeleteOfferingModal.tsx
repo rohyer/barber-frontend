@@ -1,6 +1,7 @@
 import { Modal, Typography } from 'antd';
 
-import type { OfferingModel } from '../../../entities/offering/model/offering.type';
+import type { OfferingModel } from '@/entities/offering';
+
 import { useDeleteClient } from '../../client-delete/model/useDeleteClient';
 
 type Props = {
