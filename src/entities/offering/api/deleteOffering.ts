@@ -1,5 +1,6 @@
 import { apiClient } from '@/shared/api';
 import type { Result } from '@/shared/lib';
+
 import type { OfferingModel } from '../model/offering.type';
 
 export type DeleteOffering = {

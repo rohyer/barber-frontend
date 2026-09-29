@@ -1,7 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
-import { getEmployees } from '../../../entities/employee/api/getEmployees';
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
+import { useCallback, useMemo, useState } from 'react';
+
+import { getEmployees } from '../../../entities/employee/api/getEmployees';
 import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
 
 type Params = {

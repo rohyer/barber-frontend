@@ -1,5 +1,6 @@
 import { apiClient } from '@/shared/api';
 import type { Result } from '@/shared/lib';
+
 import type { Employee } from '../model/offering.type';
 
 export type Response = {

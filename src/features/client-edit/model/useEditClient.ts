@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { notify } from '../../../shared/lib/notify';
-import { type UpdateClient, editClient } from '@/entities/client';
+
+import type { UpdateClient } from '@/entities/client';
+import { editClient } from '@/entities/client';
+import { notify } from '@/shared/lib';
 
 type MutationFn = {
     id: number,

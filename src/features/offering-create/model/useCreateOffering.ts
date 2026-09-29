@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createOffering, type CreateOffering } from '../../../entities/offering/api/createOffering';
-import { notify } from '../../../shared/lib/notify';
+
+import { notify } from '@/shared/lib';
+
+import { type CreateOffering,createOffering } from '../../../entities/offering/api/createOffering';
 
 export const useCreateOffering = ({ onSuccess }: { onSuccess: () => void }) => {
     const queryClient = useQueryClient();

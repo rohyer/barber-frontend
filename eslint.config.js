@@ -1,11 +1,12 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import { globalIgnores } from 'eslint/config';
 import prettier from 'eslint-plugin-prettier';
-import eslintConfigPrettier from 'eslint-config-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -25,6 +26,7 @@ export default tseslint.config([
     plugins: {
         '@typescript-eslint': tseslint.plugin,
         prettier,
+        'simple-import-sort': simpleImportSort,
     },
     rules: {
         'semi': ['warn', 'always'],
@@ -42,6 +44,14 @@ export default tseslint.config([
         'react-hooks/exhaustive-deps': 'warn',
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_'}],
         '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/consistent-type-imports': ['warn', {
+            prefer: 'type-imports',
+            fixStyle: 'separate-type-imports',
+        }],
+        'simple-import-sort/imports': 'warn',
+        'simple-import-sort/exports': 'warn',
+        'no-duplicate-imports': 'off',
+        'import/no-duplicates': 'off',
     }
   },
 ])

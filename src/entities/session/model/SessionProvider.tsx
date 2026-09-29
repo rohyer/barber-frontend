@@ -1,7 +1,8 @@
-import { useEffect, useState, type ReactNode } from 'react';
-import { SessionContext } from './SessionContext';
-import { type User } from './session.type';
+import { type ReactNode,useEffect, useState } from 'react';
+
 import { getMe } from '../api/getMe';
+import { type User } from './session.type';
+import { SessionContext } from './SessionContext';
 
 type Props = {
     children: ReactNode

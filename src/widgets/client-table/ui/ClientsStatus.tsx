@@ -1,7 +1,7 @@
-import { Tag, Tooltip, type TagProps } from 'antd';
-import type { ClientModel } from '../../../entities/client/model/client.type';
-import { getClientStatusValues } from '../../../entities/client/lib/getClientStatusValues';
-import type { ClientStatus } from '../../../entities/client/model/client.type';
+import { Tag, type TagProps,Tooltip } from 'antd';
+
+import type { ClientModel, ClientStatus } from '@/entities/client';
+import { getClientStatusValues } from '@/entities/client';
 
 type Props = {
     lastCustomerServiceDate: ClientModel['lastCustomerServiceDate'],

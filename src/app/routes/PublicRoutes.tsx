@@ -1,7 +1,8 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useSession } from '../../entities/session/model/useSession';
-import { Flex, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Spin } from 'antd';
+import { Navigate, Outlet } from 'react-router-dom';
+
+import { useSession } from '../../entities/session/model/useSession';
 
 export function PublicRoutes() {
     const { isLoading, user } = useSession();

@@ -1,6 +1,7 @@
 import { Card, Flex } from 'antd';
-import style from './Login.module.css';
+
 import { AuthLoginForm } from '../../../features/auth-login/ui/AuthLoginForm';
+import style from './Login.module.css';
 
 export function Login () {
     return (

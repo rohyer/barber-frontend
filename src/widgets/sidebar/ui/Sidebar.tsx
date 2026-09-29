@@ -1,15 +1,16 @@
-import { Layout, Menu, theme, Typography } from 'antd';
 import {
-    ScissorOutlined,
-    ScheduleOutlined,
-    LineChartOutlined,
     HomeOutlined,
     IdcardOutlined,
+    LineChartOutlined,
+    ScheduleOutlined,
+    ScissorOutlined,
     TeamOutlined,
 } from '@ant-design/icons';
+import { Layout, Menu, theme, Typography } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import style from './Sidebar.module.css';
+
 import BarberPrimeLogo from '../../../shared/assets/BarberPrimeLogo.png';
+import style from './Sidebar.module.css';
 
 const { Sider } = Layout;
 

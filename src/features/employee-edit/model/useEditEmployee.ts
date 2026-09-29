@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { notify } from '@/shared/lib';
+
 import {
-    updateEmployee,
-    type UpdateEmployee
-} from '../../../entities/employee/api/editEmployee';
-import { notify } from '../../../shared/lib/notify';
+    type UpdateEmployee,
+    updateEmployee } from '../../../entities/employee/api/editEmployee';
 
 type Params = {
     onSuccess: () => void,

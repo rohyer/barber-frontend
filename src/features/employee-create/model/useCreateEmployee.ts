@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { notify } from '../../../shared/lib/notify';
-import { createEmployee, type CreateEmployee } from '../../../entities/employee/api/createEmployee';
+
+import { notify } from '@/shared/lib';
+
+import { type CreateEmployee,createEmployee } from '../../../entities/employee/api/createEmployee';
 
 type Params = {
     onSuccess: () => void,

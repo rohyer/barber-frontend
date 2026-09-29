@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { notify } from '../../../shared/lib/notify';
-import { deleteClient } from '@/entities/client';
+
 import type { ClientModel } from '@/entities/client';
+import { deleteClient } from '@/entities/client';
+import { notify } from '@/shared/lib';
 
 export const useDeleteClient = ({ onCancel }: { onCancel: () => void }) => {
     const queryClient = useQueryClient();

@@ -1,6 +1,7 @@
 import { Card, Flex } from 'antd';
-import style from './Register.module.css';
+
 import { AuthRegisterForm } from '../../../features/auth-register/ui/AuthRegisterForm';
+import style from './Register.module.css';
 
 export function Register () {
     return (

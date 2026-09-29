@@ -1,5 +1,6 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
+
 import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
 import { useDeleteEmployee } from '../model/useDeleteEmployee';
 

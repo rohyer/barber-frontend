@@ -1,8 +1,9 @@
 import { Button, Form, Input, message, Select, Space, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { authRegisterUser } from '../api/authRegisterUser';
 import { STATES } from '../model/authRegisterUser.constant';
 import type { FormValues } from '../model/authRegisterUser.type';
-import { authRegisterUser } from '../api/authRegisterUser';
 
 export function AuthRegisterForm() {
     const [form] = Form.useForm();

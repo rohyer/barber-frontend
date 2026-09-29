@@ -1,5 +1,5 @@
-import { authLoginUser } from '../api/authLoginUser';
 import { useSession } from '../../../entities/session/model/useSession';
+import { authLoginUser } from '../api/authLoginUser';
 import type { Credentials } from './authLogin.type';
 
 export function useAuthLogin() {

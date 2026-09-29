@@ -1,5 +1,6 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
-import { getClients } from '../../../entities/client/api/getClients';
+
+import { getClients } from '@/entities/client';
 
 type Props = {
     page: number,

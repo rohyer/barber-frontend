@@ -1,4 +1,5 @@
 import { apiClient } from '@/shared/api';
+
 import type { LoginUser } from '../model/authLogin.type';
 
 export const authLoginUser = (body: LoginUser['body']) => {

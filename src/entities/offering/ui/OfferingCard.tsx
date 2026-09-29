@@ -1,5 +1,6 @@
 import { ClockCircleOutlined, DeleteFilled, DollarOutlined, EditFilled } from '@ant-design/icons';
 import { Avatar, Button, Card, Flex, Space, theme, Tooltip, Typography } from 'antd';
+
 import type { OfferingModel } from '../model/offering.type';
 
 type Props = {

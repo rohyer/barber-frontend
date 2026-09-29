@@ -1,9 +1,10 @@
 
 import { Layout, theme } from 'antd';
-import { Header } from '../../header/ui/Header';
 import { useState } from 'react';
-import { Sidebar } from '../../sidebar/ui/Sidebar';
 import { Outlet } from 'react-router-dom';
+
+import { Header } from '../../header/ui/Header';
+import { Sidebar } from '../../sidebar/ui/Sidebar';
 
 const { Content } = Layout;
 

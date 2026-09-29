@@ -1,11 +1,12 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
+
 import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
-import { EmployeeFormModal } from '../../../widgets/employee-form-modal/ui/EmployeeFormModal';
 import { DeleteEmployeeModal } from '../../../features/employee-delete/ui/DeleteEmployeeModal';
 import { Show } from '../../../shared/ui/Show';
-import { EmployeesTable } from '../../../widgets/employee-table/ui/EmployeesTable';
+import { EmployeeFormModal } from '../../../widgets/employee-form-modal/ui/EmployeeFormModal';
 import { EmployeeHeader } from '../../../widgets/employee-header/ui/EmployeeHeader';
+import { EmployeesTable } from '../../../widgets/employee-table/ui/EmployeesTable';
 
 export function EmployeesPage() {
     const [currentPage, setCurrentPage] = useState(1);

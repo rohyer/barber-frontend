@@ -1,12 +1,15 @@
-import { type Dispatch, type SetStateAction } from 'react';
-import { Empty, Table, type TablePaginationConfig, type TableProps } from 'antd';
-import { type ClientModel } from '../../../entities/client/model/client.type';
-import { clientsQueryOptions } from '../model/clients.queries';
 import { useQuery } from '@tanstack/react-query';
-import { calculateAge } from '../../../shared/lib/calculateAge';
-import { ClientsActions } from './ClientsActions.';
+import type { TablePaginationConfig, TableProps } from 'antd';
+import { Empty, Table } from 'antd';
+import type { Dispatch, SetStateAction } from 'react';
+
+import type { ClientModel } from '@/entities/client';
+import { calculateAge } from '@/shared/lib';
+import { applyMask, getRightMask } from '@/shared/lib';
+
+import { clientsQueryOptions } from '../model/clients.queries';
+import { ClientsActions } from './ClientsActions';
 import { ClientsStatus } from './ClientsStatus';
-import { applyMask, getRightMask } from '../../../shared/lib/mask';
 
 type Props = {
     searchQuery: string,

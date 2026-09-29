@@ -1,6 +1,7 @@
 import { Select } from 'antd';
-import { useEmployeeTableFilter } from '../model/useEmployeeTableFilter';
+
 import type { EmployeeModel } from '../../../entities/employee/model/employee.type';
+import { useEmployeeTableFilter } from '../model/useEmployeeTableFilter';
 
 type Props = {
     onSelectEmployee: (client?: EmployeeModel) => void,

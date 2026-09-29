@@ -1,4 +1,14 @@
 import {
+    BellOutlined,
+    CreditCardOutlined,
+    LogoutOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    SettingOutlined,
+    StarOutlined,
+    UserOutlined,
+} from '@ant-design/icons';
+import {
     Avatar,
     Button,
     Divider,
@@ -9,17 +19,8 @@ import {
     theme,
     Tooltip
 } from 'antd';
-import {
-    BellOutlined,
-    CreditCardOutlined,
-    LogoutOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    SettingOutlined,
-    StarOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+
 import { useAuthLogout } from '../../../features/auth-logout/model/useAuthLogout';
 
 const { Header: HeaderAntD } = Layout;

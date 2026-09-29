@@ -1,18 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
 import {
     Flex,
     Form,
+    type FormProps,
     Input,
     InputNumber,
     Modal,
     Select,
-    Spin,
-    type FormProps,
     type SelectProps,
+    Spin,
 } from 'antd';
+
 import type { OfferingModel } from '../../../entities/offering/model/offering.type';
 import { useCreateOffering } from '../../../features/offering-create/model/useCreateOffering';
 import { useEditOffering } from '../../../features/offering-edit/model/useEditOffering';
-import { useQuery } from '@tanstack/react-query';
 import { employeeQueryOptions } from '../model/offeringFormModal.query';
 
 type OfferingFormValues = Pick<OfferingModel,

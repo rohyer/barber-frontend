@@ -1,11 +1,13 @@
 import { Space } from 'antd';
 import { Fragment, useState } from 'react';
-import type { ClientModel } from '../../../entities/client/model/client.type';
+
+import type { ClientModel } from '@/entities/client';
+
+import { DeleteClientModal } from '../../../features/client-delete/ui/DeleteClientModal';
 import { Show } from '../../../shared/ui/Show';
-import { ClientsTable } from '../../../widgets/client-table/ui/ClientsTable';
 import { ClientFormModal } from '../../../widgets/client-form-modal/ui/ClientFormModal';
 import { ClientHeader } from '../../../widgets/client-header/ui/ClientHeader';
-import { DeleteClientModal } from '../../../features/client-delete/ui/DeleteClientModal';
+import { ClientsTable } from '../../../widgets/client-table/ui/ClientsTable';
 
 export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);

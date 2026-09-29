@@ -1,5 +1,6 @@
 import { Form, Input, type InputProps } from 'antd';
 import { useState } from 'react';
+
 import {
     applyMask,
     getRightMask,

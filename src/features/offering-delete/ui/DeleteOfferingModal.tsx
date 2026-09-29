@@ -1,4 +1,5 @@
 import { Modal, Typography } from 'antd';
+
 import type { OfferingModel } from '../../../entities/offering/model/offering.type';
 import { useDeleteClient } from '../../client-delete/model/useDeleteClient';
 
