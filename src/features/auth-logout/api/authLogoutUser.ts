@@ -1,4 +1,4 @@
-import { apiClient } from '../../../shared/api/apiClient';
+import { apiClient } from '@/shared/api';
 
 export const authLogoutUser = () => {
     const url = 'http://localhost:80/api/auth/logout';

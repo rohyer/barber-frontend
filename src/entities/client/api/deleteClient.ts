@@ -1,8 +1,8 @@
-import { apiClient } from '../../../shared/api/apiClient';
-import type { Result } from '../../../shared/lib/result';
+import { apiClient } from '@/shared/api';
+import type { Result } from '@/shared/lib';
 import type { ClientModel } from '../model/client.type';
 
-export type DeleteClient = {
+type DeleteClient = {
     clientId: ClientModel['id'],
     response: ClientModel['id'],
 }

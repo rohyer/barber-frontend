@@ -1,0 +1,1 @@
+export { type Result, ok, fail } from './result';

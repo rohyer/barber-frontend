@@ -1,7 +1,7 @@
 import { Button, Space, theme, Tooltip } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import type { Dispatch, SetStateAction } from 'react';
-import type { ClientModel } from '../../clients.type';
+import type { ClientModel } from '@/entities/client';
 
 type Props = {
     client: ClientModel,
