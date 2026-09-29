@@ -1,6 +1,6 @@
 import { Modal, Typography } from 'antd';
 import React from 'react';
-import type { ClientModel } from '../../../entities/client/model/client.type';
+import type { ClientModel } from '@/entities/client';
 import { useDeleteClient } from '../model/useDeleteClient';
 
 type Props = {

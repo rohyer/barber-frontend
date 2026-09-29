@@ -1,5 +1,5 @@
 import { Select } from 'antd';
-import type { ClientModel } from '../../../entities/client/model/client.type';
+import type { ClientModel } from '@/entities/client';
 import { useClientTableFilter } from '../model/useClientTableFilter';
 
 type Props = {

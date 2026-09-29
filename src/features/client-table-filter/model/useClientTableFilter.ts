@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { getClients } from '../../../entities/client/api/getClients';
+import { getClients } from '@/entities/client';
 import { useCallback, useMemo, useState } from 'react';
 import { debounce } from 'lodash';
-import type { ClientModel } from '../../../entities/client/model/client.type';
+import type { ClientModel } from '@/entities/client';
 
 type Params = {
     onSelectClient: (client?: ClientModel) => void
