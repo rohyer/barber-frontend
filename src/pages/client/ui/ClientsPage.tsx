@@ -53,7 +53,7 @@ export function ClientsPage() {
                     isOpen={isUpdateModalOpen}
                     onClose={() => {
                         setIsUpdateModalOpen(false);
-                        setUpdateClientModal?.(null);
+                        setUpdateClientModal(null);
                     }}
                     clientToEdit={updateClientModal!}
                 />

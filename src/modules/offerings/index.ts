@@ -1,1 +1,0 @@
-export { OfferingsPage } from './pages/Offerings.page';

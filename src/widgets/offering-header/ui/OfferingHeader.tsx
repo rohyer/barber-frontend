@@ -1,13 +1,10 @@
 import { Button, Flex, Typography } from 'antd';
-import { type Dispatch, type SetStateAction } from 'react';
 
 type Props = {
-    setIsCreateModalOpen: Dispatch<SetStateAction<boolean>>
+    onCreateModalOpen: () => void,
 };
 
-export function OfferingHeader({
-    setIsCreateModalOpen,
-}: Props ) {
+export function OfferingHeader({ onCreateModalOpen }: Props ) {
     return (
         <Flex justify='space-between'>
             <Typography.Title level={2}>Serviços</Typography.Title>
@@ -16,7 +13,7 @@ export function OfferingHeader({
                 <Button
                     type='primary'
                     size='large'
-                    onClick={() => setIsCreateModalOpen(true)}
+                    onClick={onCreateModalOpen}
                 >
                     Cadastrar
                 </Button>

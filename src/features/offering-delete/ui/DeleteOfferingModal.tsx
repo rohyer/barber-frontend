@@ -1,6 +1,6 @@
 import { Modal, Typography } from 'antd';
-import type { OfferingModel } from '../../offerings.type';
-import { useOfferingMutations } from '../../hooks/useOfferings';
+import type { OfferingModel } from '../../../entities/offering/model/offering.type';
+import { useDeleteClient } from '../../client-delete/model/useDeleteClient';
 
 type Props = {
     isOpen: boolean,
@@ -20,21 +20,21 @@ export function DeleteOfferingModal({
         setDeleteOfferingSelected(null);
     };
 
-    const { mutateDelete, isDeletePending } = useOfferingMutations();
+    const { mutateAsync, isPending } = useDeleteClient({ onCancel: handleCancel });
 
     return (
         <Modal
             title="Deletar serviço"
             open={isOpen}
             okText="Sim"
-            onOk={() => mutateDelete(deleteOfferingSelected.id)}
+            onOk={() => mutateAsync(deleteOfferingSelected.id)}
             okButtonProps={{
                 danger: true,
-                loading: isDeletePending,
+                loading: isPending,
             }}
             cancelText="Não"
             onCancel={handleCancel}
-            cancelButtonProps={{ disabled: isDeletePending }}
+            cancelButtonProps={{ disabled: isPending }}
             destroyOnHidden
         >
             <Typography.Paragraph>

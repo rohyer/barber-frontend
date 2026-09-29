@@ -1,35 +1,24 @@
 import { ClockCircleOutlined, DeleteFilled, DollarOutlined, EditFilled } from '@ant-design/icons';
 import { Avatar, Button, Card, Flex, Space, theme, Tooltip, Typography } from 'antd';
-import type { OfferingModel } from '../offerings.type';
+import type { OfferingModel } from '../model/offering.type';
 
 type Props = {
     offering: OfferingModel,
     isPending: boolean,
-    setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setDeleteOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
-    setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setUpdateOfferingSelected: React.Dispatch<React.SetStateAction<OfferingModel | null>>,
+    onDelete: (offering: OfferingModel) => void,
+    onUpdate: (offering: OfferingModel) => void,
 }
 
 export function OfferingCard({
     offering,
     isPending,
-    setIsDeleteModalOpen,
-    setDeleteOfferingSelected: setDeleteOffering,
-    setIsUpdateModalOpen: setIsEditModalOpen,
-    setUpdateOfferingSelected: setEditOffering,
+    onDelete,
+    onUpdate,
 }: Props) {
     const { token } = theme.useToken();
 
-    const handleDeleteClick = () => {
-        setDeleteOffering(offering);
-        setIsDeleteModalOpen(true);
-    };
-
-    const handleEditClick = () => {
-        setEditOffering(offering);
-        setIsEditModalOpen(true);
-    };
+    const handleDeleteClick = () => onDelete(offering);
+    const handleEditClick = () => onUpdate(offering);
 
     const actions = [
         <Button
