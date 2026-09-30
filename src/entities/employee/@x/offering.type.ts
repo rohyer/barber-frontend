@@ -1,0 +1,1 @@
+export type { EmployeeModel } from '../model/employee.type';
