@@ -1,10 +1,10 @@
 import { apiClient } from '@/shared/api';
 import type { Result } from '@/shared/lib';
 
-import type { Employee } from '../model/offering.type';
+import type { EmployeeModel } from '../model/employee.type';
 
 type Response = {
-    employees: Employee[],
+    employees: Pick<EmployeeModel, 'id' | 'name'>,
 }
 
 export const getEmployeeOptions = async (): Promise<Result<Response>> => {
