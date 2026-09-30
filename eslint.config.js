@@ -52,6 +52,20 @@ export default tseslint.config([
         'simple-import-sort/exports': 'warn',
         'no-duplicate-imports': 'off',
         'import/no-duplicates': 'off',
+        'no-restricted-imports': ['error', {
+            patterns: [
+                {
+                    group: [
+                        '@/entities/*/*',
+                        '@/features/*/*',
+                        '@/widgets/*/*',
+                        '!@/entities/*/@x',
+                        '!@/entities/*/@x/*',
+                    ],
+                    message: 'Importe pela Public API (index.ts) do slice.',
+                },
+            ],
+        }],
     }
   },
 ])
