@@ -2,6 +2,7 @@ import { Modal, Typography } from 'antd';
 
 import type { OfferingModel } from '@/entities/offering';
 
+// TODO: why useDeleteClient instead of useDeleteOffering?
 import { useDeleteClient } from '../../client-delete/model/useDeleteClient';
 
 type Props = {

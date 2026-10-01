@@ -1,0 +1,1 @@
+export { useCreateEmplyee } from './model/useCreateEmployee';

@@ -2,8 +2,8 @@ import { Space } from 'antd';
 import { Fragment, useState } from 'react';
 
 import type { ClientModel } from '@/entities/client';
+import { DeleteClientModal } from '@/features/client-delete';
 
-import { DeleteClientModal } from '../../../features/client-delete/ui/DeleteClientModal';
 import { Show } from '../../../shared/ui/Show';
 import { ClientFormModal } from '../../../widgets/client-form-modal/ui/ClientFormModal';
 import { ClientHeader } from '../../../widgets/client-header/ui/ClientHeader';

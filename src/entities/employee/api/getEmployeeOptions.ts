@@ -4,7 +4,7 @@ import type { Result } from '@/shared/lib';
 import type { EmployeeModel } from '../model/employee.type';
 
 type Response = {
-    employees: Pick<EmployeeModel, 'id' | 'name'>,
+    employees: Pick<EmployeeModel, 'id' | 'name'>[],
 }
 
 export const getEmployeeOptions = async (): Promise<Result<Response>> => {

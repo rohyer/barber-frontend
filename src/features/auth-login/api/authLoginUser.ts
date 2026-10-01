@@ -1,11 +1,23 @@
+import type { User } from '@/entities/session';
 import { apiClient } from '@/shared/api';
 
-import type { LoginUser } from '../model/authLogin.type';
+type Response = Pick<User,
+    | 'name'
+    | 'email'
+    | 'city'
+    | 'state'
+    | 'phone'
+    | 'premiumExpiresAt'
+>
 
-export const authLoginUser = (body: LoginUser['body']) => {
+type Body = Pick<User, 'email'> & {
+    password: string,
+}
+
+export const authLoginUser = (body: Body) => {
     const url = 'http://localhost:80/api/auth/login';
 
-    const response = apiClient<LoginUser['response'], LoginUser['body']>(
+    const response = apiClient<Response, Body>(
         { url, method: 'POST', payload: body }
     );
 

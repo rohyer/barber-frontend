@@ -5,22 +5,6 @@ export type FormValues = {
     password: string,
 }
 
-export type Credentials = {
-    email: User['email'],
+export type Credentials = Pick<User, 'email'> & {
     password: string,
-}
-
-type Response<T> = {
-    success: boolean,
-    message: string,
-    fromCache: boolean,
-    data: T,
-}
-
-export type LoginUser = {
-    body: {
-        email: string,
-        password: string,
-    }
-    response: Response<User>
 }

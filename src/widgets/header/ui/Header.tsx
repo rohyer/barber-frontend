@@ -21,7 +21,7 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { useAuthLogout } from '../../../features/auth-logout/model/useAuthLogout';
+import { useAuthLogout } from '@/features/auth-logout';
 
 const { Header: HeaderAntD } = Layout;
 

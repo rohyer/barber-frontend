@@ -1,0 +1,1 @@
+export { useEditOffering } from './model/useEditOffering';

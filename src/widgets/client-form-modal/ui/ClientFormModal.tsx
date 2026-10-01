@@ -3,11 +3,10 @@ import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 
 import type { ClientModel } from '@/entities/client';
+import { useCreateClient } from '@/features/client-create';
+import { useEditClient } from '@/features/client-edit';
 import { applyMask, getUnmaskedValue, MASK_PHONE_10, MASK_PHONE_11 } from '@/shared/lib';
 import { MaskedInput } from '@/shared/ui/MaskedInput';
-
-import { useCreateClient } from '../../../features/client-create/model/useCreateClient';
-import { useEditClient } from '../../../features/client-edit/model/useEditClient';
 
 const GENDER_OPTIONS = [
     {

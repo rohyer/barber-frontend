@@ -1,0 +1,1 @@
+export { useEditClient } from './model/useEditClient';

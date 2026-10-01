@@ -1,0 +1,1 @@
+export { useAuthLogout } from './model/useAuthLogout';

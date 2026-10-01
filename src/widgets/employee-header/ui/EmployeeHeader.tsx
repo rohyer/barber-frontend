@@ -2,8 +2,7 @@ import { Button, Flex, Typography } from 'antd';
 import { Fragment } from 'react/jsx-runtime';
 
 import type { EmployeeModel } from '@/entities/employee';
-
-import { EmployeeTableSelect } from '../../../features/employee-table-filter/ui/EmployeeTableSelect'; 
+import { EmployeeTableSelect } from '@/features/employee-table-filter';
 
 type Props = {
     onSelectEmployee: (client?: EmployeeModel) => void,

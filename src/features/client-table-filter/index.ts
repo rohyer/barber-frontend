@@ -1,0 +1,1 @@
+export { ClientTableSelect } from './ui/ClientTableSelect';

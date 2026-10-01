@@ -2,8 +2,7 @@ import { Button, Flex, Typography } from 'antd';
 import { Fragment } from 'react/jsx-runtime';
 
 import type { ClientModel } from '@/entities/client';
-
-import { ClientTableSelect } from '../../../features/client-table-filter/ui/ClientTableSelect';
+import { ClientTableSelect } from '@/features/client-table-filter';
 
 type Props = {
     onSelectClient: (client?: ClientModel) => void,

@@ -12,9 +12,9 @@ import {
 } from 'antd';
 
 import type { OfferingModel } from '@/entities/offering';
+import { useCreateOffering } from '@/features/offering-create';
+import { useEditOffering } from '@/features/offering-edit';
 
-import { useCreateOffering } from '../../../features/offering-create/model/useCreateOffering';
-import { useEditOffering } from '../../../features/offering-edit/model/useEditOffering';
 import { employeeQueryOptions } from '../model/offeringFormModal.query';
 
 type OfferingFormValues = Pick<OfferingModel,
@@ -70,7 +70,7 @@ export function OfferingFormModal({ isOpen, onClose, offeringToEdit }: Props) {
         await createOffering(payload);
     };
 
-    const options: SelectProps['options'] = data?.data?.employees.map(employee => ({
+    const options: SelectProps['options'] = data?.data?.employees?.map(employee => ({
         value: employee.id,
         label: employee.name,
     }));
