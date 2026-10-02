@@ -1,8 +1,8 @@
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 
+import { OfferingPage } from '@/pages/offering/ui/Offering.page';
 import { MainLayout } from '@/widgets/main-layout';
 
-import { OfferingsPage } from '../../modules/offerings';
 import { Login } from '../../pages/auth/ui/Login';
 import { Register } from '../../pages/auth/ui/Register';
 import { ClientsPage } from '../../pages/client/ui/ClientsPage';
@@ -24,7 +24,7 @@ export function AppRoutes() {
                         <Route path='/atendimentos' />
                         <Route path='/clientes' element={<ClientsPage />} />
                         <Route path='/colaboradores' element={<EmployeesPage />} />
-                        <Route path='/servicos' element={<OfferingsPage />} />
+                        <Route path='/servicos' element={<OfferingPage />} />
                         <Route path='/estatisticas' />
                     </Route>
                 </Route>
