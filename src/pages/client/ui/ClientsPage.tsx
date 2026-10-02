@@ -3,11 +3,11 @@ import { Fragment, useState } from 'react';
 
 import type { ClientModel } from '@/entities/client';
 import { DeleteClientModal } from '@/features/client-delete';
+import { ClientFormModal } from '@/widgets/client-form-modal';
+import { ClientHeader } from '@/widgets/client-header';
+import { ClientsTable } from '@/widgets/client-table';
 
 import { Show } from '../../../shared/ui/Show';
-import { ClientFormModal } from '../../../widgets/client-form-modal/ui/ClientFormModal';
-import { ClientHeader } from '../../../widgets/client-header/ui/ClientHeader';
-import { ClientsTable } from '../../../widgets/client-table/ui/ClientsTable';
 
 export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);

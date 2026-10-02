@@ -4,12 +4,12 @@ import { Fragment, useState } from 'react';
 
 import type { OfferingModel } from '@/entities/offering';
 import { OfferingCard } from '@/entities/offering';
+import { offeringQueryOptions } from '@/entities/offering';
 import { DeleteOfferingModal } from '@/features/offering-delete';
+import { OfferingFormModal } from '@/widgets/offering-form-modal';
+import { OfferingHeader } from '@/widgets/offering-header';
 
 import { Show } from '../../../shared/ui/Show';
-import { offeringQueryOptions } from '../../../widgets/offering-cards/model/offeringCards.query';
-import { OfferingFormModal } from '../../../widgets/offering-form-modal/ui/OfferingFormModal';
-import { OfferingHeader } from '../../../widgets/offering-header/ui/OfferingHeader';
 
 export function OfferingPage() {
     const { data, isPending } = useQuery(offeringQueryOptions());

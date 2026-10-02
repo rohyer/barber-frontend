@@ -3,12 +3,12 @@ import { Layout, theme } from 'antd';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Header } from '../../header/ui/Header';
-import { Sidebar } from '../../sidebar/ui/Sidebar';
+import { Header } from '@/widgets/header';
+import { Sidebar } from '@/widgets/sidebar';
 
 const { Content } = Layout;
 
-const MainLayout = () => {
+export function MainLayout() {
     const [collapsed, setCollapsed] = useState(false);
     
     const {
@@ -39,5 +39,3 @@ const MainLayout = () => {
         </Layout>
     );
 };
-
-export default MainLayout;

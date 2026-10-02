@@ -12,10 +12,9 @@ import {
 } from 'antd';
 
 import type { OfferingModel } from '@/entities/offering';
+import { employeeQueryOptions } from '@/entities/offering';
 import { useCreateOffering } from '@/features/offering-create';
 import { useEditOffering } from '@/features/offering-edit';
-
-import { employeeQueryOptions } from '../model/offeringFormModal.query';
 
 type OfferingFormValues = Pick<OfferingModel,
     | 'name'

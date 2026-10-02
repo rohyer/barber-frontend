@@ -3,11 +3,11 @@ import { Fragment, useState } from 'react';
 
 import type { EmployeeModel } from '@/entities/employee';
 import { DeleteEmployeeModal } from '@/features/employee-delete';
+import { EmployeeFormModal } from '@/widgets/employee-form-modal';
+import { EmployeeHeader } from '@/widgets/employee-header';
+import { EmployeesTable } from '@/widgets/employee-table';
 
 import { Show } from '../../../shared/ui/Show';
-import { EmployeeFormModal } from '../../../widgets/employee-form-modal/ui/EmployeeFormModal';
-import { EmployeeHeader } from '../../../widgets/employee-header/ui/EmployeeHeader';
-import { EmployeesTable } from '../../../widgets/employee-table/ui/EmployeesTable';
 
 export function EmployeesPage() {
     const [currentPage, setCurrentPage] = useState(1);
