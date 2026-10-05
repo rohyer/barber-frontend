@@ -9,8 +9,6 @@ import { DeleteOfferingModal } from '@/features/offering-delete';
 import { OfferingFormModal } from '@/widgets/offering-form-modal';
 import { OfferingHeader } from '@/widgets/offering-header';
 
-import { Show } from '../../../shared/ui/Show';
-
 export function OfferingPage() {
     const { data, isPending } = useQuery(offeringQueryOptions());
 
@@ -47,32 +45,32 @@ export function OfferingPage() {
                 {cards}
             </Row>
 
-            <Show when={isCreteModalOpen}>
+            {isCreteModalOpen &&
                 <OfferingFormModal
                     isOpen={isCreteModalOpen}
                     onClose={() => setIsCreateModalOpen(false)}
                 />
-            </Show>
+            }
 
-            <Show when={isUpdateModalOpen && updateOfferingSelected !== null}>
+            {isUpdateModalOpen && updateOfferingSelected !== null &&
                 <OfferingFormModal
                     isOpen={isUpdateModalOpen}
                     onClose={() => {
                         setIsUpdateModalOpen(false);
                         setUpdateOfferingSelected(null);
                     }}
-                    offeringToEdit={updateOfferingSelected!}
+                    offeringToEdit={updateOfferingSelected}
                 />
-            </Show>
+            }
 
-            <Show when={isDeleteModalOpen && deleteOfferingSelected !== null}>
+            {isDeleteModalOpen && deleteOfferingSelected !== null &&
                 <DeleteOfferingModal
                     isOpen={isDeleteModalOpen}
-                    deleteOfferingSelected={deleteOfferingSelected!}
+                    deleteOfferingSelected={deleteOfferingSelected}
                     setDeleteOfferingSelected={setDeleteOfferingSelected}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            </Show>
+            }
         </Fragment>
     );
 }

@@ -7,8 +7,6 @@ import { ClientFormModal } from '@/widgets/client-form-modal';
 import { ClientHeader } from '@/widgets/client-header';
 import { ClientsTable } from '@/widgets/client-table';
 
-import { Show } from '../../../shared/ui/Show';
-
 export function ClientsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
@@ -43,32 +41,32 @@ export function ClientsPage() {
                 />
             </Space>
 
-            <Show when={isCreateModalOpen}>
+            {isCreateModalOpen &&
                 <ClientFormModal
                     isOpen={isCreateModalOpen}
                     onClose={() => setIsCreateModalOpen(false) }
                 />
-            </Show>
+            }
 
-            <Show when={isUpdateModalOpen && updateClientModal !== null}>
+            {isUpdateModalOpen && updateClientModal !== null &&
                 <ClientFormModal
                     isOpen={isUpdateModalOpen}
                     onClose={() => {
                         setIsUpdateModalOpen(false);
                         setUpdateClientModal(null);
                     }}
-                    clientToEdit={updateClientModal!}
+                    clientToEdit={updateClientModal}
                 />
-            </Show>
+            }
 
-            <Show when={isDeleteModalOpen && deleteClientModal !== null}>
+            {isDeleteModalOpen && deleteClientModal !== null &&
                 <DeleteClientModal
                     isOpen={isDeleteModalOpen}
-                    deleteClientModal={deleteClientModal!}
+                    deleteClientModal={deleteClientModal}
                     setDeleteClientModal={setDeleteClientModal}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            </Show>
+            }
         </Fragment>
     );
 }

@@ -7,8 +7,6 @@ import { EmployeeFormModal } from '@/widgets/employee-form-modal';
 import { EmployeeHeader } from '@/widgets/employee-header';
 import { EmployeesTable } from '@/widgets/employee-table';
 
-import { Show } from '../../../shared/ui/Show';
-
 export function EmployeesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
@@ -43,32 +41,32 @@ export function EmployeesPage() {
                 />
             </Space>
 
-            <Show when={isCreateModalOpen}>
+            {isCreateModalOpen &&
                 <EmployeeFormModal
                     isOpen={isCreateModalOpen}
                     onClose={() => setIsCreateModalOpen(false) }
                 />
-            </Show>
+            }
             
-            <Show when={isUpdateModalOpen && updateEmployeeModal !== null}>
+            {isUpdateModalOpen && updateEmployeeModal !== null &&
                 <EmployeeFormModal
                     isOpen={isUpdateModalOpen}
                     onClose={() => {
                         setIsUpdateModalOpen(false);
                         setUpdateEmployeeModal?.(null);
                     }}
-                    employeeToEdit={updateEmployeeModal!}
+                    employeeToEdit={updateEmployeeModal}
                 />
-            </Show>
+            }
 
-            <Show when={isDeleteModalOpen && deleteEmployeeModal !== null}>
+            {isDeleteModalOpen && deleteEmployeeModal !== null &&
                 <DeleteEmployeeModal
                     isOpen={isDeleteModalOpen}
-                    deleteEmployeeModal={deleteEmployeeModal!}
+                    deleteEmployeeModal={deleteEmployeeModal}
                     setDeleteEmployeeModal={setDeleteEmployeeModal}
                     setIsDeleteModalOpen={setIsDeleteModalOpen}
                 />
-            </Show>
+            }
         </Fragment>
     );
 }
