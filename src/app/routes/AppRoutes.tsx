@@ -1,12 +1,12 @@
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 
-import { OfferingPage } from '@/pages/offering/ui/Offering.page';
+import { Login } from '@/pages/auth';
+import { Register } from '@/pages/auth';
+import { ClientsPage } from '@/pages/client/index.ts';
+import { EmployeesPage } from '@/pages/employee';
+import { OfferingPage } from '@/pages/offering';
 import { MainLayout } from '@/widgets/main-layout';
 
-import { Login } from '../../pages/auth/ui/Login';
-import { Register } from '../../pages/auth/ui/Register';
-import { ClientsPage } from '../../pages/client/ui/ClientsPage';
-import { EmployeesPage } from '../../pages/employee/ui/Employees.page';
 import { PrivateRoutes } from './PrivateRoutes';
 import { PublicRoutes } from './PublicRoutes';
 
