@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api';
-import type { Result } from '@/shared/lib';
 
 import type { EmployeeModel } from '../model/employee.type';
 
@@ -19,7 +18,7 @@ export type UpdateEmployee = {
 export const updateEmployee = async (
     employeeId: UpdateEmployee['clientId'],
     payload: UpdateEmployee['payload'],
-): Promise<Result<UpdateEmployee['response']>> => {
+): Promise<UpdateEmployee['response']> => {
     const url = `http://localhost:80/api/employees/${employeeId}`;
 
     const response = await apiClient<UpdateEmployee['response'], UpdateEmployee['payload']>(

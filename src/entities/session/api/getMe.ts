@@ -11,10 +11,10 @@ export type Response = Pick<User,
     | 'premiumExpiresAt'
     >
 
-export const getMe = () => {
+export const getMe = ({ signal }: { signal: AbortController['signal']}) => {
     const url = 'http://localhost:80/api/auth/me';
 
-    const response = apiClient<Response>({ url, method: 'GET' });
+    const response = apiClient<Response>({ url, method: 'GET', signal });
 
     return response;
 };

@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api';
-import type { Result } from '@/shared/lib';
 
 import type { OfferingModel } from '../model/offering.type';
 
@@ -20,7 +19,7 @@ export type UpdateOffering = {
 export const updateOffering = async (
     offeringId: UpdateOffering['offeringId'],
     payload: UpdateOffering['payload']
-): Promise<Result<UpdateOffering['response']>> => {
+): Promise<UpdateOffering['response']> => {
     const url = `http://localhost:80/api/offerings/${offeringId}`;
 
     const response = await apiClient<UpdateOffering['response'], UpdateOffering['payload']>({ method: 'PUT', url, payload });

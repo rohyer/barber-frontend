@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api';
-import type { Result } from '@/shared/lib';
 
 import type { ClientModel } from '../model/client.type';
 
@@ -17,8 +16,8 @@ export type CreateClient = {
 
 export const createClient = async (
     payload: CreateClient['payload']
-): Promise<Result<CreateClient['response']>> => {
-    const url = 'http://localhost:80/api/clients';
+): Promise<CreateClient['response']> => {
+    const url = 'http://localhost:80/api/cients';
 
     const response = await apiClient<CreateClient['response'], CreateClient['payload']>(
         { method: 'POST', url, payload }

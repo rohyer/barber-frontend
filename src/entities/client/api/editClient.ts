@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api';
-import type { Result } from '@/shared/lib';
 
 import type { ClientModel } from '../model/client.type';
 
@@ -19,7 +18,7 @@ export type UpdateClient = {
 export const editClient = async (
     clientId: UpdateClient['clientId'],
     payload: UpdateClient['payload'],
-): Promise<Result<UpdateClient['response']>> => {
+): Promise<UpdateClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
     const response = await apiClient<UpdateClient['response'], UpdateClient['payload']>(

@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api';
-import type { Result } from '@/shared/lib';
 
 import type { ClientModel } from '../model/client.type';
 
@@ -10,7 +9,7 @@ type DeleteClient = {
 
 export const deleteClient = async (
     clientId: DeleteClient['clientId']
-): Promise<Result<DeleteClient['response']>> => {
+): Promise<DeleteClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
     const response = await apiClient<DeleteClient['response']>({ method: 'DELETE', url });

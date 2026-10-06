@@ -16,9 +16,7 @@ export function useAuthLogin() {
         if (!response)  
             return false;
 
-        const { data } = response;
-
-        setUser(data?.data);
+        setUser(response);
         
         return true;
     };

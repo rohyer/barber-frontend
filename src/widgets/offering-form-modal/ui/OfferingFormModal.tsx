@@ -69,7 +69,7 @@ export function OfferingFormModal({ isOpen, onClose, offeringToEdit }: Props) {
         await createOffering(payload);
     };
 
-    const options: SelectProps['options'] = data?.data?.employees?.map(employee => ({
+    const options: SelectProps['options'] = data?.employees?.map(employee => ({
         value: employee.id,
         label: employee.name,
     }));

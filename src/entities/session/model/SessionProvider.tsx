@@ -12,28 +12,31 @@ export function SessionProvider({ children }: Props) {
     const [user, setUser] = useState<User | undefined>(undefined);
 
     const [isLoading, setIsLoading] = useState(true);
-
+    
     useEffect(() => {
+        const controller = new AbortController();
+        
         const fetchMe = async() => {
             setIsLoading(true);
-    
-            const response = await getMe();
 
-            if (!response.success) {
+            try {
+                const response = await getMe({ signal: controller.signal });
+                
+                setUser(response);
+            } catch (error) {
+                if (error instanceof DOMException && error.name === 'AbortError')
+                    return;
+
                 setUser(undefined);
+            } finally {
                 setIsLoading(false);
-
-                return;
             }
-    
-            const { data } = response;
-    
-            setUser(data?.data);
-    
-            setIsLoading(false);
+
         };
             
         fetchMe();
+
+        return () => controller.abort();
     }, [setIsLoading, setUser]);
 
     const contextValue = {
