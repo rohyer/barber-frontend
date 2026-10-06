@@ -12,7 +12,9 @@ export const deleteClient = async (
 ): Promise<DeleteClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
-    const response = await apiClient<DeleteClient['response']>({ method: 'DELETE', url });
+    const response = await apiClient<
+        DeleteClient['response']
+    >({ method: 'DELETE', url });
 
     return response;
 };

@@ -21,9 +21,10 @@ export const editClient = async (
 ): Promise<UpdateClient['response']> => {
     const url = `http://localhost:80/api/clients/${clientId}`;
 
-    const response = await apiClient<UpdateClient['response'], UpdateClient['payload']>(
-        { method: 'PUT', url, payload }
-    );
+    const response = await apiClient<
+        UpdateClient['response'],
+        UpdateClient['payload']
+    >({ method: 'PUT', url, payload });
 
     return response;
 };

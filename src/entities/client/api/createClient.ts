@@ -17,11 +17,12 @@ export type CreateClient = {
 export const createClient = async (
     payload: CreateClient['payload']
 ): Promise<CreateClient['response']> => {
-    const url = 'http://localhost:80/api/cients';
+    const url = 'http://localhost:80/api/clients';
 
-    const response = await apiClient<CreateClient['response'], CreateClient['payload']>(
-        { method: 'POST', url, payload }
-    );
+    const response = await apiClient<
+        CreateClient['response'],
+        CreateClient['payload']
+    >({ method: 'POST', url, payload });
 
     return response;
 };
