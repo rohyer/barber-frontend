@@ -1,11 +1,14 @@
 import { apiClient } from '@/shared/api';
+import type { ApiResponse } from '@/shared/api/apiResponse';
 
 import type { ClientModel } from '../model/client.type';
 
-type Response = {
+type Data = {
     clients: ClientModel[],
     total: number,
 }
+
+type Response = ApiResponse<Data>
 
 export const getClients = async (
     page: number | undefined,

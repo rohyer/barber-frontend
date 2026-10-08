@@ -1,7 +1,7 @@
 import { ApiError } from './apiError';
 
 type ApiClientOptions<T> = {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     url: string,
     payload?: T,
     signal?: AbortSignal,

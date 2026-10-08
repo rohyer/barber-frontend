@@ -1,4 +1,5 @@
 import { apiClient } from '@/shared/api';
+import type { ApiResponse } from '@/shared/api/apiResponse';
 
 import type { ClientModel } from '../model/client.type';
 
@@ -11,7 +12,7 @@ type Payload = Pick<ClientModel,
 
 export type CreateClient = {
     payload: Payload,
-    response: ClientModel,
+    response: ApiResponse<ClientModel>,
 }
 
 export const createClient = async (
