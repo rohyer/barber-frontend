@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function SessionProvider({ children }: Props) {
-    const [user, setUser] = useState<User | undefined>(undefined);
+    const [user, setUser] = useState<User | null | undefined>(null);
 
     const [isLoading, setIsLoading] = useState(true);
     

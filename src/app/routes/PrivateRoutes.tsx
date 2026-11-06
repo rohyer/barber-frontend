@@ -17,5 +17,6 @@ export function PrivateRoutes() {
     if (user === undefined)
         return <Navigate to='/login' />;
 
-    return <Outlet />;
+    if (user !== null)
+        return <Outlet />;
 }

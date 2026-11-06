@@ -14,7 +14,7 @@ export type User = {
 }
 
 export type SessionContextType = {
-    user?: User,
+    user?: User | null,
     isLoading: boolean,
     setUser: (user: User | undefined) => void,
     setIsLoading: (loading: boolean) => void
